@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #04060B;
+  --foreground: #ffffff;
+  
+  /* Global Theme Defaults (Purple) */
+  --theme-color: #A855F7;
+  --theme-color-dark: #9333EA;
+  --theme-rgb: 168, 85, 247;
+  --theme-rgb-dark: 147, 51, 234;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 18, 21, 30;
+  --background-end-rgb: 26, 30, 41;
+  --royal-blue: 92, 114, 150;
+  --electric-blue: 120, 145, 180;
+  --gold: 200, 210, 225;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background-color: #12151E;
+  min-height: 100vh;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: -0.02em; /* Apple-style tight tracking */
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 
+  ========================================================================
+  KRISH GLASS — iOS 26 LIQUID GLASS SYSTEM (GRAPHITE/SLATE)
+  ========================================================================
+  Sophisticated dark frosted glass with high blur and subtle light.
+*/
+.krish-glass {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(35, 40, 55, 0.4) 0%,
+    rgba(20, 25, 35, 0.2) 50%,
+    rgba(15, 20, 30, 0.3) 100%
+  );
+  background-color: rgba(25, 30, 45, 0.2);
+  backdrop-filter: blur(60px) saturate(180%) brightness(1.1);
+  -webkit-backdrop-filter: blur(60px) saturate(180%) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.02);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+  z-index: 10;
+  transform: translateZ(0); /* Hardware acceleration */
+  will-change: transform, box-shadow; /* Prevent scroll glitches */
+}
+
+/* Liquid Noise / Frost Texture */
+.krish-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.8; /* Replaced heavy mix-blend-mode for performance */
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Subtle Shimmer Sweep */
+.krish-glass::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    linear-gradient(105deg, 
+      transparent 30%, 
+      rgba(255, 255, 255, 0.05) 45%, 
+      rgba(255, 255, 255, 0.1) 50%, 
+      rgba(255, 255, 255, 0.05) 55%, 
+      transparent 70%
+    );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transform: translateX(-100%) translateZ(0);
+  transition: opacity 0.5s;
+}
+
+.krish-glass:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    inset 0 2px 2px rgba(255, 255, 255, 0.25);
+}
+
+.krish-glass:hover::after {
+  opacity: 1;
+  animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* PREMIUM GLASS */
+.krish-glass-premium {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.3) 100%
+  );
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(100px) saturate(300%) brightness(1.3);
+  -webkit-backdrop-filter: blur(100px) saturate(300%) brightness(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 
+    0 15px 40px rgba(0, 50, 150, 0.2),
+    inset 0 2px 2px rgba(255, 255, 255, 0.8),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  overflow: hidden;
+}
+
+/* ANIMATED GRADIENT BORDER */
+.glow-border {
+  position: relative;
+}
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(51, 153, 255, 0.5),
+    rgba(255, 255, 255, 0.8)
+  );
+  background-size: 300% 300%;
+  animation: gradient-x 3s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* TEXT GRADIENTS */
+.text-gradient-blue {
+  background: linear-gradient(135deg, #ffffff 0%, #B3D4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #ffffff 0%, #00C2FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* KEYFRAMES */
+@keyframes sweep {
+  0% { transform: translateX(-100%) skewX(-25deg); }
+  100% { transform: translateX(200%) skewX(-25deg); }
+}
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
