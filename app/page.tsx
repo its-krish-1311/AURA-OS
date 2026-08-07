@@ -28,43 +28,63 @@ function getGreeting() {
   return "Good Evening";
 }
 
-const ComplaintBox = () => (
-  <motion.div 
-    whileHover={{ y: -2 }}
-    className="krish-glass rounded-[26px] p-6 relative overflow-hidden group w-[280px] h-[178px] flex flex-col justify-between"
-  >
-    <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[rgba(239,68,68,0.08)] to-transparent pointer-events-none transition-opacity group-hover:opacity-80" />
-    <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.05)] to-transparent skew-x-[-20deg] group-hover:animate-[sweep_1.5s_ease-in-out] pointer-events-none" />
+import { toast } from "react-hot-toast";
 
-    {/* Header */}
-    <div className="flex items-center justify-between relative z-10">
-      <div>
-        <h3 className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
-          COMPLAINT <span className="text-[#EF4444] drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]">BOX</span>
-        </h3>
-        <p className="text-gray-400 text-[9px] mt-0.5 font-medium tracking-wide uppercase">Report an issue</p>
+const ComplaintBox = () => {
+  const [complaint, setComplaint] = React.useState("");
+
+  const handleSend = () => {
+    if (!complaint.trim()) {
+      toast.error("Please enter a bug description.");
+      return;
+    }
+    toast.success("Bug report sent to engineering team!");
+    setComplaint("");
+  };
+
+  return (
+    <motion.div 
+      whileHover={{ y: -2 }}
+      className="krish-glass rounded-[26px] p-6 relative overflow-hidden group w-[280px] h-[178px] flex flex-col justify-between"
+    >
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[rgba(239,68,68,0.08)] to-transparent pointer-events-none transition-opacity group-hover:opacity-80" />
+      <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.05)] to-transparent skew-x-[-20deg] group-hover:animate-[sweep_1.5s_ease-in-out] pointer-events-none" />
+
+      {/* Header */}
+      <div className="flex items-center justify-between relative z-10">
+        <div>
+          <h3 className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">
+            COMPLAINT <span className="text-[#EF4444] drop-shadow-[0_0_5px_rgba(239,68,68,0.8)]">BOX</span>
+          </h3>
+          <p className="text-gray-400 text-[9px] mt-0.5 font-medium tracking-wide uppercase">Report an issue</p>
+        </div>
+        <div className="w-8 h-8 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)] flex items-center justify-center text-[#EF4444] shadow-[0_0_10px_rgba(239,68,68,0.1)]">
+          <MessageSquare className="w-4 h-4" />
+        </div>
       </div>
-      <div className="w-8 h-8 rounded-full bg-[rgba(239,68,68,0.1)] border border-[rgba(239,68,68,0.2)] flex items-center justify-center text-[#EF4444] shadow-[0_0_10px_rgba(239,68,68,0.1)]">
-        <MessageSquare className="w-4 h-4" />
+      
+      {/* Input Area */}
+      <div className="relative z-10 w-full mt-2 group/input">
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(239,68,68,0.1)] to-transparent rounded-xl opacity-0 group-focus-within/input:opacity-100 transition-opacity blur-md"></div>
+        <form 
+          onSubmit={(e) => { e.preventDefault(); handleSend(); }}
+          className="relative flex items-center w-full bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-xl overflow-hidden focus-within:border-[rgba(239,68,68,0.5)] focus-within:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all"
+        >
+          <input 
+            type="text"
+            value={complaint}
+            onChange={(e) => setComplaint(e.target.value)}
+            placeholder="Describe the bug..."
+            className="w-full bg-transparent text-white text-xs pl-3 pr-2 py-2.5 outline-none placeholder:text-gray-500"
+          />
+          <button type="submit" className="w-6 h-6 mr-1.5 rounded-full bg-white text-black flex items-center justify-center shrink-0 hover:scale-110 hover:bg-gray-200 transition-all">
+            <Send className="w-3 h-3 ml-0.5" />
+          </button>
+        </form>
       </div>
-    </div>
-    
-    {/* Input Area */}
-    <div className="relative z-10 w-full mt-2 group/input">
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(239,68,68,0.1)] to-transparent rounded-xl opacity-0 group-focus-within/input:opacity-100 transition-opacity blur-md"></div>
-      <div className="relative flex items-center w-full bg-[rgba(0,0,0,0.3)] border border-[rgba(255,255,255,0.1)] rounded-xl overflow-hidden focus-within:border-[rgba(239,68,68,0.5)] focus-within:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all">
-        <input 
-          type="text"
-          placeholder="Describe the bug..."
-          className="w-full bg-transparent text-white text-xs pl-3 pr-2 py-2.5 outline-none placeholder:text-gray-500"
-        />
-        <button className="w-6 h-6 mr-1.5 rounded-full bg-white text-black flex items-center justify-center shrink-0 hover:scale-110 hover:bg-gray-200 transition-all">
-          <Send className="w-3 h-3 ml-0.5" />
-        </button>
-      </div>
-    </div>
-  </motion.div>
-);
+    </motion.div>
+  );
+};
 
 const TypewriterGreeting = () => {
   const [greeting, setGreeting] = React.useState("Good Evening");
@@ -127,7 +147,7 @@ const TypewriterGreeting = () => {
           <span>{beforeWord}</span>
           <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#A855F7] relative inline-block">
             {typedWordPart}
-            <span className="absolute inset-0 bg-[#9333EA] blur-[15px] opacity-30"></span>
+            <span className="absolute inset-0 bg-[#7E22CE] blur-[15px] opacity-30"></span>
           </span>
           <span>{afterWord}</span>
         </>
@@ -228,7 +248,7 @@ export default function Home() {
             {/* Center Area */}
             <div className="flex-1">
               <motion.div variants={itemVariants} className="mb-10 relative w-full max-w-4xl mx-auto px-4" animate={{ y: [0, -6, 0] }} transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}>
-                <div className="absolute -inset-4 bg-gradient-to-r from-[rgba(147,51,234,0.06)] to-transparent blur-2xl -z-10 rounded-full"></div>
+                <div className="absolute -inset-4 bg-gradient-to-r from-[rgba(126,34,206,0.06)] to-transparent blur-2xl -z-10 rounded-full"></div>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="flex flex-col items-start mt-2">
                     <TypewriterGreeting />
@@ -240,11 +260,11 @@ export default function Home() {
                   </div>
 
                   <div className="flex items-center gap-4 -mt-2">
-                    <button className="krish-glass h-11 px-6 rounded-full text-sm font-semibold text-white border border-[rgba(147,51,234,0.3)] hover:bg-[rgba(147,51,234,0.1)] hover:border-[rgba(147,51,234,0.5)] transition-all shadow-[0_0_15px_rgba(147,51,234,0.1)] flex items-center justify-center gap-2 group">
+                    <button className="krish-glass h-11 px-6 rounded-full text-sm font-semibold text-white border border-[rgba(126,34,206,0.3)] hover:bg-[rgba(126,34,206,0.1)] hover:border-[rgba(126,34,206,0.5)] transition-all shadow-[0_0_15px_rgba(126,34,206,0.1)] flex items-center justify-center gap-2 group">
                       <Brain className="w-4 h-4 text-[#A855F7] group-hover:scale-110 transition-transform" />
                       Train
                     </button>
-                    <button className="bg-gradient-to-r from-[#9333EA] to-[#A855F7] h-11 px-6 rounded-full text-sm font-semibold text-white shadow-[0_0_20px_rgba(147,51,234,0.4)] hover:shadow-[0_0_30px_rgba(147,51,234,0.6)] hover:scale-105 transition-all flex items-center justify-center gap-2 group">
+                    <button className="bg-gradient-to-r from-[#7E22CE] to-[#A855F7] h-11 px-6 rounded-full text-sm font-semibold text-white shadow-[0_0_20px_rgba(126,34,206,0.4)] hover:shadow-[0_0_30px_rgba(126,34,206,0.6)] hover:scale-105 transition-all flex items-center justify-center gap-2 group">
                       <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
                       New
                     </button>
@@ -360,10 +380,10 @@ export default function Home() {
                 >
                   ← Back to OS
                 </button>
-                <h2 className="text-white font-bold tracking-widest text-sm uppercase hidden sm:flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-pulse"></span>
-                  Aura Builder
-                </h2>
+                <div className="hidden sm:flex krish-glass px-5 py-2 rounded-full border-2 border-[rgba(168,85,247,0.4)] bg-gradient-to-r from-[rgba(0,0,0,0.4)] to-[rgba(126,34,206,0.3)] backdrop-blur-2xl items-center gap-3 shadow-[0_0_20px_rgba(168,85,247,0.3),inset_0_2px_5px_rgba(255,255,255,0.2)]">
+                  <div className="w-3 h-3 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_15px_rgba(168,85,247,1)]"></div>
+                  <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#D8B4FE] to-[#A855F7] uppercase tracking-widest drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">SIYA!</span>
+                </div>
               </div>
               
               {/* Mobile View Toggle */}
@@ -371,13 +391,13 @@ export default function Home() {
                 <div className="flex lg:hidden bg-[rgba(255,255,255,0.05)] p-1 rounded-lg border border-[rgba(255,255,255,0.1)]">
                   <button 
                     onClick={() => setMobileView('chat')}
-                    className={`px-4 py-1.5 rounded-md text-xs font-semibold transition-all ${mobileView === 'chat' ? 'bg-[rgba(147,51,234,0.2)] text-white' : 'text-gray-400'}`}
+                    className={`px-4 py-1.5 rounded-md text-xs font-semibold transition-all ${mobileView === 'chat' ? 'bg-[rgba(126,34,206,0.2)] text-white' : 'text-gray-400'}`}
                   >
                     Chat
                   </button>
                   <button 
                     onClick={() => setMobileView('artifact')}
-                    className={`px-4 py-1.5 rounded-md text-xs font-semibold transition-all ${mobileView === 'artifact' ? 'bg-[rgba(147,51,234,0.2)] text-white' : 'text-gray-400'}`}
+                    className={`px-4 py-1.5 rounded-md text-xs font-semibold transition-all ${mobileView === 'artifact' ? 'bg-[rgba(126,34,206,0.2)] text-white' : 'text-gray-400'}`}
                   >
                     Preview
                   </button>
@@ -403,7 +423,7 @@ export default function Home() {
               <div className={`flex-1 w-full h-full relative \${mobileView === 'artifact' && artifactData ? 'flex' : 'hidden lg:flex'} \${!artifactData ? 'items-center justify-center krish-glass rounded-3xl border border-dashed border-[rgba(255,255,255,0.1)] bg-[rgba(10,10,10,0.2)]' : ''}`}>
                 {!artifactData ? (
                   <div className="text-center p-8">
-                    <div className="w-16 h-16 rounded-full bg-[rgba(147,51,234,0.1)] flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(147,51,234,0.2)]">
+                    <div className="w-16 h-16 rounded-full bg-[rgba(126,34,206,0.1)] flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(126,34,206,0.2)]">
                       <Brain className="w-8 h-8 text-[#A855F7]" />
                     </div>
                     <h3 className="text-white text-lg font-bold mb-2">Artifacts Engine Ready</h3>

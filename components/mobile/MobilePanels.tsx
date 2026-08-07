@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ArrowRight, MoreHorizontal, ArrowLeft, Mic, Send, Book, Code, Database, Server, Image as ImageIcon, Briefcase, MapPin, Search as SearchIcon, Plane, Hotel, Car, Package, Bot, Shirt, Music, Headphones, PlayCircle, Speaker } from "lucide-react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { useActionModal } from "@/components/os-core/ActionModalContext";
 
 function TiltCard({ children, className }: { children: React.ReactNode, className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,6 +54,7 @@ export default function MobilePanels() {
   const [width, setWidth] = useState(0);
   const [messages, setMessages] = useState<{sender: 'user'|'ai', text: string}[]>([]);
   const [chatInput, setChatInput] = useState("");
+  const { openModal } = useActionModal();
 
   const handleChatSubmit = async (e?: React.FormEvent, presetMsg?: string) => {
     if (e) e.preventDefault();
@@ -103,7 +105,7 @@ export default function MobilePanels() {
 
   // Music OS State
   const [tracks, setTracks] = useState([
-    { title: "Neon Nights", stat: "Playing", perc: 70, icon: Headphones, color: "text-[#9333EA]", bg: "bg-[rgba(147,51,234,0.15)]", border: "border-[rgba(147,51,234,0.3)]", done: false },
+    { title: "Neon Nights", stat: "Playing", perc: 70, icon: Headphones, color: "text-[#7E22CE]", bg: "bg-[rgba(126,34,206,0.15)]", border: "border-[rgba(126,34,206,0.3)]", done: false },
     { title: "Cyberpunk City", stat: "Next", perc: 0, icon: Music, color: "text-gray-300", bg: "bg-[rgba(255,255,255,0.03)]", border: "border-[rgba(255,255,255,0.05)]", done: false },
     { title: "Deep Focus Lo-Fi", stat: "Queue", perc: 0, icon: PlayCircle, color: "text-gray-300", bg: "bg-[rgba(255,255,255,0.03)]", border: "border-[rgba(255,255,255,0.05)]", done: false },
     { title: "Synthwave Beats", stat: "Queue", perc: 0, icon: Speaker, color: "text-gray-300", bg: "bg-[rgba(255,255,255,0.03)]", border: "border-[rgba(255,255,255,0.05)]", done: false },
@@ -148,14 +150,17 @@ export default function MobilePanels() {
         <div className="flex justify-between items-center mb-6 relative z-10">
           <ArrowLeft className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
           <span className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-md">AI CHAT</span>
-          <MoreHorizontal className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
+          <MoreHorizontal 
+            onClick={() => openModal({title: "Chat Settings", description: "Chat settings and history preferences are currently being configured.", actionText: "Acknowledge"})}
+            className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" 
+          />
         </div>
         
         <div className="relative z-10 mb-4">
           <h2 className="text-white text-3xl font-light drop-shadow-lg">
             Hello, <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#A855F7] to-[#FFFFFF] relative inline-block">
               Krish!
-              <span className="absolute inset-0 bg-[#9333EA] blur-[15px] opacity-30 pointer-events-none"></span>
+              <span className="absolute inset-0 bg-[#7E22CE] blur-[15px] opacity-30 pointer-events-none"></span>
             </span> 👋
           </h2>
           <p className="text-gray-300 text-sm mt-2 font-medium">How can I help you today?</p>
@@ -169,13 +174,13 @@ export default function MobilePanels() {
                 <motion.div 
                   animate={{ y: [0, -10, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="relative w-36 h-36 rounded-full bg-gradient-to-br from-[rgba(12,15,25,0.9)] via-[#04060B] to-[#081B33] border-none shadow-[inset_0_0_40px_rgba(147,51,234,0.2),0_0_60px_rgba(147,51,234,0.3)] flex items-center justify-center overflow-hidden z-20 group-hover:scale-105 transition-transform duration-500"
+                  className="relative w-36 h-36 rounded-full bg-gradient-to-br from-[rgba(12,15,25,0.9)] via-[#04060B] to-[#081B33] border-none shadow-[inset_0_0_40px_rgba(126,34,206,0.2),0_0_60px_rgba(126,34,206,0.3)] flex items-center justify-center overflow-hidden z-20 group-hover:scale-105 transition-transform duration-500"
                 >
                   {/* Inner Blue Light Core (The "Brain") */}
                   <motion.div
                     animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-[#4DA6FF] via-[#9333EA] to-[#FFFFFF] blur-[25px] mix-blend-screen"
+                    className="absolute w-20 h-20 rounded-full bg-gradient-to-tr from-[#4DA6FF] via-[#7E22CE] to-[#FFFFFF] blur-[25px] mix-blend-screen"
                   />
 
                   {/* Holographic Stardust Texture */}
@@ -185,24 +190,24 @@ export default function MobilePanels() {
                   <motion.div 
                     animate={{ height: [4, 2, 4], opacity: [0.8, 0.3, 0.8] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-[40%] w-2 h-4 rounded-full bg-white shadow-[0_0_15px_#fff,0_0_25px_rgba(147,51,234,0.8)] left-10" 
+                    className="absolute top-[40%] w-2 h-4 rounded-full bg-white shadow-[0_0_15px_#fff,0_0_25px_rgba(126,34,206,0.8)] left-10" 
                   />
                   <motion.div 
                     animate={{ height: [4, 2, 4], opacity: [0.8, 0.3, 0.8] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-                    className="absolute top-[40%] w-2 h-4 rounded-full bg-white shadow-[0_0_15px_#fff,0_0_25px_rgba(147,51,234,0.8)] right-10" 
+                    className="absolute top-[40%] w-2 h-4 rounded-full bg-white shadow-[0_0_15px_#fff,0_0_25px_rgba(126,34,206,0.8)] right-10" 
                   />
                   
                   {/* Voice/Mouth Energy Line */}
                   <motion.div 
                     animate={{ width: [30, 45, 30], opacity: [0.4, 0.8, 0.4] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute bottom-[30%] h-1.5 rounded-full bg-gradient-to-r from-transparent via-[#FFFFFF] to-transparent shadow-[0_0_15px_rgba(147,51,234,0.4)]" 
+                    className="absolute bottom-[30%] h-1.5 rounded-full bg-gradient-to-r from-transparent via-[#FFFFFF] to-transparent shadow-[0_0_15px_rgba(126,34,206,0.4)]" 
                   />
 
                   {/* Premium Glass Spherical Highlight (Rim Lighting) */}
                   <div className="absolute top-1 left-3 w-20 h-8 rounded-full bg-gradient-to-b from-[rgba(255,255,255,0.6)] to-transparent -rotate-[20deg] blur-[2px]" />
-                  <div className="absolute bottom-2 right-2 w-16 h-4 rounded-full bg-gradient-to-t from-[rgba(147,51,234,0.2)] to-transparent rotate-[20deg] blur-[3px]" />
+                  <div className="absolute bottom-2 right-2 w-16 h-4 rounded-full bg-gradient-to-t from-[rgba(126,34,206,0.2)] to-transparent rotate-[20deg] blur-[3px]" />
                 </motion.div>
                 
                 <h3 className="text-white text-xs font-bold tracking-[0.4em] mt-6 opacity-60 animate-pulse">LISTENING...</h3>
@@ -215,7 +220,7 @@ export default function MobilePanels() {
                       whileHover={{ scale: 1.02, x: 5 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => { setChatInput(q); }}
-                      className="w-full py-2 px-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] text-gray-300 text-xs font-medium cursor-pointer hover:bg-[rgba(147,51,234,0.1)] hover:border-[rgba(147,51,234,0.3)] hover:text-white transition-all text-center shadow-sm"
+                      className="w-full py-2 px-4 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] text-gray-300 text-xs font-medium cursor-pointer hover:bg-[rgba(126,34,206,0.1)] hover:border-[rgba(126,34,206,0.3)] hover:text-white transition-all text-center shadow-sm"
                     >
                       {q}
                     </motion.div>
@@ -232,7 +237,7 @@ export default function MobilePanels() {
                   key={i} 
                   className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`max-w-[85%] rounded-2xl p-3 text-xs tracking-wide shadow-md ${msg.sender === 'user' ? 'bg-gradient-to-br from-[#9333EA] to-[#A855F7] text-white rounded-br-sm' : 'krish-glass border border-[rgba(255,255,255,0.1)] text-gray-100 rounded-bl-sm'}`}>
+                  <div className={`max-w-[85%] rounded-2xl p-3 text-xs tracking-wide shadow-md ${msg.sender === 'user' ? 'bg-gradient-to-br from-[#7E22CE] to-[#A855F7] text-white rounded-br-sm' : 'krish-glass border border-[rgba(255,255,255,0.1)] text-gray-100 rounded-bl-sm'}`}>
                     {msg.text}
                   </div>
                 </motion.div>
@@ -241,7 +246,7 @@ export default function MobilePanels() {
           )}
         </div>
 
-        <form onSubmit={handleChatSubmit} className="mt-auto bg-[rgba(0,0,0,0.5)] rounded-full p-2 border border-[rgba(147,51,234,0.5)] flex items-center gap-2 relative z-10 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(147,51,234,0.1)] focus-within:bg-[rgba(0,0,0,0.8)] focus-within:border-[#9333EA] focus-within:shadow-[0_0_15px_rgba(147,51,234,0.3)] transition-all">
+        <form onSubmit={handleChatSubmit} className="mt-auto bg-[rgba(0,0,0,0.5)] rounded-full p-2 border border-[rgba(126,34,206,0.5)] flex items-center gap-2 relative z-10 shadow-[0_10px_30px_rgba(0,0,0,0.3),inset_0_0_10px_rgba(126,34,206,0.1)] focus-within:bg-[rgba(0,0,0,0.8)] focus-within:border-[#7E22CE] focus-within:shadow-[0_0_15px_rgba(126,34,206,0.3)] transition-all">
           <input 
             type="text" 
             placeholder="Ask anything..." 
@@ -261,7 +266,10 @@ export default function MobilePanels() {
         <div className="flex justify-between items-center mb-6 relative z-10">
           <ArrowLeft className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
           <span className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-md">MUSIC OS</span>
-          <MoreHorizontal className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
+          <MoreHorizontal 
+            onClick={() => openModal({title: "Music Settings", description: "Audio device configuration is pending.", actionText: "Acknowledge"})}
+            className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" 
+          />
         </div>
 
         <div className="mb-6 relative z-10">
@@ -272,7 +280,7 @@ export default function MobilePanels() {
               initial={{ width: 0 }}
               animate={{ width: `${totalProgress}%` }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="bg-gradient-to-r from-[#9333EA] to-[#FFFFFF] h-full shadow-[0_0_10px_rgba(255,255,255,0.5)] rounded-full relative overflow-hidden" 
+              className="bg-gradient-to-r from-[#7E22CE] to-[#FFFFFF] h-full shadow-[0_0_10px_rgba(255,255,255,0.5)] rounded-full relative overflow-hidden" 
             >
                <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.4)] to-transparent animate-[sweep_2s_ease-in-out_infinite]" />
             </motion.div>
@@ -282,7 +290,12 @@ export default function MobilePanels() {
 
         <div className="flex justify-between items-center mb-4 relative z-10">
           <h3 className="text-white text-xs font-bold tracking-[0.2em]">TRACKS</h3>
-          <button className="text-accentLuxury text-xs font-bold tracking-wider">View All</button>
+          <button 
+            onClick={() => openModal({title: "Full Playlist", description: "Loading full playlist and streaming cache.", actionText: "Acknowledge"})}
+            className="text-accentLuxury text-xs font-bold tracking-wider"
+          >
+            View All
+          </button>
         </div>
 
         <div className="space-y-4 flex-1 relative z-10">
@@ -294,7 +307,7 @@ export default function MobilePanels() {
               className="flex items-center justify-between group cursor-pointer"
             >
               <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-xl ${track.done ? 'bg-[#9333EA] shadow-[0_0_15px_rgba(147,51,234,0.5)]' : track.bg} border ${track.border} flex items-center justify-center group-hover:shadow-[0_0_15px_currentColor] transition-all`}>
+                <div className={`w-10 h-10 rounded-xl ${track.done ? 'bg-[#7E22CE] shadow-[0_0_15px_rgba(126,34,206,0.5)]' : track.bg} border ${track.border} flex items-center justify-center group-hover:shadow-[0_0_15px_currentColor] transition-all`}>
                   <track.icon className={`w-5 h-5 ${track.done ? 'text-white' : track.color}`} />
                 </div>
                 <div>
@@ -344,7 +357,10 @@ export default function MobilePanels() {
         <div className="flex justify-between items-center mb-6 relative z-10">
           <ArrowLeft className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
           <span className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-md">FASHION OS</span>
-          <MoreHorizontal className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
+          <MoreHorizontal 
+            onClick={() => openModal({title: "Fashion Settings", description: "Wardrobe sync and AI Vision calibration is required.", actionText: "Acknowledge"})}
+            className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" 
+          />
         </div>
 
         <div className="mb-4 relative z-10">
@@ -371,7 +387,7 @@ export default function MobilePanels() {
             { icon: Briefcase, label: "Luxury" },
           ].map((cat, i) => (
              <motion.div whileHover={{ y: -2 }} key={i} className="flex flex-col items-center gap-2 cursor-pointer group">
-                <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center transition-all duration-300 border ${cat.active ? 'bg-gradient-to-br from-[#9333EA] to-[#1e40af] border-[#A855F7] text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]' : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.05)] text-gray-300 group-hover:bg-[rgba(255,255,255,0.1)] group-hover:border-[rgba(255,255,255,0.2)] group-hover:text-white shadow-inner'}`}>
+                <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center transition-all duration-300 border ${cat.active ? 'bg-gradient-to-br from-[#7E22CE] to-[#1e40af] border-[#A855F7] text-white shadow-[0_0_15px_rgba(126,34,206,0.3)]' : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.05)] text-gray-300 group-hover:bg-[rgba(255,255,255,0.1)] group-hover:border-[rgba(255,255,255,0.2)] group-hover:text-white shadow-inner'}`}>
                   <cat.icon className="w-5 h-5 drop-shadow-md" />
                 </div>
                 <span className={`text-xs tracking-wide transition-colors ${cat.active ? 'text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]' : 'text-gray-300 group-hover:text-white'}`}>{cat.label}</span>
@@ -398,12 +414,15 @@ export default function MobilePanels() {
         <div className="flex justify-between items-center mb-6 relative z-10">
           <ArrowLeft className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
           <span className="text-white text-xs font-bold tracking-[0.2em] drop-shadow-md">TRAVEL OS</span>
-          <MoreHorizontal className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" />
+          <MoreHorizontal 
+            onClick={() => openModal({title: "Travel Settings", description: "Booking API integration is currently disabled in Demo Mode.", actionText: "Acknowledge"})}
+            className="w-5 h-5 text-gray-300 hover:text-white cursor-pointer transition-colors" 
+          />
         </div>
 
         <h2 className="text-white text-xl font-bold mb-4 tracking-wide relative z-10">Explore The World</h2>
 
-        <div className="w-full bg-[rgba(10,10,10,0.8)] rounded-2xl p-3 flex items-center gap-3 mb-6 border border-[rgba(255,255,255,0.1)] shadow-inner focus-within:border-[rgba(147,51,234,0.4)] focus-within:shadow-cyanGlow transition-all relative z-10">
+        <div className="w-full bg-[rgba(10,10,10,0.8)] rounded-2xl p-3 flex items-center gap-3 mb-6 border border-[rgba(255,255,255,0.1)] shadow-inner focus-within:border-[rgba(126,34,206,0.4)] focus-within:shadow-cyanGlow transition-all relative z-10">
            <SearchIcon className="w-4 h-4 text-gray-300" />
            <input 
              type="text" 
@@ -422,7 +441,7 @@ export default function MobilePanels() {
              { icon: Package, label: "Packages" },
            ].map((item, i) => (
              <motion.div whileHover={{ y: -2 }} key={i} className="flex flex-col items-center gap-2 cursor-pointer group">
-                <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center transition-all duration-300 border ${item.active ? 'bg-gradient-to-br from-[#9333EA] to-[#1e40af] border-[#A855F7] text-white shadow-[0_0_15px_rgba(147,51,234,0.3)]' : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.05)] text-gray-300 group-hover:bg-[rgba(255,255,255,0.1)] group-hover:border-[rgba(255,255,255,0.2)] group-hover:text-white shadow-inner'}`}>
+                <div className={`w-12 h-12 rounded-[16px] flex items-center justify-center transition-all duration-300 border ${item.active ? 'bg-gradient-to-br from-[#7E22CE] to-[#1e40af] border-[#A855F7] text-white shadow-[0_0_15px_rgba(126,34,206,0.3)]' : 'bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.05)] text-gray-300 group-hover:bg-[rgba(255,255,255,0.1)] group-hover:border-[rgba(255,255,255,0.2)] group-hover:text-white shadow-inner'}`}>
                    <item.icon className="w-5 h-5 drop-shadow-md" />
                 </div>
                 <span className={`text-xs tracking-wide transition-colors ${item.active ? 'text-white font-bold drop-shadow-[0_0_5px_rgba(255,255,255,0.5)]' : 'text-gray-300 group-hover:text-white'}`}>{item.label}</span>
@@ -432,7 +451,12 @@ export default function MobilePanels() {
 
         <div className="flex justify-between items-center mb-4 relative z-10">
           <h3 className="text-white text-xs font-bold tracking-[0.2em]">POPULAR DESTINATIONS</h3>
-          <button className="text-accent text-xs font-bold tracking-wider hover:text-white transition-colors">View All</button>
+          <button 
+            onClick={() => openModal({title: "All Destinations", description: "Loading world map and flight availability...", actionText: "Acknowledge"})}
+            className="text-accent text-xs font-bold tracking-wider hover:text-white transition-colors"
+          >
+            View All
+          </button>
         </div>
 
         <div className="flex gap-4 overflow-x-auto scrollbar-hide mb-6 relative z-10">
@@ -457,14 +481,14 @@ export default function MobilePanels() {
         <motion.div whileHover={{ scale: 1.02 }} className="mt-auto bg-gradient-to-r from-[rgba(255,255,255,0.05)] to-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] hover:shadow-goldGlow rounded-2xl p-4 flex items-center justify-between cursor-pointer transition-all relative z-10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.1)] border border-[rgba(255,255,255,0.2)] flex items-center justify-center shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)]">
-              <Bot className="w-5 h-5 text-[#9333EA] drop-shadow-[0_0_8px_rgba(147,51,234,0.5)]" />
+              <Bot className="w-5 h-5 text-[#7E22CE] drop-shadow-[0_0_8px_rgba(126,34,206,0.5)]" />
             </div>
             <div>
               <h4 className="text-white text-sm font-bold tracking-wide">TRIP PLANNER</h4>
-              <p className="text-[#9333EA] text-xs font-semibold tracking-wide">AI will plan everything for you</p>
+              <p className="text-[#7E22CE] text-xs font-semibold tracking-wide">AI will plan everything for you</p>
             </div>
           </div>
-          <ArrowRight className="w-5 h-5 text-[#9333EA] drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]" />
+          <ArrowRight className="w-5 h-5 text-[#7E22CE] drop-shadow-[0_0_5px_rgba(126,34,206,0.5)]" />
         </motion.div>
       </TiltCard>
       </div>

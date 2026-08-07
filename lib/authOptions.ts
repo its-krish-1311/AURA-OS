@@ -4,8 +4,10 @@ import GoogleProvider from "next-auth/providers/google";
 import AppleProvider from "next-auth/providers/apple";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 export const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -32,7 +34,7 @@ export const authOptions: NextAuthOptions = {
           where: { email }
         });
 
-        if (!user) {
+        if (!user || !user.password) {
           throw new Error("Invalid email or password");
         }
 

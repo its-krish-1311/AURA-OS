@@ -85,7 +85,7 @@ export default function CareerOSAnalytics() {
                     transition={{ duration: 1, delay: i * 0.1, type: "spring" as const }}
                     className={`h-full absolute top-0 left-0 bg-gradient-to-r ${
                       i === 0 ? 'from-blue-600/20 to-blue-500' :
-                      i === 1 ? 'from-purple-600/20 to-purple-500' :
+                      i === 1 ? 'from-purple-700/20 to-purple-500' :
                       i === 2 ? 'from-emerald-600/20 to-emerald-500' :
                       'from-amber-600/20 to-amber-500'
                     } rounded-r-xl`}

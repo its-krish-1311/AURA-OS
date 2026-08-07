@@ -45,7 +45,7 @@ export default function AutomationOSWorkflows() {
 
       {/* NLP Automation Builder */}
       <div className="mb-8 shrink-0 relative group">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#F97316] to-purple-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#F97316] to-purple-700 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
         <div className="relative krish-glass rounded-2xl p-2 flex items-center border border-[rgba(255,255,255,0.1)]">
           <div className="p-3 bg-[rgba(255,255,255,0.05)] rounded-xl mr-3">
             <Bot className="w-5 h-5 text-[#F97316]" />

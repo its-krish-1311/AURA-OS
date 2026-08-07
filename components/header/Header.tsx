@@ -11,11 +11,11 @@ export default function Header() {
   return (
     <header className="w-full relative flex items-center justify-between py-6 px-8 z-50">
       <div className="flex-1 flex justify-start items-center">
-        <div className="-ml-4 krish-glass px-5 py-2.5 rounded-full border-[rgba(var(--theme-rgb-dark),0.3)] shadow-[0_0_15px_rgba(var(--theme-rgb-dark),0.1)] flex items-center gap-2.5 backdrop-blur-md hover:scale-105 transition-transform cursor-default">
-          <div className="w-2 h-2 rounded-full bg-[var(--theme-color)] shadow-[0_0_8px_var(--theme-color)] animate-pulse"></div>
-          <span className="text-xs font-bold tracking-widest flex items-center gap-1.5">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--theme-color)]">Engineered By</span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-[var(--theme-color)]">Krishna Kushwaha</span>
+        <div className="-ml-4 krish-glass px-5 py-2.5 rounded-full border-[rgba(255,255,255,0.1)] shadow-[0_0_15px_rgba(0,0,0,0.5)] flex items-center gap-2.5 backdrop-blur-md hover:scale-105 transition-transform cursor-default">
+          <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_white] animate-pulse"></div>
+          <span className="text-xs font-bold tracking-widest flex items-center gap-1.5 text-gray-300">
+            <span>ENGINEERED BY</span>
+            <span className="text-white">KRISHNA KUSHWAHA</span>
           </span>
         </div>
       </div>
@@ -30,14 +30,18 @@ export default function Header() {
           {/* Animated Glow Backdrop */}
           <div className={`absolute -inset-1 rounded-full blur-md transition-all duration-500 ${isFocused ? 'bg-gradient-to-r from-[rgba(var(--theme-rgb-dark),0.05)] via-[rgba(var(--theme-rgb-dark),0.15)] to-[rgba(var(--theme-rgb-dark),0.05)] opacity-70' : 'opacity-0'}`}></div>
           
-          <div className={`relative w-full h-12 krish-glass rounded-full flex items-center px-4 gap-3 transition-all duration-300 ${isFocused ? 'border-[rgba(var(--theme-rgb-dark),0.3)] bg-[rgba(255,255,255,0.05)] shadow-[0_0_20px_rgba(var(--theme-rgb-dark),0.15),0_0_40px_rgba(var(--theme-rgb-dark),0.08)]' : ''}`}>
+          <div 
+            onClick={() => window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+            className={`relative w-full h-12 krish-glass rounded-full flex items-center px-4 gap-3 transition-all duration-300 cursor-pointer ${isFocused ? 'border-[rgba(var(--theme-rgb-dark),0.3)] bg-[rgba(255,255,255,0.05)] shadow-[0_0_20px_rgba(var(--theme-rgb-dark),0.15),0_0_40px_rgba(var(--theme-rgb-dark),0.08)]' : ''}`}
+          >
             <Search className={`w-5 h-5 transition-all duration-300 ${isFocused ? 'text-accentLight drop-shadow-[0_0_8px_rgba(var(--theme-rgb),0.6)]' : 'text-gray-300'}`} />
             <input 
               type="text" 
               placeholder="Search or ask anything..." 
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
-              className="flex-1 bg-transparent border-none outline-none text-white text-sm placeholder-muted font-medium"
+              className="flex-1 bg-transparent border-none outline-none text-white text-sm placeholder-muted font-medium cursor-pointer"
+              readOnly
             />
             <div className={`px-2 py-1 rounded text-xs font-semibold border transition-all duration-300 ${isFocused ? 'bg-[rgba(var(--theme-rgb-dark),0.15)] text-white border-[rgba(var(--theme-rgb-dark),0.3)] shadow-[0_0_10px_rgba(var(--theme-rgb-dark),0.1)]' : 'bg-[rgba(255,255,255,0.05)] text-gray-300 border-[rgba(255,255,255,0.05)]'}`}>
               ⌘ K
@@ -48,11 +52,25 @@ export default function Header() {
 
       {/* Right Controls */}
       <div className="flex-1 flex items-center justify-end gap-6">
-        <motion.button whileHover={{ scale: 1.1, rotate: 10 }} whileTap={{ scale: 0.9 }} className="text-gray-300 hover:text-white transition-colors relative group">
+        <motion.button 
+          onClick={() => {
+            import('react-hot-toast').then(({ toast }) => toast.success("No new notifications!"));
+          }}
+          whileHover={{ scale: 1.1, rotate: 10 }} 
+          whileTap={{ scale: 0.9 }} 
+          className="text-gray-300 hover:text-white transition-colors relative group"
+        >
           <Bell className="w-5 h-5 drop-shadow-[0_0_5px_rgba(var(--theme-rgb-dark),0.3)] group-hover:drop-shadow-[0_0_10px_rgba(var(--theme-rgb-dark),0.6)]" />
           <div className="absolute top-0 right-0 w-2 h-2 bg-accentSecondary rounded-full border border-primary shadow-[0_0_6px_rgba(var(--theme-rgb-dark),0.5)]"></div>
         </motion.button>
-        <motion.button whileHover={{ scale: 1.1, rotate: 45 }} whileTap={{ scale: 0.9 }} className="text-gray-300 hover:text-white transition-colors group">
+        <motion.button 
+          onClick={() => {
+            import('react-hot-toast').then(({ toast }) => toast("AuraOS is strictly Dark Mode 🌙", { icon: "✨" }));
+          }}
+          whileHover={{ scale: 1.1, rotate: 45 }} 
+          whileTap={{ scale: 0.9 }} 
+          className="text-gray-300 hover:text-white transition-colors group"
+        >
           <Sun className="w-5 h-5 drop-shadow-[0_0_5px_rgba(var(--theme-rgb-dark),0.3)] group-hover:drop-shadow-[0_0_10px_rgba(var(--theme-rgb-dark),0.6)]" />
         </motion.button>
         <motion.button onClick={() => signOut()} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="text-gray-300 hover:text-red-400 transition-colors group" title="Sign Out">

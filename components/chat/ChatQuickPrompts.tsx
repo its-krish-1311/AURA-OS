@@ -34,9 +34,9 @@ export default function ChatQuickPrompts({ onSelectPrompt }: ChatQuickPromptsPro
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
             onClick={() => onSelectPrompt(item.desc)}
-            className="flex flex-col items-start p-4 rounded-2xl krish-glass border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(147,51,234,0.3)] hover:shadow-[0_0_20px_rgba(147,51,234,0.15)] transition-all group text-left"
+            className="flex flex-col items-start p-4 rounded-2xl krish-glass border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.05)] hover:border-[rgba(126,34,206,0.3)] hover:shadow-[0_0_20px_rgba(126,34,206,0.15)] transition-all group text-left"
           >
-            <div className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-3 group-hover:bg-[rgba(147,51,234,0.2)] transition-colors">
+            <div className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center mb-3 group-hover:bg-[rgba(126,34,206,0.2)] transition-colors">
               <item.icon className="w-4 h-4 text-gray-400 group-hover:text-[#A855F7] transition-colors" />
             </div>
             <span className="text-sm font-semibold text-gray-200 group-hover:text-white mb-1">{item.title}</span>

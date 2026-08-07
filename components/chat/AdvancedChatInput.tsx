@@ -25,6 +25,67 @@ export default function AdvancedChatInput({ onSendMessage, isProcessing }: Advan
   const [placeholderText, setPlaceholderText] = useState("");
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
+  
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = React.useRef<any>(null);
+  const latestInputRef = React.useRef("");
+
+  const submitQuery = (query: string) => {
+    if (!query.trim() || isProcessing) return;
+    onSendMessage(query);
+    setInputValue("");
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Speech Recognition. Please try Chrome or Edge.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    
+    recognition.onstart = () => setIsListening(true);
+    
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results)
+        .map((result: any) => result[0].transcript)
+        .join("");
+      setInputValue(transcript);
+      latestInputRef.current = transcript;
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error", event.error);
+      setIsListening(false);
+    };
+    
+    recognition.onend = () => {
+      setIsListening(false);
+      if (latestInputRef.current.trim()) {
+        submitQuery(latestInputRef.current);
+        latestInputRef.current = "";
+      }
+    };
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error(e);
+      setIsListening(false);
+    }
+  };
 
   const toggleAction = (action: string) => {
     setActiveToggles(prev => 
@@ -32,11 +93,9 @@ export default function AdvancedChatInput({ onSendMessage, isProcessing }: Advan
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim() || isProcessing) return;
-    onSendMessage(inputValue);
-    setInputValue("");
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    submitQuery(inputValue);
   };
 
   useEffect(() => {
@@ -68,13 +127,13 @@ export default function AdvancedChatInput({ onSendMessage, isProcessing }: Advan
       {/* Main Input Area (Home Screen Style) */}
       <div className="relative group">
         {/* Animated Background Glow */}
-        <div className={`absolute -inset-1 rounded-full blur-xl transition-all duration-700 ${isFocused ? 'bg-gradient-to-r from-[rgba(147,51,234,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(147,51,234,0.1)] opacity-60 scale-[1.02]' : 'bg-gradient-to-r from-[rgba(147,51,234,0.03)] to-transparent opacity-30'}`}></div>
+        <div className={`absolute -inset-1 rounded-full blur-xl transition-all duration-700 ${isFocused ? 'bg-gradient-to-r from-[#7E22CE] via-[#A855F7] to-[#7E22CE] opacity-50 scale-[1.02]' : 'bg-gradient-to-r from-[#7E22CE] to-transparent opacity-30'}`}></div>
         
         <form onSubmit={handleSubmit}>
           <motion.div 
             animate={isFocused ? { scale: 1.01 } : { scale: 1 }}
             transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
-            className={`relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 transition-all duration-300 ${isFocused ? 'bg-[rgba(255,255,255,0.06)] border-[rgba(147,51,234,0.25)] shadow-[0_0_30px_rgba(147,51,234,0.1),0_0_60px_rgba(147,51,234,0.05)]' : ''}`}
+            className={`relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 transition-all duration-300 ${isFocused ? 'bg-[rgba(255,255,255,0.06)] border-[#A855F7] shadow-[0_0_30px_rgba(168,85,247,0.4),0_0_60px_rgba(168,85,247,0.2)]' : 'border border-[rgba(168,85,247,0.3)] shadow-[0_0_15px_rgba(168,85,247,0.1)]'}`}
           >
             {/* Add Attachment Button */}
             <motion.button 
@@ -102,8 +161,14 @@ export default function AdvancedChatInput({ onSendMessage, isProcessing }: Advan
               />
             </div>
             
-            <motion.button type="button" whileHover={{ scale: 1.1, rotate: 10 }} whileTap={{ scale: 0.9 }} className="p-3 text-gray-300 hover:text-[#A855F7] transition-colors">
-              <Mic className={`w-6 h-6 transition-all duration-300 ${isFocused ? 'drop-shadow-[0_0_10px_rgba(147,51,234,0.5)] text-[#A855F7]' : ''}`} />
+            <motion.button 
+              type="button" 
+              onClick={toggleListening}
+              whileHover={{ scale: 1.1, rotate: 10 }} 
+              whileTap={{ scale: 0.9 }} 
+              className={`p-3 transition-colors ${isListening ? 'text-red-500 animate-pulse drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]' : 'text-gray-300 hover:text-[#A855F7]'}`}
+            >
+              <Mic className={`w-6 h-6 transition-all duration-300 ${!isListening && isFocused ? 'drop-shadow-[0_0_10px_rgba(126,34,206,0.5)] text-[#A855F7]' : ''}`} />
             </motion.button>
             
             <motion.button 
@@ -141,7 +206,7 @@ export default function AdvancedChatInput({ onSendMessage, isProcessing }: Advan
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 text-sm text-gray-100 font-semibold tracking-wide hover:text-white transition-colors group"
             >
-              <btn.icon className={`w-4 h-4 transition-all ${isActive ? 'text-[#A855F7] drop-shadow-[0_0_10px_rgba(147,51,234,0.5)]' : 'text-gray-300 group-hover:text-[#A855F7] drop-shadow-[0_0_5px_rgba(147,51,234,0)] group-hover:drop-shadow-[0_0_10px_rgba(147,51,234,0.5)]'}`} /> 
+              <btn.icon className={`w-4 h-4 transition-all ${isActive ? 'text-[#A855F7] drop-shadow-[0_0_10px_rgba(126,34,206,0.5)]' : 'text-gray-300 group-hover:text-[#A855F7] drop-shadow-[0_0_5px_rgba(126,34,206,0)] group-hover:drop-shadow-[0_0_10px_rgba(126,34,206,0.5)]'}`} /> 
               <span className={`transition-all duration-300 ${isActive ? 'text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A855F7]' : 'group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#A855F7]'}`}>{btn.label}</span>
             </motion.button>
           );

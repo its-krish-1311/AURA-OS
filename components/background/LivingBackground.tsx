@@ -13,10 +13,10 @@ export default function LivingBackground() {
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-0 overflow-hidden bg-[#0A0C10]">
+    <div className="fixed inset-0 z-0 overflow-hidden bg-[#06070B]">
       
-      {/* Base Deep Slate/Graphite Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#12151E] via-[#1A1E29] to-[#0F121A] opacity-95" />
+      {/* Base Dark Slate/Graphite Gradient (Brighter than black, darker than original) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0C13] via-[#0E1118] to-[#07090D] opacity-95" />
 
       {/* Floating Moody Slate Orbs using Framer Motion */}
       
@@ -34,7 +34,7 @@ export default function LivingBackground() {
           ease: "linear"
         }}
         style={{ willChange: "transform" }}
-        className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-[#2A3245] blur-[120px] opacity-40 pointer-events-none"
+        className="absolute -top-[10%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-[#181C26] blur-[120px] opacity-40 pointer-events-none"
       />
 
       {/* Center Right Dark Steel Blob */}
@@ -50,7 +50,7 @@ export default function LivingBackground() {
           ease: "easeInOut"
         }}
         style={{ willChange: "transform" }}
-        className="absolute top-[20%] -right-[15%] w-[70vw] h-[70vw] rounded-full bg-[#1F2430] blur-[130px] opacity-60 pointer-events-none"
+        className="absolute top-[20%] -right-[15%] w-[70vw] h-[70vw] rounded-full bg-[#11141C] blur-[130px] opacity-50 pointer-events-none"
       />
 
       {/* Bottom Center Cool Graphite Liquid */}
@@ -66,7 +66,7 @@ export default function LivingBackground() {
           ease: "linear"
         }}
         style={{ willChange: "transform" }}
-        className="absolute -bottom-[20%] left-[15%] w-[80vw] h-[50vw] rounded-full bg-[#252C3D] blur-[100px] opacity-50 pointer-events-none"
+        className="absolute -bottom-[20%] left-[15%] w-[80vw] h-[50vw] rounded-full bg-[#151923] blur-[100px] opacity-50 pointer-events-none"
       />
 
       {/* Subtle Mist/Cloud Highlight Blob */}
@@ -81,7 +81,7 @@ export default function LivingBackground() {
           ease: "easeInOut"
         }}
         style={{ willChange: "transform" }}
-        className="absolute top-[40%] left-[40%] w-[50vw] h-[50vw] rounded-full bg-[#3B4252] blur-[110px] opacity-25 pointer-events-none"
+        className="absolute top-[40%] left-[40%] w-[50vw] h-[50vw] rounded-full bg-[#1D212E] blur-[110px] opacity-30 pointer-events-none"
       />
 
       {/* Fine Noise Overlay for premium matte finish - Optimized */}

@@ -18,15 +18,15 @@ const features = [
     desc: "Talk to your OS",
     icon: Mic,
     hasWave: true,
-    glow: "shadow-[0_0_20px_rgba(147,51,234,0.15)]",
-    color: "text-[#9333EA]",
+    glow: "shadow-[0_0_20px_rgba(126,34,206,0.15)]",
+    color: "text-[#7E22CE]",
   },
   {
     title: "AI VISION",
     desc: "See, Scan & Understand",
     icon: Eye,
     hasEye: true,
-    glow: "shadow-[0_0_20px_rgba(147,51,234,0.15)]",
+    glow: "shadow-[0_0_20px_rgba(126,34,206,0.15)]",
     color: "text-[#4DA6FF]",
   },
   {
@@ -34,8 +34,8 @@ const features = [
     desc: "Automate repetitive tasks",
     icon: Zap,
     hasLightning: true,
-    glow: "shadow-[0_0_20px_rgba(147,51,234,0.15)]",
-    color: "text-[#9333EA]",
+    glow: "shadow-[0_0_20px_rgba(126,34,206,0.15)]",
+    color: "text-[#7E22CE]",
   },
   {
     title: "FOCUS MUSIC",
@@ -47,9 +47,12 @@ const features = [
   }
 ];
 
+import { useActionModal } from "@/components/os-core/ActionModalContext";
+
 export default function FeatureCards() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
+  const { openModal } = useActionModal();
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -68,9 +71,14 @@ export default function FeatureCards() {
         {features.map((feat, i) => (
           <motion.div 
             key={i} 
+            onClick={() => openModal({
+              title: feat.title,
+              description: `${feat.title} is a core OS feature. It is currently being initialized by your digital twin.`,
+              actionText: "Acknowledge"
+            })}
             whileHover={{ y: -8, scale: 1.02 }}
             transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
-            className={`min-w-[210px] h-[130px] krish-glass rounded-[28px] p-5 relative overflow-hidden group pointer-events-auto
+            className={`min-w-[210px] h-[130px] krish-glass rounded-[28px] p-5 relative overflow-hidden group pointer-events-auto cursor-pointer
               hover:border hover:border-[rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] transition-all duration-300`}
           >
           {/* Subtle Hover Glow Injection */}
@@ -86,8 +94,8 @@ export default function FeatureCards() {
               animate={{ y: [0, -5, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <div className="w-16 h-16 bg-[#9333EA] rounded-full blur-[20px] absolute opacity-60" />
-              <Bot className="w-16 h-16 text-white drop-shadow-[0_0_15px_rgba(147,51,234,0.8)] relative z-10" />
+              <div className="w-16 h-16 bg-[#7E22CE] rounded-full blur-[20px] absolute opacity-60" />
+              <Bot className="w-16 h-16 text-white drop-shadow-[0_0_15px_rgba(126,34,206,0.8)] relative z-10" />
             </motion.div>
           )}
 
@@ -98,7 +106,7 @@ export default function FeatureCards() {
                   key={j} 
                   animate={{ height: ["10px", `${Math.random() * 20 + 10}px`, "10px"] }}
                   transition={{ duration: 1 + Math.random(), repeat: Infinity, ease: "easeInOut" }}
-                  className="w-1.5 bg-[#9333EA] rounded-full shadow-[0_0_10px_rgba(147,51,234,0.6)]" 
+                  className="w-1.5 bg-[#7E22CE] rounded-full shadow-[0_0_10px_rgba(126,34,206,0.6)]" 
                 />
               ))}
             </div>
@@ -121,8 +129,8 @@ export default function FeatureCards() {
               animate={{ rotate: [-5, 5, -5] }}
               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
              >
-               <div className="w-16 h-16 bg-[#9333EA] rounded-full blur-[30px] absolute" />
-               <Zap className="w-14 h-14 text-white drop-shadow-[0_0_20px_rgba(147,51,234,0.8)] fill-[#9333EA] relative z-10" />
+               <div className="w-16 h-16 bg-[#7E22CE] rounded-full blur-[30px] absolute" />
+               <Zap className="w-14 h-14 text-white drop-shadow-[0_0_20px_rgba(126,34,206,0.8)] fill-[#7E22CE] relative z-10" />
              </motion.div>
           )}
 
@@ -132,8 +140,8 @@ export default function FeatureCards() {
               animate={{ scale: [1, 1.05, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
              >
-                 <div className="w-16 h-16 bg-[#9333EA] rounded-full blur-[30px] absolute" />
-                 <Headphones className="w-14 h-14 text-white drop-shadow-[0_0_20px_rgba(147,51,234,0.8)] relative z-10" />
+                 <div className="w-16 h-16 bg-[#7E22CE] rounded-full blur-[30px] absolute" />
+                 <Headphones className="w-14 h-14 text-white drop-shadow-[0_0_20px_rgba(126,34,206,0.8)] relative z-10" />
              </motion.div>
           )}
         </motion.div>

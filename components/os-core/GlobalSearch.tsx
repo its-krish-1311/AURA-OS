@@ -64,7 +64,7 @@ export default function GlobalSearch() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
-            className="fixed z-[101] top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-2xl bg-[rgba(10,12,16,0.85)] border border-[rgba(255,255,255,0.1)] rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(147,51,234,0.1)] overflow-hidden backdrop-blur-xl"
+            className="fixed z-[101] top-[15vh] left-1/2 -translate-x-1/2 w-full max-w-2xl bg-[rgba(10,12,16,0.85)] border border-[rgba(255,255,255,0.1)] rounded-3xl shadow-[0_0_50px_rgba(0,0,0,0.5),0_0_20px_rgba(126,34,206,0.1)] overflow-hidden backdrop-blur-xl"
           >
             {/* Search Input */}
             <div className="flex items-center px-6 py-4 border-b border-[rgba(255,255,255,0.05)] relative">

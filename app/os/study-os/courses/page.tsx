@@ -17,7 +17,7 @@ export default function StudyOSCourses() {
     { 
       id: 2, title: "Data Structures", code: "CS201", instructor: "Prof. Grace Hopper", 
       progress: 42, credits: 3, nextLecture: "Today, 02:00 PM", 
-      color: "from-purple-600 to-purple-400", tags: ["CS", "Core"]
+      color: "from-purple-700 to-purple-400", tags: ["CS", "Core"]
     },
     { 
       id: 3, title: "Machine Learning", code: "AI400", instructor: "Dr. Andrew Ng", 

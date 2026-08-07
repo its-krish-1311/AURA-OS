@@ -115,7 +115,7 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
       className="fixed inset-0 z-50 flex items-center justify-center bg-transparent overflow-hidden"
     >
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#9333EA] blur-[150px] opacity-10 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#7E22CE] blur-[150px] opacity-10 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#3B82F6] blur-[150px] opacity-10 pointer-events-none" />
 
       <motion.div 
@@ -254,7 +254,7 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
             <button 
               type="submit" 
               disabled={isProcessing}
-              className="relative group/btn w-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:from-[#A855F7] hover:to-[#C084FC] text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] mt-2 overflow-hidden"
+              className="relative group/btn w-full bg-gradient-to-r from-[#7E22CE] to-[#A855F7] hover:from-[#A855F7] hover:to-[#C084FC] text-white font-bold py-3 px-6 rounded-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all hover:scale-[1.02] active:scale-[0.98] mt-2 overflow-hidden"
             >
               <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.3)] to-transparent skew-x-[-25deg] group-hover/btn:animate-[sweep_1s_ease-in-out]" />
               

@@ -201,13 +201,13 @@ export default function AiChatPage() {
                   <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02] pointer-events-none"></div>
                   
                   <motion.div 
-                    initial={{ opacity: 0, scale: 0.9 }} 
-                    animate={{ opacity: 1, scale: 1 }} 
-                    className="w-20 h-20 rounded-full bg-gradient-to-br from-[#9333EA] to-[#06B6D4] p-[1px] shadow-[0_0_30px_rgba(147,51,234,0.3)] mb-6"
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }} 
+                    animate={{ opacity: 1, scale: 1, y: 0 }} 
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="krish-glass px-8 py-4 rounded-full border-2 border-[rgba(168,85,247,0.4)] bg-gradient-to-r from-[rgba(0,0,0,0.6)] to-[rgba(126,34,206,0.4)] backdrop-blur-3xl flex items-center gap-4 shadow-[0_0_40px_rgba(168,85,247,0.4),inset_0_2px_10px_rgba(255,255,255,0.2)] mb-8 hover:scale-105 transition-transform duration-300 cursor-default"
                   >
-                    <div className="w-full h-full rounded-full bg-[#0B0B13] flex items-center justify-center">
-                      <span className="text-4xl">🤖</span>
-                    </div>
+                    <div className="w-4 h-4 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_20px_rgba(168,85,247,1)]"></div>
+                    <span className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#D8B4FE] to-[#A855F7] uppercase tracking-widest drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">SIYA!</span>
                   </motion.div>
                   
                   <TypewriterGreeting />

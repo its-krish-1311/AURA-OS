@@ -20,7 +20,7 @@ export default function ChatHistorySidebar() {
             <MessageSquare className="w-4 h-4 text-[#A855F7]" />
             Chat History
           </h2>
-          <button className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center hover:bg-[rgba(147,51,234,0.2)] transition-colors">
+          <button className="w-8 h-8 rounded-full bg-[rgba(255,255,255,0.05)] flex items-center justify-center hover:bg-[rgba(126,34,206,0.2)] transition-colors">
             <Edit3 className="w-4 h-4 text-gray-300" />
           </button>
         </div>
@@ -37,7 +37,7 @@ export default function ChatHistorySidebar() {
 
       {/* Folders / Quick Filters */}
       <div className="flex gap-2 p-4 border-b border-[rgba(255,255,255,0.05)] overflow-x-auto scrollbar-hide">
-        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[rgba(147,51,234,0.15)] text-[#A855F7] border border-[rgba(147,51,234,0.3)] text-xs font-semibold shrink-0">
+        <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[rgba(126,34,206,0.15)] text-[#A855F7] border border-[rgba(126,34,206,0.3)] text-xs font-semibold shrink-0">
           <Pin className="w-3 h-3" /> Pinned
         </button>
         <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[rgba(255,255,255,0.05)] text-gray-100 hover:text-white border border-[rgba(255,255,255,0.1)] text-xs font-semibold shrink-0 transition-all">

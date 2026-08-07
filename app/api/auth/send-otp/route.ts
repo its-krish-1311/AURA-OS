@@ -53,7 +53,7 @@ export async function POST(req: Request) {
         subject: "Your Aura OS Verification Code",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; text-align: center;">
-            <h1 style="color: #9333EA;">Aura OS</h1>
+            <h1 style="color: #7E22CE;">Aura OS</h1>
             <p style="font-size: 16px; color: #333;">Here is your secure verification code. It will expire in 10 minutes.</p>
             <div style="margin: 30px auto; background-color: #f4f4f5; padding: 20px; border-radius: 12px; display: inline-block;">
               <h2 style="font-size: 32px; letter-spacing: 5px; color: #111; margin: 0;">${code}</h2>

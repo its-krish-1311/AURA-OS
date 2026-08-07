@@ -60,7 +60,7 @@ export default function ChatMessageArea({ messages, currentModel, onModelChange,
               {msg.role === 'user' ? (
                 // USER MESSAGE
                 <div className="group max-w-[85%] sm:max-w-[70%]">
-                  <div className="bg-gradient-to-br from-[#9333EA] to-[#6B21A8] border border-[rgba(255,255,255,0.15)] px-7 py-4 rounded-[40px] rounded-tr-[10px] shadow-[0_5px_30px_rgba(147,51,234,0.4)] relative backdrop-blur-3xl">
+                  <div className="bg-gradient-to-br from-[#7E22CE] to-[#6B21A8] border border-[rgba(255,255,255,0.15)] px-7 py-4 rounded-[40px] rounded-tr-[10px] shadow-[0_5px_30px_rgba(126,34,206,0.4)] relative backdrop-blur-3xl">
                     <p className="text-white text-sm font-semibold tracking-wide leading-relaxed whitespace-pre-wrap drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]">{msg.content}</p>
                     
                     {/* Floating Actions */}
@@ -74,7 +74,7 @@ export default function ChatMessageArea({ messages, currentModel, onModelChange,
               ) : (
                 // AI MESSAGE
                 <div className="group max-w-[95%] sm:max-w-[85%] flex items-start gap-4">
-                  <div className="w-10 h-10 shrink-0 mt-2 rounded-full bg-gradient-to-br from-[#A855F7] to-[#06B6D4] p-[1px] shadow-[0_0_15px_rgba(147,51,234,0.3)]">
+                  <div className="w-10 h-10 shrink-0 mt-2 rounded-full bg-gradient-to-br from-[#A855F7] to-[#06B6D4] p-[1px] shadow-[0_0_15px_rgba(126,34,206,0.3)]">
                     <div className="w-full h-full rounded-full bg-[#0B0B13] flex items-center justify-center overflow-hidden">
                       <img src="/logo.png" alt="Aura OS" className="w-full h-full object-cover p-1.5" />
                     </div>
@@ -112,7 +112,7 @@ export default function ChatMessageArea({ messages, currentModel, onModelChange,
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
               className="flex gap-4 max-w-[85%] justify-start"
             >
-              <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-br from-[#A855F7] to-[#06B6D4] p-[1px] shadow-[0_0_15px_rgba(147,51,234,0.3)]">
+              <div className="w-10 h-10 shrink-0 rounded-full bg-gradient-to-br from-[#A855F7] to-[#06B6D4] p-[1px] shadow-[0_0_15px_rgba(126,34,206,0.3)]">
                 <div className="w-full h-full rounded-full bg-[#0B0B13] flex items-center justify-center overflow-hidden">
                   <img src="/logo.png" alt="Aura OS" className="w-full h-full object-cover p-1.5" />
                 </div>

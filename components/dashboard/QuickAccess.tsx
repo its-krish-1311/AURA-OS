@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useActionModal } from "@/components/os-core/ActionModalContext";
 import { BookOpen, Briefcase, Heart, Wallet, Plane, Shirt, Zap, Target, Dumbbell, Music, Library, Bot, Building2, Sun, Code2, Gamepad2, Palette, Shield, Lightbulb, Globe, Dna, Users, Fingerprint, Layers, BrainCircuit, Wifi } from "lucide-react";
 
 const modules = [
@@ -33,18 +34,22 @@ const modules = [
 ];
 
 export default function QuickAccess() {
-  const router = useRouter();
+  const { openModal } = useActionModal();
 
   return (
     <div>
-      <h2 className="text-white text-sm font-bold tracking-[0.2em] mb-6 drop-shadow-[0_0_8px_rgba(147,51,234,0.3)]">QUICK ACCESS MODULES</h2>
+      <h2 className="text-white text-sm font-bold tracking-[0.2em] mb-6 drop-shadow-[0_0_8px_rgba(126,34,206,0.3)]">QUICK ACCESS MODULES</h2>
       <div className="grid grid-cols-3 gap-4">
         {modules.map((mod, index) => {
           const Icon = mod.icon;
           return (
             <motion.div 
               key={index} 
-              onClick={() => router.push(mod.href)}
+              onClick={() => openModal({
+                title: mod.label,
+                description: `The ${mod.label} module (${mod.sub}) is currently being provisioned by your AI twin. It will be available shortly.`,
+                actionText: "Acknowledge"
+              })}
               whileHover={{ scale: 1.03, y: -5 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}

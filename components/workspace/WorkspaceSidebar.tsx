@@ -54,7 +54,7 @@ export default function WorkspaceSidebar({ onBackToOS }: WorkspaceSidebarProps) 
   return (
     <div className="w-[280px] h-full flex flex-col bg-[#020408] border-r border-[rgba(255,255,255,0.05)] relative z-50 shrink-0">
       {/* Background ambient glow */}
-      <div className="absolute top-0 -left-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(147,51,234,0.03),transparent_50%)] pointer-events-none" />
+      <div className="absolute top-0 -left-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top_left,rgba(126,34,206,0.03),transparent_50%)] pointer-events-none" />
 
       {/* Header / New Chat */}
       <div className="p-4 border-b border-[rgba(255,255,255,0.03)] space-y-4">

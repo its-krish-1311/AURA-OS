@@ -97,8 +97,8 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
       let extractedCode = "";
 
       if (mode === 'builder') {
-        // Parse for ```javascript render ... ``` block
-        const renderRegex = /```(?:javascript|jsx|tsx)\s+render\n([\s\S]*?)```/i;
+        // Parse for ```javascript render ... ``` block, handling slight hallucinations
+        const renderRegex = /```(?:javascript|jsx|tsx|ts|js)?\s*(?:render)?\s*\n([\s\S]*?)```/i;
         const match = aiContent.match(renderRegex);
 
         if (match && match[1]) {
@@ -150,7 +150,7 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
               <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-lg ${
                 msg.role === 'user' 
                   ? 'bg-gradient-to-tr from-[rgba(255,255,255,0.1)] to-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]' 
-                  : 'bg-gradient-to-tr from-[#9333EA] to-[#A855F7] shadow-[0_0_15px_rgba(147,51,234,0.4)]'
+                  : 'bg-gradient-to-tr from-[#7E22CE] to-[#A855F7] shadow-[0_0_15px_rgba(126,34,206,0.4)]'
               }`}>
                 {msg.role === 'user' ? <UserIcon className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
               </div>
@@ -164,15 +164,15 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
                 {msg.role !== 'user' && (
                   <>
                     <div className="absolute top-0 right-0 w-24 h-24 bg-[#2563EB] blur-[50px] opacity-20 pointer-events-none"></div>
-                    <div className="absolute -bottom-5 -left-5 w-20 h-20 bg-[#9333EA] blur-[50px] opacity-20 pointer-events-none"></div>
+                    <div className="absolute -bottom-5 -left-5 w-20 h-20 bg-[#7E22CE] blur-[50px] opacity-20 pointer-events-none"></div>
                   </>
                 )}
                 
                 <div className="relative z-10">{msg.content}</div>
                 {msg.hasArtifact && (
-                  <div className="mt-3 p-3 rounded-xl bg-[rgba(0,0,0,0.3)] border border-[rgba(147,51,234,0.3)] flex items-center justify-between">
+                  <div className="mt-3 p-3 rounded-xl bg-[rgba(0,0,0,0.3)] border border-[rgba(126,34,206,0.3)] flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-[rgba(147,51,234,0.2)] flex items-center justify-center text-[#A855F7]">
+                      <div className="w-8 h-8 rounded-full bg-[rgba(126,34,206,0.2)] flex items-center justify-center text-[#A855F7]">
                         <Code2 className="w-4 h-4" />
                       </div>
                       <span className="text-xs font-semibold text-white">App Generated</span>
@@ -189,10 +189,10 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
         
         {isProcessing && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#9333EA] to-[#A855F7] flex items-center justify-center shadow-[0_0_15px_rgba(147,51,234,0.4)]">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#7E22CE] to-[#A855F7] flex items-center justify-center shadow-[0_0_15px_rgba(126,34,206,0.4)]">
               <Bot className="w-5 h-5 text-white" />
             </div>
-            <div className="bg-gradient-to-br from-[rgba(147,51,234,0.15)] to-[rgba(147,51,234,0.05)] border border-[rgba(147,51,234,0.2)] p-4 rounded-2xl rounded-tl-sm flex items-center gap-2">
+            <div className="bg-gradient-to-br from-[rgba(126,34,206,0.15)] to-[rgba(126,34,206,0.05)] border border-[rgba(126,34,206,0.2)] p-4 rounded-2xl rounded-tl-sm flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce" style={{ animationDelay: '0ms' }} />
               <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce" style={{ animationDelay: '150ms' }} />
               <span className="w-2 h-2 rounded-full bg-[#A855F7] animate-bounce" style={{ animationDelay: '300ms' }} />
@@ -205,9 +205,9 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
       {/* Input Area (Matches the original AIInput style) */}
       <div className="p-4 pt-2 shrink-0">
         <form onSubmit={handleSubmit} className="relative group">
-          <div className="absolute -inset-1 rounded-full blur-xl bg-gradient-to-r from-[rgba(147,51,234,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(147,51,234,0.1)] opacity-40 group-focus-within:opacity-80 transition-opacity duration-700"></div>
+          <div className="absolute -inset-1 rounded-full blur-xl bg-gradient-to-r from-[rgba(126,34,206,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(126,34,206,0.1)] opacity-40 group-focus-within:opacity-80 transition-opacity duration-700"></div>
           
-          <div className="relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 bg-[rgba(10,10,10,0.6)] border-[rgba(255,255,255,0.1)] group-focus-within:border-[rgba(147,51,234,0.4)] group-focus-within:shadow-[0_0_30px_rgba(147,51,234,0.2)] transition-all duration-500">
+          <div className="relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 bg-[rgba(10,10,10,0.6)] border-[rgba(255,255,255,0.1)] group-focus-within:border-[rgba(126,34,206,0.4)] group-focus-within:shadow-[0_0_30px_rgba(126,34,206,0.2)] transition-all duration-500">
             <button type="button" className="p-2 text-gray-400 hover:text-white transition-colors">
               <Plus className="w-6 h-6" />
             </button>
@@ -233,7 +233,7 @@ export default function ChatInterface({ onGenerateArtifact, mode = 'builder', in
             <button 
               type="submit"
               disabled={isProcessing || !inputValue.trim()}
-              className="w-11 h-11 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] flex items-center justify-center text-white shadow-[0_0_15px_rgba(147,51,234,0.4)] disabled:opacity-50 disabled:grayscale hover:shadow-[0_0_25px_rgba(147,51,234,0.6)] hover:scale-105 transition-all mr-1 shrink-0"
+              className="w-11 h-11 rounded-full bg-gradient-to-r from-[#7E22CE] to-[#A855F7] flex items-center justify-center text-white shadow-[0_0_15px_rgba(126,34,206,0.4)] disabled:opacity-50 disabled:grayscale hover:shadow-[0_0_25px_rgba(126,34,206,0.6)] hover:scale-105 transition-all mr-1 shrink-0"
             >
               {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-4 h-4 ml-0.5" />}
             </button>

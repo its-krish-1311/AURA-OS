@@ -8,7 +8,7 @@ import { useOS } from "@/context/OSContext";
 export default function Footer() {
   const { osName } = useOS();
   return (
-    <footer className="w-full h-16 border-t border-[rgba(147,51,234,0.08)] bg-[rgba(4,6,11,0.85)] backdrop-blur-md flex items-center justify-between px-8 absolute bottom-0">
+    <footer className="w-full h-16 border-t border-[rgba(126,34,206,0.08)] bg-[rgba(4,6,11,0.85)] backdrop-blur-md flex items-center justify-between px-8 absolute bottom-0">
       
       {/* Left */}
       <div className="flex items-center gap-3">
@@ -28,11 +28,11 @@ export default function Footer() {
 
       {/* Right */}
       <div className="flex items-center gap-6 text-gray-300">
-        <Wifi className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.6)] transition-all cursor-pointer" />
-        <Cloud className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.6)] transition-all cursor-pointer" />
-        <Bluetooth className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(147,51,234,0.6)] transition-all cursor-pointer" />
+        <Wifi className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(126,34,206,0.6)] transition-all cursor-pointer" />
+        <Cloud className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(126,34,206,0.6)] transition-all cursor-pointer" />
+        <Bluetooth className="w-4 h-4 hover:text-white hover:drop-shadow-[0_0_8px_rgba(126,34,206,0.6)] transition-all cursor-pointer" />
         <div className="flex items-center gap-2 text-xs font-bold">
-          <BatteryFull className="w-5 h-5 text-white drop-shadow-[0_0_6px_rgba(147,51,234,0.5)]" />
+          <BatteryFull className="w-5 h-5 text-white drop-shadow-[0_0_6px_rgba(126,34,206,0.5)]" />
           <span>100%</span>
         </div>
       </div>

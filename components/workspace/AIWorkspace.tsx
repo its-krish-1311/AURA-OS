@@ -98,10 +98,17 @@ export default function AIWorkspace({ onBackToOS, initialMessages }: AIWorkspace
         <div className="h-14 border-b border-[rgba(255,255,255,0.05)] flex items-center justify-between px-6 shrink-0 relative z-20 bg-[rgba(2,4,8,0.8)] backdrop-blur-md">
           <div className="flex items-center gap-3">
             <span className="text-sm font-semibold tracking-wide text-white">GPT-4 Omni</span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[rgba(147,51,234,0.15)] text-[#A855F7] border border-[rgba(147,51,234,0.3)]">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[rgba(126,34,206,0.15)] text-[#A855F7] border border-[rgba(126,34,206,0.3)]">
               Beta
             </span>
           </div>
+
+          {/* SIYA! Pill (Centered) */}
+          <div className="absolute left-1/2 -translate-x-1/2 hidden sm:flex krish-glass px-5 py-1.5 rounded-full border-2 border-[rgba(168,85,247,0.4)] bg-gradient-to-r from-[rgba(0,0,0,0.4)] to-[rgba(126,34,206,0.3)] backdrop-blur-2xl items-center gap-3 shadow-[0_0_20px_rgba(168,85,247,0.3),inset_0_2px_5px_rgba(255,255,255,0.2)]">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_15px_rgba(168,85,247,1)]"></div>
+            <span className="text-lg font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#D8B4FE] to-[#A855F7] uppercase tracking-widest drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">SIYA!</span>
+          </div>
+
           <div className="flex items-center gap-2">
             <button className="p-2 text-gray-500 hover:text-white transition-colors rounded-lg hover:bg-[rgba(255,255,255,0.05)]">
               <Maximize2 className="w-4 h-4" />
@@ -123,7 +130,7 @@ export default function AIWorkspace({ onBackToOS, initialMessages }: AIWorkspace
                 className={`flex gap-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.role === 'ai' && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#A855F7] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(147,51,234,0.3)] mt-1">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#A855F7] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(126,34,206,0.3)] mt-1">
                     <Bot className="w-4 h-4 text-white" />
                   </div>
                 )}
@@ -149,7 +156,7 @@ export default function AIWorkspace({ onBackToOS, initialMessages }: AIWorkspace
 
             {isProcessing && (
               <div className="flex gap-4 justify-start">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#A855F7] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(147,51,234,0.3)] mt-1 animate-pulse">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2563EB] to-[#A855F7] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(126,34,206,0.3)] mt-1 animate-pulse">
                   <Bot className="w-4 h-4 text-white" />
                 </div>
                 <div className="pt-2">

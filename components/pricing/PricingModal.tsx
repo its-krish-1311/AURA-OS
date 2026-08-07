@@ -49,7 +49,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
             className="relative w-full max-w-4xl krish-glass rounded-3xl p-8 overflow-hidden"
           >
             {/* Background Glows */}
-            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#9333EA] blur-[120px] opacity-20 pointer-events-none" />
+            <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#7E22CE] blur-[120px] opacity-20 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#3B82F6] blur-[120px] opacity-20 pointer-events-none" />
 
             <div className="flex justify-between items-center mb-8 relative z-10">
@@ -85,7 +85,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
               <div className="rounded-2xl border-2 border-[#A855F7] bg-[rgba(168,85,247,0.1)] p-6 relative overflow-hidden group">
                 <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.2)] to-transparent skew-x-[-25deg] group-hover:animate-[sweep_2s_ease-in-out_infinite]" />
                 
-                <div className="absolute top-4 right-4 bg-gradient-to-r from-[#9333EA] to-[#A855F7] text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-[#7E22CE] to-[#A855F7] text-white text-xs font-bold px-3 py-1 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]">
                   MOST POPULAR
                 </div>
                 
@@ -102,7 +102,7 @@ export default function PricingModal({ isOpen, onClose }: PricingModalProps) {
                 <button 
                   onClick={handleSubscribe}
                   disabled={isProcessing}
-                  className="relative w-full py-3 rounded-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] text-white font-bold hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all flex items-center justify-center gap-2 hover:-translate-y-1 hover:scale-[1.02]"
+                  className="relative w-full py-3 rounded-full bg-gradient-to-r from-[#7E22CE] to-[#A855F7] text-white font-bold hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all flex items-center justify-center gap-2 hover:-translate-y-1 hover:scale-[1.02]"
                 >
                   {isProcessing ? <Loader2 className="w-5 h-5 animate-spin" /> : "Upgrade to Pro"}
                 </button>

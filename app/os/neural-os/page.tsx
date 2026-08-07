@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { BrainCircuit, Sparkles, Clock, Calendar, Mail, FileText, Code2, BriefcaseMedical, Scale, Stethoscope, Lightbulb, Zap, Globe, ArrowRight, Activity, Cpu } from "lucide-react";
 const personas = [
-  { id: "core", label: "Core Neural", icon: BrainCircuit, color: "#A855F7", dark: "#9333EA", rgb: "168,85,247", rgbDark: "147,51,234", bg: "from-[#A855F7] to-[#9333EA]" },
+  { id: "core", label: "Core Neural", icon: BrainCircuit, color: "#A855F7", dark: "#7E22CE", rgb: "168,85,247", rgbDark: "126,34,206", bg: "from-[#A855F7] to-[#7E22CE]" },
   { id: "coder", label: "AI Coder", icon: Code2, color: "#3B82F6", dark: "#2563EB", rgb: "59,130,246", rgbDark: "37,99,235", bg: "from-[#3B82F6] to-[#2563EB]" },
   { id: "doctor", label: "AI Doctor", icon: Stethoscope, color: "#EF4444", dark: "#DC2626", rgb: "239,68,68", rgbDark: "220,38,38", bg: "from-[#EF4444] to-[#DC2626]" },
   { id: "lawyer", label: "AI Lawyer", icon: Scale, color: "#F59E0B", dark: "#D97706", rgb: "245,158,11", rgbDark: "217,119,6", bg: "from-[#F59E0B] to-[#D97706]" },

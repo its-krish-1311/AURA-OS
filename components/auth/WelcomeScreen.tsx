@@ -80,7 +80,7 @@ export default function WelcomeScreen({ onComplete }: WelcomeScreenProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.8 }}
-          className="mt-8 krish-glass px-6 py-3 rounded-full border-[rgba(147,51,234,0.3)] shadow-[0_0_20px_rgba(147,51,234,0.15)] flex items-center gap-3 cursor-default"
+          className="mt-8 krish-glass px-6 py-3 rounded-full border-[rgba(126,34,206,0.3)] shadow-[0_0_20px_rgba(126,34,206,0.15)] flex items-center gap-3 cursor-default"
         >
           <div className="w-2.5 h-2.5 rounded-full bg-[#A855F7] shadow-[0_0_10px_#A855F7] animate-pulse"></div>
           <span className="text-sm font-bold tracking-[0.2em] uppercase flex items-center gap-2">

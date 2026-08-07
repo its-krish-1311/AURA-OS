@@ -31,7 +31,7 @@ export default function WorkspaceInput({ onSendMessage }: WorkspaceInputProps) {
       <div className="relative krish-glass bg-[rgba(10,12,16,0.6)] backdrop-blur-2xl rounded-3xl border border-[rgba(255,255,255,0.08)] shadow-[0_0_40px_rgba(0,0,0,0.5)] flex flex-col p-2 transition-all focus-within:border-[rgba(37,99,235,0.3)] focus-within:shadow-[0_0_50px_rgba(37,99,235,0.15)]">
         
         {/* Glow underneath */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(147,51,234,0.02)] via-transparent to-[rgba(37,99,235,0.02)] rounded-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[rgba(126,34,206,0.02)] via-transparent to-[rgba(37,99,235,0.02)] rounded-3xl pointer-events-none" />
 
         <form onSubmit={handleSubmit} className="relative z-10 flex flex-col">
           {/* Text Area */}
@@ -75,7 +75,7 @@ export default function WorkspaceInput({ onSendMessage }: WorkspaceInputProps) {
                 onClick={() => setThinking(!thinking)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all border ${
                   thinking 
-                    ? 'bg-[rgba(147,51,234,0.15)] text-white border-[rgba(147,51,234,0.3)] shadow-[0_0_10px_rgba(147,51,234,0.2)]' 
+                    ? 'bg-[rgba(126,34,206,0.15)] text-white border-[rgba(126,34,206,0.3)] shadow-[0_0_10px_rgba(126,34,206,0.2)]' 
                     : 'bg-[rgba(255,255,255,0.03)] text-gray-400 border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.08)]'
                 }`}
               >

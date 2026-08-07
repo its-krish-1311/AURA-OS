@@ -17,9 +17,9 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ 
   children, 
   themeColor = "#A855F7", 
-  themeColorDark = "#9333EA", 
+  themeColorDark = "#7E22CE", 
   themeRgb = "168,85,247", 
-  themeRgbDark = "147,51,234" 
+  themeRgbDark = "126,34,206" 
 }: DashboardLayoutProps) {
   
   const itemVariants = {

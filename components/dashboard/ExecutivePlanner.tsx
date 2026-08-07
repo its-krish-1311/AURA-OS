@@ -15,11 +15,14 @@ interface TimelineEvent {
   time: string;
 }
 
+import { useActionModal } from "@/components/os-core/ActionModalContext";
+
 export default function ExecutivePlanner() {
   const { 
     studyTasks, careerTasks, devTasks, 
     travelItinerary, healthWorkouts, bizMeetings, goalsOkrs 
   } = useOSData();
+  const { openModal } = useActionModal();
 
   const [activeView, setActiveView] = useState<'Daily' | 'Weekly' | 'Monthly' | 'Life'>('Daily');
 
@@ -114,7 +117,14 @@ export default function ExecutivePlanner() {
                       )}
                     </div>
                     <div className="flex-1 pb-6 pt-1">
-                      <div className="flex items-center justify-between group/item cursor-pointer">
+                      <div 
+                        className="flex items-center justify-between group/item cursor-pointer"
+                        onClick={() => openModal({
+                          title: ev.title,
+                          description: `This event is managed by the ${ev.module}. Redirecting you to ${ev.module} to view details.`,
+                          actionText: `Open ${ev.module}`
+                        })}
+                      >
                         <div>
                           <h4 className="text-white text-sm font-bold group-hover/item:text-accentLuxury transition-colors">{ev.title}</h4>
                           <div className="flex items-center gap-2 mt-1">

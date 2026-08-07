@@ -30,13 +30,70 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
   // Real input state
   const [inputValue, setInputValue] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = React.useRef<any>(null);
+  const latestInputRef = React.useRef("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-    
+  const submitQuery = (query: string) => {
+    if (!query.trim()) return;
     setIsProcessing(true);
-    router.push(`/ai-chat?q=${encodeURIComponent(inputValue)}`);
+    router.push(`/ai-chat?q=${encodeURIComponent(query)}`);
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+      setIsListening(false);
+      return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Speech Recognition. Please try Chrome or Edge.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+    recognition.lang = 'en-US';
+    recognition.interimResults = true;
+    
+    recognition.onstart = () => setIsListening(true);
+    
+    recognition.onresult = (event: any) => {
+      const transcript = Array.from(event.results)
+        .map((result: any) => result[0].transcript)
+        .join("");
+      setInputValue(transcript);
+      latestInputRef.current = transcript;
+    };
+    
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error", event.error);
+      setIsListening(false);
+    };
+    
+    recognition.onend = () => {
+      setIsListening(false);
+      if (latestInputRef.current.trim()) {
+        submitQuery(latestInputRef.current);
+        latestInputRef.current = ""; // Reset after submitting
+      }
+    };
+
+    try {
+      recognition.start();
+    } catch (e) {
+      console.error(e);
+      setIsListening(false);
+    }
+  };
+
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    submitQuery(inputValue);
   };
 
   React.useEffect(() => {
@@ -66,14 +123,14 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
     <div className="w-full max-w-4xl mx-auto mb-10">
       <div className="relative group mx-4">
         {/* Animated Background Glow */}
-        <div className={`absolute -inset-1 rounded-full blur-xl transition-all duration-700 ${isFocused ? 'bg-gradient-to-r from-[rgba(147,51,234,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(147,51,234,0.1)] opacity-60 scale-[1.02]' : 'bg-gradient-to-r from-[rgba(147,51,234,0.03)] to-transparent opacity-30'}`}></div>
+        <div className={`absolute -inset-1 rounded-full blur-xl transition-all duration-700 ${isFocused ? 'bg-gradient-to-r from-[rgba(126,34,206,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(126,34,206,0.1)] opacity-60 scale-[1.02]' : 'bg-gradient-to-r from-[rgba(126,34,206,0.03)] to-transparent opacity-30'}`}></div>
         
         {/* Premium Glass Input Container */}
         <form onSubmit={handleSubmit}>
           <motion.div 
             animate={isFocused ? { scale: 1.01 } : { scale: 1 }}
             transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
-            className={`relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 transition-all duration-300 ${isFocused ? 'bg-[rgba(255,255,255,0.06)] border-[rgba(147,51,234,0.25)] shadow-[0_0_30px_rgba(147,51,234,0.1),0_0_60px_rgba(147,51,234,0.05)]' : ''}`}
+            className={`relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 transition-all duration-300 ${isFocused ? 'bg-[rgba(255,255,255,0.06)] border-[rgba(126,34,206,0.25)] shadow-[0_0_30px_rgba(126,34,206,0.1),0_0_60px_rgba(126,34,206,0.05)]' : ''}`}
           >
             {/* Add Attachment / Options Button */}
             <motion.button 
@@ -100,8 +157,14 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
                 className="w-full bg-transparent border-none outline-none text-white px-2 py-3 text-lg font-medium tracking-wide relative z-10"
               />
             </div>
-            <motion.button type="button" whileHover={{ scale: 1.1, rotate: 10 }} whileTap={{ scale: 0.9 }} className="p-3 text-gray-300 hover:text-accentLight transition-colors">
-              <Mic className={`w-6 h-6 transition-all duration-300 ${isFocused ? 'drop-shadow-[0_0_10px_rgba(147,51,234,0.5)] text-accentLight' : ''}`} />
+            <motion.button 
+              type="button" 
+              onClick={toggleListening}
+              whileHover={{ scale: 1.1, rotate: 10 }} 
+              whileTap={{ scale: 0.9 }} 
+              className={`p-3 transition-colors ${isListening ? 'text-red-500 animate-pulse drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]' : 'text-gray-300 hover:text-accentLight'}`}
+            >
+              <Mic className={`w-6 h-6 transition-all duration-300 ${!isListening && isFocused ? 'drop-shadow-[0_0_10px_rgba(126,34,206,0.5)] text-accentLight' : ''}`} />
             </motion.button>
             <motion.button 
               type="submit"
@@ -136,7 +199,7 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 text-sm text-gray-100 font-semibold tracking-wide hover:text-white transition-colors group"
           >
-            <item.icon className="w-4 h-4 text-gray-300 group-hover:text-accentLight drop-shadow-[0_0_5px_rgba(147,51,234,0)] group-hover:drop-shadow-[0_0_10px_rgba(147,51,234,0.5)] transition-all" /> 
+            <item.icon className="w-4 h-4 text-gray-300 group-hover:text-accentLight drop-shadow-[0_0_5px_rgba(126,34,206,0)] group-hover:drop-shadow-[0_0_10px_rgba(126,34,206,0.5)] transition-all" /> 
             <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-accentLight transition-all duration-300">{item.label}</span>
           </motion.button>
         ))}

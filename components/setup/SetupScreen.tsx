@@ -72,7 +72,7 @@ export default function SetupScreen({ onComplete }: SetupScreenProps) {
             <button 
               type="submit"
               disabled={isProcessing}
-              className="w-full bg-gradient-to-r from-[#9333EA] to-[#A855F7] hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white font-bold py-3.5 rounded-full transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-[#7E22CE] to-[#A855F7] hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-white font-bold py-3.5 rounded-full transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isProcessing ? (
                 <>

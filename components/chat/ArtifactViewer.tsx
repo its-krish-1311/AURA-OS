@@ -29,7 +29,7 @@ export default function ArtifactViewer({ isOpen, onClose, code, title = "Generat
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{ opacity: 0, x: 50, scale: 0.95 }}
           transition={{ type: "spring" as const, damping: 25, stiffness: 200 }}
-          className="w-full h-full flex flex-col bg-[#04060B] border border-[rgba(255,255,255,0.08)] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(147,51,234,0.15)] relative z-40"
+          className="w-full h-full flex flex-col bg-[#04060B] border border-[rgba(255,255,255,0.08)] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(126,34,206,0.15)] relative z-40"
         >
           {/* Header */}
           <div className="h-14 px-4 flex items-center justify-between border-b border-[rgba(255,255,255,0.08)] bg-[rgba(255,255,255,0.02)]">
@@ -37,14 +37,14 @@ export default function ArtifactViewer({ isOpen, onClose, code, title = "Generat
               <div className="flex bg-[rgba(255,255,255,0.05)] rounded-lg p-1">
                 <button 
                   onClick={() => setActiveTab("preview")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${activeTab === 'preview' ? 'bg-[rgba(147,51,234,0.2)] text-white shadow-[0_0_10px_rgba(147,51,234,0.2)]' : 'text-gray-400 hover:text-gray-200'}`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${activeTab === 'preview' ? 'bg-[rgba(126,34,206,0.2)] text-white shadow-[0_0_10px_rgba(126,34,206,0.2)]' : 'text-gray-400 hover:text-gray-200'}`}
                 >
                   <MonitorPlay className="w-3.5 h-3.5" />
                   Preview
                 </button>
                 <button 
                   onClick={() => setActiveTab("code")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${activeTab === 'code' ? 'bg-[rgba(147,51,234,0.2)] text-white shadow-[0_0_10px_rgba(147,51,234,0.2)]' : 'text-gray-400 hover:text-gray-200'}`}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${activeTab === 'code' ? 'bg-[rgba(126,34,206,0.2)] text-white shadow-[0_0_10px_rgba(126,34,206,0.2)]' : 'text-gray-400 hover:text-gray-200'}`}
                 >
                   <Code2 className="w-3.5 h-3.5" />
                   Code
@@ -82,9 +82,9 @@ export default function ArtifactViewer({ isOpen, onClose, code, title = "Generat
                 >
                   {/* MOCK PREVIEW UI */}
                   <div className="w-full max-w-sm krish-glass p-6 rounded-2xl border border-[rgba(255,255,255,0.1)] shadow-xl relative overflow-hidden group">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[rgba(147,51,234,0.1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[rgba(126,34,206,0.1)] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div className="flex items-center gap-4 mb-6 relative z-10">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#9333EA] to-[#A855F7] p-[1px] shadow-[0_0_15px_rgba(147,51,234,0.5)]">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#7E22CE] to-[#A855F7] p-[1px] shadow-[0_0_15px_rgba(126,34,206,0.5)]">
                         <div className="w-full h-full rounded-full bg-[#0a0a0a] flex items-center justify-center">
                           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A855F7] font-bold text-lg">AI</span>
                         </div>
@@ -95,11 +95,11 @@ export default function ArtifactViewer({ isOpen, onClose, code, title = "Generat
                       </div>
                     </div>
                     <div className="space-y-4 relative z-10">
-                      <div className="w-full h-24 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] flex items-center justify-center group-hover:border-[rgba(147,51,234,0.2)] transition-all">
+                      <div className="w-full h-24 rounded-xl bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)] flex items-center justify-center group-hover:border-[rgba(126,34,206,0.2)] transition-all">
                          <span className="text-gray-500 text-sm">App UI Elements</span>
                       </div>
                       <div className="w-3/4 h-8 rounded-lg bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.05)]"></div>
-                      <button className="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-[#9333EA] to-[#A855F7] text-white font-bold text-sm shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] hover:scale-[1.02] transition-all">
+                      <button className="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-[#7E22CE] to-[#A855F7] text-white font-bold text-sm shadow-[0_0_15px_rgba(168,85,247,0.4)] hover:shadow-[0_0_25px_rgba(168,85,247,0.6)] hover:scale-[1.02] transition-all">
                         Interact
                       </button>
                     </div>
