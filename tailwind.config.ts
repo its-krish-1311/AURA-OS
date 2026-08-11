@@ -67,7 +67,7 @@ const config: Config = {
         "gold-gradient": "linear-gradient(135deg, #FFD54A 0%, #FFC107 100%)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "SF Pro Display", "-apple-system", "sans-serif"],
+        sans: ["var(--font-poppins)", "SF Pro Display", "-apple-system", "sans-serif"],
       },
       animation: {
         'aurora': 'aurora 60s linear infinite',

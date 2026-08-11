@@ -9,6 +9,10 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
+jest.mock('@/components/os-core/ActionModalContext', () => ({
+  useActionModal: () => ({ openModal: jest.fn() }),
+}));
+
 describe('AIInput Component', () => {
   it('renders correctly', () => {
     render(<AIInput />);
@@ -30,11 +34,7 @@ describe('AIInput Component', () => {
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'Hello Aura' } });
     
-    // The component might have multiple buttons, so we target the submit button specifically
-    const submitButton = screen.getByRole('button', { name: /send|submit/i, hidden: true }) || document.querySelector('button[type="submit"]');
-    if (submitButton) {
-      fireEvent.click(submitButton);
-      expect(mockPush).toHaveBeenCalledWith('/ai-chat?q=Hello%20Aura');
-    }
+    fireEvent.click(screen.getByRole('button', { name: /send message/i }));
+    expect(mockPush).toHaveBeenCalledWith('/ai-chat?q=Hello%20Aura');
   });
 });

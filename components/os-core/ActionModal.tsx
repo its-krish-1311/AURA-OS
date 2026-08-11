@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Sparkles, ArrowRight } from "lucide-react";
 
@@ -10,10 +10,22 @@ interface ActionModalProps {
   title: string;
   description?: string;
   actionText?: string;
-  onAction?: () => void;
+  requireInput?: boolean;
+  inputPlaceholder?: string;
+  onAction?: (inputValue?: string) => void;
 }
 
-export default function ActionModal({ isOpen, onClose, title, description, actionText = "Proceed", onAction }: ActionModalProps) {
+export default function ActionModal({ 
+  isOpen, onClose, title, description, actionText = "Proceed", 
+  requireInput, inputPlaceholder, onAction 
+}: ActionModalProps) {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleClose = () => {
+    setInputValue("");
+    onClose();
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -22,7 +34,7 @@ export default function ActionModal({ isOpen, onClose, title, description, actio
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={handleClose}
             className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm"
           />
           <motion.div
@@ -38,7 +50,7 @@ export default function ActionModal({ isOpen, onClose, title, description, actio
               <div className="w-10 h-10 rounded-full bg-[rgba(126,34,206,0.2)] flex items-center justify-center border border-[rgba(126,34,206,0.3)]">
                 <Sparkles className="w-5 h-5 text-[#A855F7]" />
               </div>
-              <button onClick={onClose} className="p-2 rounded-full hover:bg-[rgba(255,255,255,0.05)] text-gray-400 hover:text-white transition-colors">
+              <button onClick={handleClose} className="p-2 rounded-full hover:bg-[rgba(255,255,255,0.05)] text-gray-400 hover:text-white transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -49,19 +61,33 @@ export default function ActionModal({ isOpen, onClose, title, description, actio
                 {description || "This feature is currently being provisioned by your AI twin. It will be available shortly."}
               </p>
 
+              {requireInput && (
+                <div className="mb-6">
+                  <input 
+                    type="text" 
+                    autoFocus
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder={inputPlaceholder || "Enter details..."}
+                    className="w-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-[#A855F7] transition-colors"
+                  />
+                </div>
+              )}
+
               <div className="flex gap-3">
                 <button 
-                  onClick={onClose}
+                  onClick={handleClose}
                   className="flex-1 py-2.5 rounded-xl border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.05)] text-white text-sm font-semibold transition-all"
                 >
                   Cancel
                 </button>
                 <button 
                   onClick={() => {
-                    if (onAction) onAction();
-                    onClose();
+                    if (onAction) onAction(requireInput ? inputValue : undefined);
+                    handleClose();
                   }}
-                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#7E22CE] to-[#A855F7] text-white text-sm font-bold shadow-[0_0_15px_rgba(126,34,206,0.4)] hover:shadow-[0_0_25px_rgba(126,34,206,0.6)] hover:scale-105 transition-all flex items-center justify-center gap-2"
+                  className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-[#7E22CE] to-[#A855F7] text-white text-sm font-bold shadow-[0_0_15px_rgba(126,34,206,0.4)] hover:shadow-[0_0_25px_rgba(126,34,206,0.6)] hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  disabled={requireInput && !inputValue.trim()}
                 >
                   {actionText} <ArrowRight className="w-4 h-4" />
                 </button>

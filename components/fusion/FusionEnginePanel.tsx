@@ -16,11 +16,15 @@ export default function FusionEnginePanel({ isProcessing, progress, activeModule
   
   if (!isProcessing && progress === 0) {
     return (
-      <div className="w-full h-[400px] border border-[rgba(255,255,255,0.02)] bg-[rgba(255,255,255,0.01)] rounded-3xl flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(168,85,247,0.02)]"></div>
-        <BrainCircuit className="w-16 h-16 text-gray-800 mb-4" />
-        <h3 className="text-gray-500 font-medium tracking-widest uppercase text-sm">Fusion Engine Standby</h3>
-        <p className="text-gray-600 text-xs mt-2">Awaiting your command to orchestrate the intelligence layer.</p>
+      <div className="w-full h-[400px] border border-[rgba(255,255,255,0.05)] bg-[rgba(10,10,10,0.6)] backdrop-blur-3xl rounded-3xl flex flex-col items-center justify-center relative overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)] group">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[rgba(168,85,247,0.03)] opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div className="relative z-10 w-24 h-24 rounded-full flex items-center justify-center mb-6">
+           <div className="absolute inset-0 bg-[#A855F7] rounded-full blur-2xl opacity-10 animate-pulse"></div>
+           <div className="absolute inset-0 border-2 border-dashed border-[rgba(255,255,255,0.1)] rounded-full animate-[spin_10s_linear_infinite]"></div>
+           <BrainCircuit className="w-10 h-10 text-gray-500 drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]" />
+        </div>
+        <h3 className="text-gray-400 font-bold tracking-[0.3em] uppercase text-xs mb-2">Fusion Engine Standby</h3>
+        <p className="text-gray-600 text-[11px] font-medium tracking-wide">Awaiting command to orchestrate intelligence layer</p>
       </div>
     );
   }
@@ -127,7 +131,7 @@ export default function FusionEnginePanel({ isProcessing, progress, activeModule
            </h4>
            <div className="flex-1 flex items-center justify-center relative z-10">
               <div className="relative w-32 h-32 flex items-center justify-center">
-                 <svg className="w-full h-full transform -rotate-90 filter drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]">
+                 <svg className="w-full h-full transform -rotate-90 filter drop-shadow-[0_0_15px_rgba(168,85,247,0.6)] animate-pulse">
                     <circle cx="64" cy="64" r="60" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
                     <circle cx="64" cy="64" r="60" fill="none" stroke="#A855F7" strokeWidth="4" strokeDasharray="377" strokeDashoffset={377 - (377 * progress) / 100} className="transition-all duration-300 ease-out" />
                  </svg>

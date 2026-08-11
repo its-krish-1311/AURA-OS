@@ -11,15 +11,14 @@ import QuickAccess from "@/components/dashboard/QuickAccess";
 import RightPanel from "@/components/dashboard/RightPanel";
 import ExecutivePlanner from "@/components/dashboard/ExecutivePlanner";
 import AiOrb from "@/components/orb/AiOrb";
-import MobilePanels from "@/components/mobile/MobilePanels";
-import FeatureCards from "@/components/features/FeatureCards";
 import Footer from "@/components/footer/Footer";
-import WelcomeScreen from "@/components/auth/WelcomeScreen";
+import LandingHero from "@/components/landing/LandingHero";
 import AuthScreen from "@/components/auth/AuthScreen";
 import SetupScreen from "@/components/setup/SetupScreen";
 import ChatInterface from "@/components/chat/ChatInterface";
 import ArtifactViewer from "@/components/chat/ArtifactViewer";
 import AIWorkspace from "@/components/workspace/AIWorkspace";
+import { toast } from "react-hot-toast";
 
 function getGreeting() {
   const hour = new Date().getHours();
@@ -27,8 +26,6 @@ function getGreeting() {
   if (hour < 17) return "Good Afternoon";
   return "Good Evening";
 }
-
-import { toast } from "react-hot-toast";
 
 const ComplaintBox = () => {
   const [complaint, setComplaint] = React.useState("");
@@ -86,85 +83,54 @@ const ComplaintBox = () => {
   );
 };
 
-const TypewriterGreeting = () => {
-  const [greeting, setGreeting] = React.useState("Good Evening");
-  const [typedText, setTypedText] = React.useState("");
-  const [targetText, setTargetText] = React.useState("");
+const DashboardHeader = () => {
+  const [greeting, setGreeting] = React.useState("Good Morning");
+  const [dateStr, setDateStr] = React.useState("Wednesday, June 16");
 
   React.useEffect(() => {
-    const currentGreeting = getGreeting();
-    setGreeting(currentGreeting);
+    setGreeting(getGreeting());
+    const now = new Date();
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+    setDateStr(now.toLocaleDateString('en-US', options));
     
-    const messages = [
-      `${currentGreeting}, Krish!`,
-      "How's Your Day Going?"
-    ];
-    setTargetText(messages[0]);
-    
-    let messageIndex = 0;
-    let i = 0;
-    let timeoutId: NodeJS.Timeout;
-
-    const type = () => {
-      const currentText = messages[messageIndex];
-      
-      if (i < currentText.length) {
-        setTypedText(currentText.substring(0, i + 1));
-        i++;
-        timeoutId = setTimeout(type, 40); // Fast independent typing speed
-      } else {
-        timeoutId = setTimeout(() => {
-          setTypedText("");
-          i = 0;
-          messageIndex = (messageIndex + 1) % messages.length;
-          setTargetText(messages[messageIndex]);
-          type();
-        }, 3000); // Wait 3s before next message
-      }
-    };
-
-    timeoutId = setTimeout(type, 500);
-    const timeInterval = setInterval(() => setGreeting(getGreeting()), 60000);
-    
-    return () => {
-      clearTimeout(timeoutId);
-      clearInterval(timeInterval);
-    };
+    const interval = setInterval(() => setGreeting(getGreeting()), 60000);
+    return () => clearInterval(interval);
   }, []);
 
-  const highlights = ["Krish", "How's"];
-  let content: React.ReactNode = <span>{typedText}</span>;
-  
-  for (const word of highlights) {
-    const wordIndex = targetText.indexOf(word);
-    if (wordIndex !== -1 && typedText.length > wordIndex) {
-      const beforeWord = typedText.substring(0, wordIndex);
-      const typedWordPart = typedText.substring(wordIndex, wordIndex + word.length);
-      const afterWord = typedText.substring(wordIndex + word.length);
-      
-      content = (
-        <>
-          <span>{beforeWord}</span>
-          <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-[#A855F7] relative inline-block">
-            {typedWordPart}
-            <span className="absolute inset-0 bg-[#7E22CE] blur-[15px] opacity-30"></span>
-          </span>
-          <span>{afterWord}</span>
-        </>
-      );
-      break;
-    }
-  }
-
   return (
-    <h2 className="text-4xl font-light text-white mb-1 drop-shadow-lg min-h-[40px]">
-      {content}
-    </h2>
+    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 w-full">
+      <div className="flex flex-col items-start">
+        <p className="text-gray-400 text-sm font-medium tracking-wide mb-1 ml-1">{dateStr}</p>
+        <div className="flex items-center gap-3 mb-2">
+          <h2 className="text-4xl font-bold text-white tracking-tight">
+            {greeting}, Krish
+          </h2>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#7E22CE] to-[#A855F7] flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+            <Bot className="w-5 h-5 text-white" />
+          </div>
+        </div>
+        <p className="text-gray-400 text-sm tracking-wide ml-1">
+          Your Digital Twin is ready. Let's build something legendary.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-4 mt-2 sm:mt-0">
+        <button className="krish-glass h-10 px-5 rounded-full text-xs font-bold text-[#10B981] border border-[rgba(16,185,129,0.2)] bg-[rgba(16,185,129,0.05)] hover:bg-[rgba(16,185,129,0.1)] transition-all flex items-center justify-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_8px_rgba(16,185,129,0.8)] animate-pulse"></div>
+          AI Twin Active
+        </button>
+        <button className="krish-glass h-10 px-5 rounded-full text-xs font-bold text-white border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.05)] transition-all flex items-center justify-center gap-2 group">
+          <Brain className="w-4 h-4 text-gray-300 group-hover:text-white transition-colors" />
+          Train AI
+        </button>
+      </div>
+    </div>
   );
 };
 
 export default function Home() {
-  const [appState, setAppState] = useState<'welcome' | 'auth' | 'setup' | 'os'>('os');
+  const [appState, setAppState] = useState<'landing' | 'auth' | 'setup' | 'os'>('landing');
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login");
   const [chatMode, setChatMode] = useState<'none' | 'builder' | 'workspace'>('none');
   const [initialChatMessage, setInitialChatMessage] = useState("");
   const [normalChatMessageCount, setNormalChatMessageCount] = useState(0);
@@ -207,14 +173,13 @@ export default function Home() {
   return (
     <>
       <AnimatePresence mode="wait">
-        {appState === 'welcome' && (
-          <WelcomeScreen key="welcome" onComplete={() => setAppState('auth')} />
+        {appState === 'landing' && (
+          <LandingHero 
+            key="landing" 
+            onLogin={() => setAppState('os')}
+          />
         )}
         
-        {appState === 'auth' && (
-          <AuthScreen key="auth" onLogin={() => setAppState('setup')} />
-        )}
-
         {appState === 'setup' && (
           <SetupScreen key="setup" onComplete={() => setAppState('os')} />
         )}
@@ -228,122 +193,100 @@ export default function Home() {
           appState !== 'os' ? 'opacity-0 hidden' : 'opacity-100 scale-100'
         }`}
       >
-      <div className="flex w-full max-w-[1600px] mx-auto relative pt-4 px-2">
+      <div className="flex w-full max-w-[1600px] mx-auto relative pt-4 px-3 sm:px-5">
         
         {/* Left Column (Sidebar + Complaint Box) */}
-        <motion.div variants={itemVariants} animate={{ y: [0, -10, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }} className="flex flex-col gap-12">
+        <motion.div variants={itemVariants} animate={{ y: [0, -10, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }} className="hidden xl:flex flex-col gap-12">
           <Sidebar />
           <ComplaintBox />
         </motion.div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col px-8">
+        <div className="min-w-0 flex-1 flex flex-col px-0 sm:px-4 lg:px-8">
           <motion.div variants={itemVariants} animate={{ y: [0, -8, 0] }} transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}>
-            <Header />
+            <Header onSignIn={() => { setAuthMode("login"); setAppState("auth"); }} onSignUp={() => { setAuthMode("signup"); setAppState("auth"); }} />
           </motion.div>
           
-          {/* Top Dashboard Section */}
-          <div className="flex gap-10 mt-6">
+          {/* Bento-Grid OS Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 pb-12 w-full max-w-7xl mx-auto">
             
-            {/* Center Area */}
-            <div className="flex-1">
-              <motion.div variants={itemVariants} className="mb-10 relative w-full max-w-4xl mx-auto px-4" animate={{ y: [0, -6, 0] }} transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}>
-                <div className="absolute -inset-4 bg-gradient-to-r from-[rgba(126,34,206,0.06)] to-transparent blur-2xl -z-10 rounded-full"></div>
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div className="flex flex-col items-start mt-2">
-                    <TypewriterGreeting />
-                    <p className="text-sm tracking-wide font-semibold ml-1">
-                      <span className="text-white inline-block drop-shadow-sm opacity-90">
-                        I Am Your Digital Twin...
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4 -mt-2">
-                    <button className="krish-glass h-11 px-6 rounded-full text-sm font-semibold text-white border border-[rgba(126,34,206,0.3)] hover:bg-[rgba(126,34,206,0.1)] hover:border-[rgba(126,34,206,0.5)] transition-all shadow-[0_0_15px_rgba(126,34,206,0.1)] flex items-center justify-center gap-2 group">
-                      <Brain className="w-4 h-4 text-[#A855F7] group-hover:scale-110 transition-transform" />
-                      Train
-                    </button>
-                    <button className="bg-gradient-to-r from-[#7E22CE] to-[#A855F7] h-11 px-6 rounded-full text-sm font-semibold text-white shadow-[0_0_20px_rgba(126,34,206,0.4)] hover:shadow-[0_0_30px_rgba(126,34,206,0.6)] hover:scale-105 transition-all flex items-center justify-center gap-2 group">
-                      <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform" />
-                      New
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants} animate={{ y: [0, -12, 0] }} transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}>
-                <div className="w-full flex flex-col items-center">
-                  <AnimatePresence>
-                    {chatMode === 'none' && (
-                      <motion.div 
-                        initial={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
-                        className="w-full relative z-10"
-                      >
-                        <AIInput 
-                          onNormalChatSubmit={(msg) => {
-                            setInitialChatMessage(msg);
-                            setChatMode('workspace');
-                            setNormalChatMessageCount(1); // 1 User message
-                          }}
-                          onAuraCodeClick={() => {
-                            setInitialChatMessage("");
-                            setChatMode('builder');
-                          }}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-
-                  {/* FULLSCREEN CHAT CONTAINER (Removed normal pop-up mode) */}
-                </div>
-              </motion.div>
+            {/* Tile 1: Greeting & Main AI Input (Col Span 8) */}
+            <motion.div variants={itemVariants} className="lg:col-span-8 flex flex-col gap-6 h-full">
+              <div className="krish-glass p-8 rounded-[2.5rem] bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 flex-1 flex flex-col justify-center relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-64 h-64 blur-[100px] opacity-10 group-hover:opacity-20 bg-gradient-to-br from-[#7E22CE] to-[#A855F7] transition-opacity duration-500 pointer-events-none"></div>
+                <DashboardHeader />
+              </div>
               
-              <motion.div variants={itemVariants} animate={{ y: [0, -10, 0] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}>
+              <AnimatePresence>
+                {chatMode === 'none' && (
+                  <motion.div 
+                    initial={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                    className="w-full relative z-10"
+                  >
+                    <AIInput 
+                      onNormalChatSubmit={(msg) => {
+                        setInitialChatMessage(msg);
+                        setChatMode('workspace');
+                        setNormalChatMessageCount(1);
+                      }}
+                      onAuraCodeClick={() => {
+                        setInitialChatMessage("");
+                        setChatMode('builder');
+                      }}
+                    />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+
+            {/* Tile 2: Global Telemetry / Right Panel (Col Span 4) */}
+            <motion.div variants={itemVariants} className="lg:col-span-4 h-full">
+              <div className="krish-glass p-6 rounded-[2.5rem] bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 h-full relative overflow-hidden group">
+                <div className="absolute bottom-0 right-0 w-40 h-40 blur-[80px] opacity-10 group-hover:opacity-20 bg-gradient-to-br from-[#3B82F6] to-[#06B6D4] transition-opacity duration-500 pointer-events-none"></div>
+                <RightPanel />
+              </div>
+            </motion.div>
+
+            {/* Tile 3: Quick Access Apps (Full Width - Col Span 12) */}
+            <motion.div variants={itemVariants} className="lg:col-span-12 mt-2">
+              <div className="krish-glass p-8 rounded-[2.5rem] bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300">
                 <QuickAccess />
-              </motion.div>
-              
-              <motion.div variants={itemVariants} className="mt-8">
-                <ExecutivePlanner />
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
 
-            {/* Right Panel */}
-            <motion.div variants={itemVariants} animate={{ y: [0, -15, 0] }} transition={{ duration: 14, repeat: Infinity, ease: "easeInOut", delay: 1 }}>
-              <RightPanel />
+            {/* Tile 4: Executive Planner (Col Span 8) */}
+            <motion.div variants={itemVariants} className="lg:col-span-8 mt-2">
+              <div className="krish-glass p-8 rounded-[2.5rem] bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 relative overflow-hidden group">
+                 <div className="absolute top-[20%] right-[-10%] w-48 h-48 blur-[80px] opacity-10 group-hover:opacity-20 bg-gradient-to-br from-[#F59E0B] to-[#F97316] transition-opacity duration-500 pointer-events-none"></div>
+                 <ExecutivePlanner />
+              </div>
+            </motion.div>
+
+            {/* Tile 5: Active Stats (Col Span 4) */}
+            <motion.div variants={itemVariants} className="lg:col-span-4 mt-2 flex flex-col gap-6">
+                <div className="krish-glass flex flex-col justify-center px-6 py-8 rounded-[2.5rem] flex-1 bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-10 group-hover:opacity-20 bg-[#10B981] transition-opacity duration-500 pointer-events-none"></div>
+                  <div className="w-12 h-12 rounded-xl bg-[rgba(16,185,129,0.1)] flex items-center justify-center border border-[rgba(16,185,129,0.2)] mb-4">
+                    <svg className="w-6 h-6 text-[#10B981]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+                  </div>
+                  <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Portfolio Value</p>
+                  <p className="text-white text-3xl font-black">$124,500 <span className="text-[#10B981] text-sm font-semibold ml-2 tracking-normal">+12.5%</span></p>
+                </div>
+                
+                <div className="krish-glass flex flex-col justify-center px-6 py-8 rounded-[2.5rem] flex-1 bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 group relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-32 h-32 blur-[60px] opacity-10 group-hover:opacity-20 bg-[#A855F7] transition-opacity duration-500 pointer-events-none"></div>
+                  <div className="w-12 h-12 rounded-xl bg-[rgba(168,85,247,0.1)] flex items-center justify-center border border-[rgba(168,85,247,0.2)] mb-4">
+                    <svg className="w-6 h-6 text-[#A855F7]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  </div>
+                  <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Deep Work</p>
+                  <p className="text-white text-3xl font-black">4h 20m <span className="text-[#A855F7] text-sm font-semibold ml-2 tracking-normal">Today</span></p>
+                </div>
             </motion.div>
 
           </div>
         </div>
       </div>
-
-      {/* Full Page Divider */}
-      <motion.div 
-        variants={itemVariants}
-        className="w-full h-[1px] bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.8)] to-transparent my-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
-      />
-
-      {/* Bottom Feature Cards (Moved above the Orb) */}
-      <motion.div variants={itemVariants} animate={{ y: [0, -10, 0] }} transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }} className="px-8">
-        <h3 className="text-white text-base font-bold tracking-[0.2em] mb-8 text-center drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">Elite Intelligence</h3>
-        <FeatureCards />
-      </motion.div>
-
-      {/* Atlas Heading */}
-      <motion.div variants={itemVariants} className="px-8">
-        <h3 className="text-white text-base font-bold tracking-[0.2em] mb-8 text-center drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]">Atlas</h3>
-      </motion.div>
-
-      {/* Mobile Mockup Row */}
-      <motion.div variants={itemVariants} animate={{ y: [0, -12, 0] }} transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 1.2 }}>
-        <MobilePanels />
-      </motion.div>
-
-      {/* Footer */}
-      <motion.div variants={itemVariants}>
-        <Footer />
-      </motion.div>
     </motion.main>
 
 
@@ -420,7 +363,7 @@ export default function Home() {
               </div>
 
               {/* Right Pane - Artifacts */}
-              <div className={`flex-1 w-full h-full relative \${mobileView === 'artifact' && artifactData ? 'flex' : 'hidden lg:flex'} \${!artifactData ? 'items-center justify-center krish-glass rounded-3xl border border-dashed border-[rgba(255,255,255,0.1)] bg-[rgba(10,10,10,0.2)]' : ''}`}>
+              <div className={`flex-1 w-full h-full relative ${mobileView === 'artifact' && artifactData ? 'flex' : 'hidden lg:flex'} ${!artifactData ? 'items-center justify-center krish-glass rounded-3xl border border-dashed border-[rgba(255,255,255,0.1)] bg-[rgba(10,10,10,0.2)]' : ''}`}>
                 {!artifactData ? (
                   <div className="text-center p-8">
                     <div className="w-16 h-16 rounded-full bg-[rgba(126,34,206,0.1)] flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(126,34,206,0.2)]">

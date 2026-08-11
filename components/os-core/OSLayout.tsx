@@ -18,9 +18,21 @@ interface OSLayoutProps {
   children: ReactNode;
 }
 
+function hexToRgb(hex: string): string {
+  const normalizedHex = hex.replace("#", "");
+  const value = Number.parseInt(normalizedHex, 16);
+  return `${(value >> 16) & 255}, ${(value >> 8) & 255}, ${value & 255}`;
+}
+
 export default function OSLayout({ osName, osId, themeColor, sidebarItems, children }: OSLayoutProps) {
   return (
-    <div className="flex h-screen w-full bg-[#04060B] overflow-hidden selection:bg-[#A855F7]/30 selection:text-white font-sans text-gray-200">
+    <div
+      className="aura-os-shell flex h-screen w-full bg-[#04060B] overflow-hidden selection:bg-[#A855F7]/30 selection:text-white font-sans text-gray-200"
+      style={{
+        "--os-theme": themeColor,
+        "--os-theme-rgb": hexToRgb(themeColor),
+      } as React.CSSProperties}
+    >
       
       {/* Universal OS Background Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">

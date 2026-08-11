@@ -124,7 +124,7 @@ export default function CommandPalette() {
             animate={{ opacity: 1, scale: 1, y: 0 }} 
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed top-[15%] left-1/2 -translate-x-1/2 z-[101] w-[90%] max-w-[600px] krish-glass rounded-2xl overflow-hidden"
+            className="fixed top-[15%] left-1/2 -translate-x-1/2 z-[101] w-[90%] max-w-[600px] krish-glass rounded-2xl overflow-hidden border border-[#A855F7] shadow-[0_20px_60px_rgba(168,85,247,0.25)]"
           >
             {/* Search Input */}
             <div className="flex items-center px-4 py-4 border-b border-[rgba(255,255,255,0.05)]">

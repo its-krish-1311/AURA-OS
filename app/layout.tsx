@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import LivingBackground from "@/components/background/LivingBackground";
 import { OSProvider } from "@/context/OSContext";
@@ -9,7 +9,11 @@ import CommandPalette from "@/components/os-core/CommandPalette";
 import { ActionModalProvider } from "@/components/os-core/ActionModalContext";
 import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const poppins = Poppins({ 
+  weight: ['300', '400', '500', '600', '700'],
+  subsets: ["latin"], 
+  variable: "--font-poppins" 
+});
 
 export const metadata: Metadata = {
   title: "Krish OS",
@@ -23,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans antialiased relative`}>
+      <body className={`${poppins.variable} font-sans antialiased relative`}>
         <AuthProvider>
           <OSProvider>
             <OSDataProvider>

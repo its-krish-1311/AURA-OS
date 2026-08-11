@@ -6,17 +6,30 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
+const oauthProviders = [];
+
+if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+  oauthProviders.push(
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    })
+  );
+}
+
+if (process.env.APPLE_ID && process.env.APPLE_SECRET) {
+  oauthProviders.push(
+    AppleProvider({
+      clientId: process.env.APPLE_ID,
+      clientSecret: process.env.APPLE_SECRET,
+    })
+  );
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
-    AppleProvider({
-      clientId: process.env.APPLE_ID || "",
-      clientSecret: process.env.APPLE_SECRET || "",
-    }),
+    ...oauthProviders,
     CredentialsProvider({
       name: "Credentials",
       credentials: {
@@ -30,8 +43,8 @@ export const authOptions: NextAuthOptions = {
 
         const email = credentials.email.toLowerCase();
 
-        const user = await prisma.user.findUnique({
-          where: { email }
+        const user = await prisma.user.findFirst({
+          where: { email, isDeleted: false }
         });
 
         if (!user || !user.password) {
@@ -55,7 +68,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET || "fallback_secret_krish_os_2026",
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/",
   },

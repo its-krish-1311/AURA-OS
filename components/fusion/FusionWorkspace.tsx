@@ -83,6 +83,7 @@ export default function FusionWorkspace() {
               <motion.div 
                  key={i} 
                  whileHover={{ scale: 1.03, y: -5 }}
+                 whileTap={{ scale: 0.98 }}
                  className="krish-glass rounded-full p-4 flex items-center gap-4 transition-all cursor-pointer group relative overflow-hidden z-10"
               >
                  <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.12)] to-transparent skew-x-[-25deg] group-hover:animate-[sweep_1s_ease-in-out] z-20 pointer-events-none" />
@@ -117,7 +118,8 @@ export default function FusionWorkspace() {
               <motion.div 
                  key={i} 
                  whileHover={{ scale: 1.02, y: -5 }}
-                 className="krish-glass rounded-[26px] p-5 transition-all group relative overflow-hidden z-10"
+                 whileTap={{ scale: 0.98 }}
+                 className={`krish-glass rounded-[26px] p-5 transition-all group relative overflow-hidden z-10 border ${agent.status === 'Active' ? 'border-[rgba(168,85,247,0.2)] hover:border-[rgba(168,85,247,0.4)] shadow-[0_0_15px_rgba(168,85,247,0.05)] hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]' : 'border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.1)]'}`}
               >
                 <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.12)] to-transparent skew-x-[-25deg] group-hover:animate-[sweep_1s_ease-in-out] z-20 pointer-events-none" />
                 
@@ -155,10 +157,10 @@ export default function FusionWorkspace() {
                 </div>
 
                 <div className="mt-5 flex gap-3 relative z-10">
-                  <button className="flex-1 py-2.5 rounded-full krish-glass text-white text-xs font-bold tracking-wider hover:scale-[1.02] active:scale-[0.98] transition-all">
+                  <button className="flex-1 py-2.5 rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] text-white text-xs font-bold tracking-wider hover:bg-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] hover:shadow-[0_0_15px_rgba(255,255,255,0.05)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all">
                     Assign Task
                   </button>
-                  <button className="w-11 flex items-center justify-center rounded-full krish-glass text-gray-300 hover:text-[#EF4444] hover:scale-[1.02] active:scale-[0.98] transition-all">
+                  <button className="w-11 flex items-center justify-center rounded-full krish-glass text-gray-300 hover:text-[#EF4444] hover:bg-[rgba(239,68,68,0.1)] hover:border-[rgba(239,68,68,0.2)] hover:shadow-[0_0_10px_rgba(239,68,68,0.1)] hover:-translate-y-0.5 active:translate-y-0 active:scale-95 transition-all">
                     <Power className="w-4 h-4" />
                   </button>
                 </div>

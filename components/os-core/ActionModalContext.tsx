@@ -7,7 +7,9 @@ interface ModalData {
   title: string;
   description?: string;
   actionText?: string;
-  onAction?: () => void;
+  requireInput?: boolean;
+  inputPlaceholder?: string;
+  onAction?: (inputValue?: string) => void;
 }
 
 interface ActionModalContextType {
@@ -41,6 +43,8 @@ export function ActionModalProvider({ children }: { children: ReactNode }) {
           title={modalData.title}
           description={modalData.description}
           actionText={modalData.actionText}
+          requireInput={modalData.requireInput}
+          inputPlaceholder={modalData.inputPlaceholder}
           onAction={modalData.onAction}
         />
       )}

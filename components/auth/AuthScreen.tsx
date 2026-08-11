@@ -8,10 +8,12 @@ import { signIn } from "next-auth/react";
 
 interface AuthScreenProps {
   onLogin: () => void;
+  initialMode?: "login" | "signup";
+  onClose?: () => void;
 }
 
-export default function AuthScreen({ onLogin }: AuthScreenProps) {
-  const [isLogin, setIsLogin] = useState(true);
+export default function AuthScreen({ onLogin, initialMode = "login", onClose }: AuthScreenProps) {
+  const [isLogin, setIsLogin] = useState(initialMode === "login");
   const [showOtp, setShowOtp] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [email, setEmail] = useState("");
@@ -21,10 +23,10 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  const handleSendOtp = async () => {
+  const handleSendOtp = async (): Promise<boolean> => {
     if (!email || !password || (!isLogin && !name)) {
       setErrorMsg("Please fill in all fields");
-      return;
+      return false;
     }
     
     setIsProcessing(true);
@@ -41,12 +43,15 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
       const data = await res.json();
       if (!res.ok) {
         setErrorMsg(data.error || "Failed to send OTP");
+        return false;
       } else {
         setShowOtp(true);
         setSuccessMsg("OTP sent to your email!");
+        return true;
       }
     } catch (error) {
       setErrorMsg("An unexpected error occurred");
+      return false;
     } finally {
       setIsProcessing(false);
     }
@@ -100,11 +105,12 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
         }
       }
     } catch (error) {
-      setErrorMsg("An unexpected error occurred");
     } finally {
       setIsProcessing(false);
     }
   };
+
+
 
   return (
     <motion.div 
@@ -112,24 +118,28 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
       transition={{ duration: 0.8 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-transparent overflow-hidden"
+      className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-black/60 backdrop-blur-md px-4 py-6 sm:items-center sm:px-0"
     >
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#7E22CE] blur-[150px] opacity-10 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#3B82F6] blur-[150px] opacity-10 pointer-events-none" />
+      
+      {/* Close button if provided */}
+      {onClose && (
+        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors z-50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      )}
 
       <motion.div 
         initial={{ scale: 0.9, y: 20, opacity: 0 }}
         animate={{ scale: 1, y: 0, opacity: 1 }}
         transition={{ type: "spring" as const, stiffness: 200, damping: 20, delay: 0.2 }}
-        className="w-full max-w-[420px] mx-4 relative"
+        className="relative my-auto w-full max-w-[420px]"
       >
-        <div className="p-8 rounded-[32px] border border-[rgba(168,85,247,0.2)] shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] relative overflow-hidden w-full max-w-md">
+        <div className="relative w-full max-w-md overflow-hidden rounded-[32px] border border-[rgba(168,85,247,0.2)] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.5),inset_0_1px_2px_rgba(255,255,255,0.1)] sm:p-8">
           
           {/* Top Logo */}
           <div className="flex flex-col items-center mb-8">
-            <div className="mb-6 flex items-center justify-center">
-              <Image src="/logo.png" alt="Aura OS Logo" width={112} height={112} className="w-28 h-28 object-contain drop-shadow-[0_0_25px_rgba(168,85,247,0.5)]" />
+            <div className="mb-4 sm:mb-6 flex items-center justify-center">
+              <Image src="/logo.png" alt="Aura OS Logo" width={112} height={112} className="h-20 w-20 object-contain drop-shadow-[0_0_25px_rgba(168,85,247,0.5)] sm:h-28 sm:w-28" />
             </div>
             <h1 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A855F7] mb-2">
               {isLogin ? "Welcome Back" : (showOtp ? "Verify Email" : "Create Account")}
@@ -279,7 +289,7 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
           {/* Social Buttons */}
           <div className="flex gap-4 mb-6">
             <button 
-              onClick={() => window.open('https://accounts.google.com/AccountChooser', '_blank', 'width=500,height=600,left=200,top=100')}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               className="relative overflow-hidden flex-1 flex items-center justify-center gap-3 bg-[rgba(255,255,255,0.03)] border border-[rgba(168,85,247,0.2)] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] rounded-full py-3 hover:bg-[rgba(168,85,247,0.05)] hover:border-[rgba(168,85,247,0.4)] hover:shadow-[0_0_15px_rgba(168,85,247,0.15),inset_0_1px_2px_rgba(255,255,255,0.1)] transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1"
             >
               <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.12)] to-transparent skew-x-[-25deg] group-hover:animate-[sweep_1s_ease-in-out] pointer-events-none z-10" />
@@ -292,7 +302,7 @@ export default function AuthScreen({ onLogin }: AuthScreenProps) {
               <span className="text-sm font-semibold text-white relative z-20">Google</span>
             </button>
             <button 
-              onClick={() => window.open('https://appleid.apple.com/sign-in', '_blank', 'width=500,height=600,left=200,top=100')}
+              onClick={() => signIn("apple", { callbackUrl: "/" })}
               className="relative overflow-hidden flex-1 flex items-center justify-center gap-3 bg-[rgba(255,255,255,0.03)] border border-[rgba(168,85,247,0.2)] shadow-[inset_0_1px_2px_rgba(255,255,255,0.1)] rounded-full py-3 hover:bg-[rgba(168,85,247,0.05)] hover:border-[rgba(168,85,247,0.4)] hover:shadow-[0_0_15px_rgba(168,85,247,0.15),inset_0_1px_2px_rgba(255,255,255,0.1)] transition-all duration-300 group hover:scale-[1.02] hover:-translate-y-1"
             >
               <div className="absolute top-0 -left-[100%] w-1/2 h-full bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.12)] to-transparent skew-x-[-25deg] group-hover:animate-[sweep_1s_ease-in-out] pointer-events-none z-10" />

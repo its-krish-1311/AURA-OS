@@ -51,7 +51,7 @@ export default function OSSidebar({ osName, osId, themeColor, items }: OSSidebar
               <Link 
                 key={idx} 
                 href={item.href}
-                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all group"
+                className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-transparent hover:border-[rgba(255,255,255,0.02)] transition-all duration-300 group"
               >
                 <item.icon className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
                 <span className="text-xs font-semibold tracking-wide">{item.label}</span>
@@ -63,15 +63,15 @@ export default function OSSidebar({ osName, osId, themeColor, items }: OSSidebar
         <div className="mb-6">
           <h4 className="px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-3">Workspace</h4>
           <div className="space-y-1">
-            <Link href={`/os/${osId}/ai`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all group">
+            <Link href={`/os/${osId}/ai`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-transparent hover:border-[rgba(255,255,255,0.02)] transition-all duration-300 group">
               <Bot className="w-4 h-4 text-[#A855F7] group-hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.8)] transition-all" />
               <span className="text-xs font-semibold tracking-wide">AI Assistant</span>
             </Link>
-            <Link href={`/os/${osId}/planner`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all group">
+            <Link href={`/os/${osId}/planner`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-transparent hover:border-[rgba(255,255,255,0.02)] transition-all duration-300 group">
               <Calendar className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
               <span className="text-xs font-semibold tracking-wide">Planner</span>
             </Link>
-            <Link href={`/os/${osId}/knowledge`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all group">
+            <Link href={`/os/${osId}/knowledge`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-transparent hover:border-[rgba(255,255,255,0.02)] transition-all duration-300 group">
               <Database className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
               <span className="text-xs font-semibold tracking-wide">Knowledge Base</span>
             </Link>
@@ -81,7 +81,7 @@ export default function OSSidebar({ osName, osId, themeColor, items }: OSSidebar
 
       {/* Footer */}
       <div className="p-4 border-t border-[rgba(255,255,255,0.05)] space-y-1 relative z-10">
-        <Link href={`/os/${osId}/settings`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-all group">
+        <Link href={`/os/${osId}/settings`} className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-transparent hover:border-[rgba(255,255,255,0.02)] transition-all duration-300 group">
           <Settings className="w-4 h-4 text-gray-500 group-hover:text-white transition-colors" />
           <span className="text-xs font-semibold tracking-wide">Settings</span>
         </Link>

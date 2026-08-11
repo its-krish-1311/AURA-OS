@@ -1,0 +1,603 @@
+  ▲ Next.js 15.0.0
+  - Local:        http://localhost:4010
+  - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 13.8s
+ ○ Compiling / ...
+ ✓ Compiled / in 48.3s (1816 modules)
+ GET / 200 in 54370ms
+ ✓ Compiled in 6.3s (902 modules)
+ ✓ Compiled in 1221ms (888 modules)
+ GET / 200 in 214ms
+ ○ Compiling /api/tasks ...
+ ✓ Compiled /middleware in 44.6s (2330 modules)
+ GET /api/tasks 401 in 47273ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 461ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 310ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 214ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 168ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 226ms
+ GET /api/auth/session 200 in 50501ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 249ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 282ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 255ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 181ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 126ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 116ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 142ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 2397ms
+ GET /api/tasks 401 in 195ms
+ GET /api/auth/session 200 in 262ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 29s (2152 modules)
+ GET /chat 404 in 40808ms
+ ✓ Compiled in 18.3s (903 modules)
+ GET /chat 404 in 15710ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 7700ms
+ GET /chat 404 in 4156ms
+ GET /chat 404 in 4257ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 261ms
+ GET /api/auth/session 200 in 2705ms
+ GET / 200 in 1766ms
+ GET / 200 in 137ms
+ GET /api/tasks 401 in 899ms
+ GET /api/tasks 401 in 718ms
+ GET / 200 in 5434ms
+ GET /api/tasks 401 in 215ms
+ GET /api/auth/session 200 in 228ms
+ GET /api/auth/session 200 in 130ms
+ ✓ Compiled in 7.1s (903 modules)
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 221ms
+ GET / 200 in 163ms
+ GET /_next/static/css/app/layout.css?v=1786374249323 404 in 388ms
+ GET /_next/static/css/app/page.css?v=1786374249323 404 in 297ms
+ GET /_next/static/css/app/layout.css?v=1786374249517 404 in 197ms
+ GET /_next/static/css/app/page.css?v=1786374249517 404 in 159ms
+ ✓ Compiled in 9.3s (903 modules)
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 420ms
+ GET /_next/static/css/app/layout.css?v=1786374275880 404 in 366ms
+ GET /_next/static/css/app/page.css?v=1786374275880 404 in 102ms
+ GET / 200 in 80ms
+ GET /_next/static/css/app/layout.css?v=1786374278220 404 in 121ms
+ GET /_next/static/css/app/page.css?v=1786374278220 404 in 67ms
+ ✓ Compiled in 7.3s (903 modules)
+ GET / 200 in 4152ms
+ GET / 200 in 4451ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 4436ms
+ GET /_next/static/css/app/page.css?v=1786374309904 404 in 274ms
+ GET /_next/static/css/app/layout.css?v=1786374309904 404 in 285ms
+ GET /_next/static/css/app/layout.css?v=1786374309889 404 in 81ms
+ GET /_next/static/css/app/page.css?v=1786374309889 404 in 75ms
+ ✓ Compiled in 1976ms (903 modules)
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 203ms
+ GET /_next/static/css/app/layout.css?v=1786374331167 404 in 150ms
+ GET /_next/static/css/app/page.css?v=1786374331167 404 in 106ms
+ GET / 200 in 62ms
+ GET /_next/static/css/app/layout.css?v=1786374331667 404 in 56ms
+ GET /_next/static/css/app/page.css?v=1786374331667 404 in 46ms
+ ✓ Compiled in 3s (903 modules)
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 625ms
+ GET /_next/static/css/app/layout.css?v=1786374352302 404 in 152ms
+ GET /_next/static/css/app/page.css?v=1786374352302 404 in 634ms
+ GET / 200 in 87ms
+ GET /_next/static/css/app/layout.css?v=1786374358492 404 in 68ms
+ GET /_next/static/css/app/page.css?v=1786374358492 404 in 70ms
+ ✓ Compiled in 2.6s (903 modules)
+ GET / 200 in 77ms
+ GET /_next/static/css/app/layout.css?v=1786374466382 404 in 66ms
+ GET /_next/static/css/app/page.css?v=1786374466382 404 in 85ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 322ms
+ GET /_next/static/css/app/layout.css?v=1786374468882 404 in 107ms
+ GET /_next/static/css/app/page.css?v=1786374468882 404 in 258ms
+ ✓ Compiled in 32.7s (2012 modules)
+ GET / 200 in 20195ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 28852ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 43ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 42ms
+ GET /_next/static/css/app/layout.css?v=1786374508460 404 in 609ms
+ GET /_next/static/css/app/page.css?v=1786374508460 404 in 41ms
+ GET / 200 in 134ms
+ GET / 200 in 44ms
+ GET /_next/static/css/app/layout.css?v=1786374509424 404 in 47ms
+ GET /_next/static/css/app/page.css?v=1786374509424 404 in 45ms
+ ✓ Compiled in 8.1s (2012 modules)
+ GET / 200 in 5378ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 404 in 7591ms
+ GET / 200 in 121ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 102ms
+ GET /_next/static/css/app/layout.css?v=1786374553029 404 in 687ms
+ GET /_next/static/css/app/page.css?v=1786374553029 404 in 144ms
+ GET /?callbackUrl=%2Fos%2Ftravel-os 200 in 1575ms
+ GET /_next/static/css/app/page.css?v=1786374553905 404 in 152ms
+ GET /_next/static/css/app/layout.css?v=1786374553905 404 in 152ms
+ GET /_next/static/chunks/main-app.js?v=1786374553905 404 in 391ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 381ms
+ GET /_next/static/chunks/app/template.js 404 in 381ms
+ GET /_next/static/chunks/app/not-found.js 404 in 374ms
+ GET /_next/static/chunks/app/page.js 404 in 332ms
+ ✓ Compiled in 5.4s (2012 modules)
+ GET / 200 in 4635ms
+ GET / 200 in 60ms
+ GET /_next/static/css/app/layout.css?v=1786374565910 404 in 154ms
+ GET /_next/static/css/app/page.css?v=1786374565910 404 in 54ms
+ ✓ Compiled in 3.3s (2012 modules)
+ GET / 200 in 2428ms
+ GET / 200 in 54ms
+ GET /_next/static/css/app/layout.css?v=1786374573991 404 in 68ms
+ GET /_next/static/css/app/page.css?v=1786374573991 404 in 34ms
+ ✓ Compiled in 3.4s (2012 modules)
+ GET / 200 in 2517ms
+ GET / 200 in 36ms
+ GET /_next/static/css/app/layout.css?v=1786374586261 404 in 84ms
+ GET /_next/static/css/app/page.css?v=1786374586261 404 in 41ms
+ ✓ Compiled in 1759ms (903 modules)
+ GET / 200 in 72ms
+ GET /_next/static/css/app/layout.css?v=1786374614659 404 in 56ms
+ GET /_next/static/css/app/page.css?v=1786374614659 404 in 50ms
+ ✓ Compiled in 1414ms (903 modules)
+ GET / 200 in 65ms
+ GET /_next/static/css/app/layout.css?v=1786374643531 404 in 54ms
+ GET /_next/static/css/app/page.css?v=1786374643531 404 in 49ms
+ ✓ Compiled in 933ms (903 modules)
+ GET / 200 in 93ms
+ GET /_next/static/css/app/layout.css?v=1786374661100 404 in 57ms
+ GET /_next/static/css/app/page.css?v=1786374661100 404 in 40ms
+ ✓ Compiled in 1188ms (903 modules)
+ GET / 200 in 58ms
+ GET /_next/static/css/app/layout.css?v=1786374690167 404 in 57ms
+ GET /_next/static/css/app/page.css?v=1786374690167 404 in 45ms
+ ✓ Compiled in 1122ms (903 modules)
+ GET / 200 in 76ms
+ GET /_next/static/css/app/layout.css?v=1786374714999 404 in 65ms
+ GET /_next/static/css/app/page.css?v=1786374714999 404 in 45ms
+ ✓ Compiled in 10.8s (1817 modules)
+ GET / 200 in 326ms
+ ✓ Compiled /_not-found in 477ms (916 modules)
+ ⨯ Error: Cannot find module './3267.js'
+Require stack:
+- C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+- C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\index.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\config.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\next.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1500:15)
+    at C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
+    at Module._load (node:internal/modules/cjs/loader:1285:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1600:12)
+    at mod.require (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at __webpack_require__.f.require (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:267:28)
+    at C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:180:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:179:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:231:22)
+    at C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js:1:1652
+    at Object.<anonymous> (C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js:1:1705)
+    at Module._compile (node:internal/modules/cjs/loader:1854:14)
+    at Object..js (node:internal/modules/cjs/loader:1985:10)
+    at Module.load (node:internal/modules/cjs/loader:1577:32)
+    at Module._load (node:internal/modules/cjs/loader:1379:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1600:12)
+    at mod.require (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at requirePage (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js:103:84)
+    at loadComponentsImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js:99:57)
+    at async DevServer.findPageComponentsImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\next-server.js:732:36)
+    at async DevServer.findPageComponents (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:611:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:2458:30)
+    at async pipe.req.req (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:2424:30)
+    at async DevServer.pipeImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:984:25)
+    at async C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:373:20
+    at async Span.traceAsyncFn (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:370:24)
+    at async invokeRender (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:183:21)
+    at async handleRequest (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:375:24)
+    at async requestHandlerImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:384:13)
+    at async Server.requestListener (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\start-server.js:142:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\swc\\options.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\swc\\index.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\next-config-ts\\transpile-config.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\config.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\next.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ⨯ Error: Cannot find module './3267.js'
+Require stack:
+- C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+- C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\index.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\next-config-ts\transpile-config.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\config.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\next.js
+- C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\start-server.js
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1500:15)
+    at C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:55:36
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
+    at Module._load (node:internal/modules/cjs/loader:1285:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1600:12)
+    at mod.require (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at __webpack_require__.f.require (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:267:28)
+    at C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:180:40
+    at Array.reduce (<anonymous>)
+    at __webpack_require__.e (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:179:67)
+    at Array.map (<anonymous>)
+    at __webpack_require__.X (C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js:231:22)
+    at C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js:1:1652
+    at Object.<anonymous> (C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js:1:1705)
+    at Module._compile (node:internal/modules/cjs/loader:1854:14)
+    at Object..js (node:internal/modules/cjs/loader:1985:10)
+    at Module.load (node:internal/modules/cjs/loader:1577:32)
+    at Module._load (node:internal/modules/cjs/loader:1379:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1600:12)
+    at mod.require (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require-hook.js:65:28)
+    at require (node:internal/modules/helpers:153:16)
+    at requirePage (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js:103:84)
+    at loadComponentsImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js:99:57)
+    at async DevServer.findPageComponentsImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\next-server.js:732:36)
+    at async DevServer.findPageComponents (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:611:20)
+    at async DevServer.renderErrorToResponseImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:2458:30)
+    at async pipe.req.req (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:2424:30)
+    at async DevServer.pipeImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\base-server.js:984:25)
+    at async C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:373:20
+    at async Span.traceAsyncFn (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\trace\trace.js:157:20)
+    at async DevServer.handleRequest (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\dev\next-dev-server.js:370:24)
+    at async invokeRender (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:183:21)
+    at async handleRequest (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:375:24)
+    at async requestHandlerImpl (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\router-server.js:384:13)
+    at async Server.requestListener (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\lib\start-server.js:142:13) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\.next\\server\\webpack-runtime.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\.next\\server\\app\\_not-found\\page.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\require.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\load-components.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\utils.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\swc\\options.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\swc\\index.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\build\\next-config-ts\\transpile-config.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\config.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\next.js',
+    'C:\\Users\\itskr\\Desktop\\AuraOS\\node_modules\\next\\dist\\server\\lib\\start-server.js'
+  ]
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 4.4s (2043 modules)
+ ✓ Compiled in 449ms (1082 modules)
+ GET /_next/static/css/app/layout.css?v=1786375212203 500 in 19682ms
+ GET /_next/static/css/app/page.css?v=1786375212203 500 in 19177ms
+ GET / 200 in 3915ms
+ GET / 200 in 143ms
+ GET /_next/static/css/app/layout.css?v=1786375232334 404 in 407ms
+ GET /_next/static/css/app/page.css?v=1786375232334 404 in 88ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/clsx' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js', but to 'Error: Can't resolve './vendor-chunks/clsx' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/clsx (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/tailwind-merge' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\tailwind-merge.js', but to 'Error: Can't resolve './vendor-chunks/tailwind-merge' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/tailwind-merge (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\tailwind-merge.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/react-circular-progressbar' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\react-circular-progressbar.js', but to 'Error: Can't resolve './vendor-chunks/react-circular-progressbar' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/react-circular-progressbar (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\react-circular-progressbar.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/styled-jsx' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\styled-jsx.js', but to 'Error: Can't resolve './vendor-chunks/styled-jsx' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/styled-jsx (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\styled-jsx.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/goober' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\goober.js', but to 'Error: Can't resolve './vendor-chunks/goober' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/goober (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\goober.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\_not-found\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\swc\options.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/clsx' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js', but to 'Error: Can't resolve './vendor-chunks/clsx' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/clsx (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\handle-externals.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\handle-externals.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-swc-loader.js
+ ✓ Compiled in 1680ms (1096 modules)
+ GET / 200 in 69ms
+ GET /_next/static/css/app/layout.css?v=1786375248789 404 in 62ms
+ GET /_next/static/css/app/page.css?v=1786375248789 404 in 47ms
+ ✓ Compiled in 1484ms (1096 modules)
+ GET / 200 in 64ms
+ GET /_next/static/css/app/layout.css?v=1786375277500 404 in 65ms
+ GET /_next/static/css/app/page.css?v=1786375277500 404 in 45ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, lstat 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js'
+<w> [webpack.cache.PackFileCacheStrategy/webpack.FileSystemInfo] Resolving './vendor-chunks/clsx' in C:\Users\itskr\Desktop\AuraOS\.next\server for build dependencies doesn't lead to expected result 'C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js', but to 'Error: Can't resolve './vendor-chunks/clsx' in 'C:\Users\itskr\Desktop\AuraOS\.next\server'' instead. Resolving dependencies are ignored for this path.
+<w>  at resolve commonjs file ./vendor-chunks/clsx (expected C:\Users\itskr\Desktop\AuraOS\.next\server\vendor-chunks\clsx.js)
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\webpack-runtime.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\.next\server\app\page.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\.next\server\app\page.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\require.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\server\load-components.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\utils.js
+<w>  at file dependencies C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at file C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+<w>  at resolve commonjs C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\build\webpack\loaders\next-route-loader\index.js
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 1/3...
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 2/3...
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 3/3...
+FetchError: request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+    at ClientRequest.<anonymous> (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\compiled\node-fetch\index.js:1:66159)
+    at ClientRequest.emit (node:events:509:28)
+    at emitErrorEvent (node:_http_client:109:11)
+    at TLSSocket.socketErrorListener (node:_http_client:593:5)
+    at TLSSocket.emit (node:events:509:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  type: 'system',
+  errno: 'EACCES',
+  code: 'EACCES'
+}
+ ⨯ Failed to download `Outfit` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Outfit` from Google Fonts.}
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'C:\Users\itskr\Desktop\AuraOS\.next\cache\webpack\client-development\1.pack.gz_' -> 'C:\Users\itskr\Desktop\AuraOS\.next\cache\webpack\client-development\1.pack.gz'
+ ✓ Compiled in 148.9s (2075 modules)
+ ✓ Compiled in 13.5s (2053 modules)
+ GET / 200 in 4872ms
+ GET / 200 in 198ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+request to https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap failed, reason: 
+
+Retrying 1/3...
+request to https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap failed, reason: 
+
+Retrying 2/3...
+request to https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap failed, reason: 
+
+Retrying 3/3...
+FetchError: request to https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap failed, reason: 
+    at ClientRequest.<anonymous> (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\compiled\node-fetch\index.js:1:66159)
+    at ClientRequest.emit (node:events:509:28)
+    at emitErrorEvent (node:_http_client:109:11)
+    at TLSSocket.socketErrorListener (node:_http_client:593:5)
+    at TLSSocket.emit (node:events:509:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  type: 'system',
+  errno: 'EACCES',
+  code: 'EACCES'
+}
+ ⨯ Failed to download `Plus Jakarta Sans` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Plus Jakarta Sans` from Google Fonts.}
+ ✓ Compiled in 23.9s (2075 modules)
+ ✓ Compiled in 12.6s (2053 modules)
+ GET / 200 in 2151ms
+ GET / 200 in 65ms
+ ✓ Compiled in 12.4s (2053 modules)
+ GET / 200 in 505ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+request to https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap failed, reason: 
+
+Retrying 1/3...
+request to https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap failed, reason: 
+
+Retrying 2/3...
+request to https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap failed, reason: 
+
+Retrying 3/3...
+FetchError: request to https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap failed, reason: 
+    at ClientRequest.<anonymous> (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\compiled\node-fetch\index.js:1:66159)
+    at ClientRequest.emit (node:events:509:28)
+    at emitErrorEvent (node:_http_client:109:11)
+    at TLSSocket.socketErrorListener (node:_http_client:593:5)
+    at TLSSocket.emit (node:events:509:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  type: 'system',
+  errno: 'EACCES',
+  code: 'EACCES'
+}
+ ⨯ Failed to download `Inter` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Inter` from Google Fonts.}
+ ✓ Compiled in 7.9s (2062 modules)
+ ✓ Compiled in 1805ms (1095 modules)
+ GET / 200 in 389ms
+ ✓ Compiled in 72.6s (1108 modules)
+ GET / 200 in 14158ms
+ ✓ Compiled in 12.9s (1095 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+ GET / 200 in 2230ms
+ GET / 200 in 94ms
+ ✓ Compiled in 44s (2053 modules)
+ GET / 200 in 1229ms
+ ✓ Compiled in 30.8s (2066 modules)
+ GET / 200 in 1159ms
+ ✓ Compiled in 70.4s (2246 modules)
+ GET / 200 in 59587ms
+ GET / 200 in 66ms
+ GET / 200 in 87ms
+ GET / 200 in 71ms
+ GET / 200 in 192ms
+ GET / 200 in 649ms
+ GET / 200 in 167ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 1/3...
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 2/3...
+request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+
+Retrying 3/3...
+FetchError: request to https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap failed, reason: 
+    at ClientRequest.<anonymous> (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\compiled\node-fetch\index.js:1:66159)
+    at ClientRequest.emit (node:events:509:28)
+    at emitErrorEvent (node:_http_client:109:11)
+    at TLSSocket.socketErrorListener (node:_http_client:593:5)
+    at TLSSocket.emit (node:events:509:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  type: 'system',
+  errno: 'EACCES',
+  code: 'EACCES'
+}
+ ⨯ Failed to download `Outfit` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Outfit` from Google Fonts.}
+ ✓ Compiled in 24.9s (2075 modules)
+ GET / 200 in 478ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+request to https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap failed, reason: 
+
+Retrying 1/3...
+request to https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap failed, reason: 
+
+Retrying 2/3...
+request to https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap failed, reason: 
+
+Retrying 3/3...
+FetchError: request to https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap failed, reason: 
+    at ClientRequest.<anonymous> (C:\Users\itskr\Desktop\AuraOS\node_modules\next\dist\compiled\node-fetch\index.js:1:66159)
+    at ClientRequest.emit (node:events:509:28)
+    at emitErrorEvent (node:_http_client:109:11)
+    at TLSSocket.socketErrorListener (node:_http_client:593:5)
+    at TLSSocket.emit (node:events:509:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  type: 'system',
+  errno: 'EACCES',
+  code: 'EACCES'
+}
+ ⨯ Failed to download `Poppins` from Google Fonts. Using fallback font instead.
+
+Failed to fetch `Poppins` from Google Fonts.}
+ ✓ Compiled in 145.3s (2062 modules)
+ GET / 200 in 9095ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies
+ ✓ Compiled in 12.5s (1108 modules)
+ ✓ Compiled in 1655ms (1095 modules)
+ GET / 200 in 1933ms
+ GET / 200 in 60ms
+ ✓ Compiled in 21.9s (2053 modules)
+ GET / 200 in 481ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: Unable to snapshot resolve dependencies

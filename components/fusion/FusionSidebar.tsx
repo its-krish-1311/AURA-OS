@@ -53,8 +53,8 @@ export default function FusionSidebar() {
               whileTap={{ scale: 0.98 }}
               className={`flex items-center gap-4 px-4 py-3 rounded-2xl transition-all duration-300 relative overflow-hidden ${
                 item.active 
-                  ? "bg-[rgba(168,85,247,0.15)] border border-[rgba(168,85,247,0.3)] shadow-[0_0_20px_rgba(168,85,247,0.1)]" 
-                  : "hover:bg-[rgba(255,255,255,0.03)] border border-transparent"
+                  ? "bg-[rgba(168,85,247,0.15)] border border-[rgba(168,85,247,0.4)] shadow-[0_0_25px_rgba(168,85,247,0.15)]" 
+                  : "hover:bg-[rgba(255,255,255,0.03)] border border-transparent hover:border-[rgba(255,255,255,0.05)]"
               }`}
             >
               {item.active && (
@@ -84,7 +84,7 @@ export default function FusionSidebar() {
             <span className="text-[#06B6D4]">99.8%</span>
          </div>
          <div className="w-full h-1 bg-[rgba(255,255,255,0.05)] rounded-full overflow-hidden">
-            <div className="w-[99.8%] h-full bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] shadow-[0_0_10px_#06B6D4]"></div>
+            <div className="w-[99.8%] h-full bg-gradient-to-r from-[#3B82F6] to-[#06B6D4] shadow-[0_0_15px_#06B6D4] animate-pulse"></div>
          </div>
       </div>
     </div>

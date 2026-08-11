@@ -99,7 +99,7 @@ const TypewriterGreeting = () => {
   );
 };
 
-export default function AiChatPage() {
+function AiChatContent() {
   const searchParams = useSearchParams();
   const initialQuery = searchParams.get("q");
 
@@ -172,76 +172,82 @@ export default function AiChatPage() {
   };
 
   return (
-    <main className="min-h-screen bg-transparent text-white flex flex-col h-screen overflow-hidden">
-      <div className="flex flex-1 w-full max-w-[1800px] mx-auto pt-2 px-4 pb-2 overflow-hidden">
+    <div className="flex-1 flex flex-col h-full overflow-hidden">
+      
+      <div className="flex-1 flex gap-6 py-2 overflow-hidden">
         
-        {/* Inner Content Area */}
-        <div className="flex-1 flex flex-col h-full overflow-hidden">
+        {/* Left Chat History Sidebar */}
+        <div className="hidden xl:block">
+          <ChatHistorySidebar />
+        </div>
+
+        {/* Center Chat Interface */}
+        <div className="flex-1 flex flex-col h-full relative overflow-hidden">
           
-          <div className="flex-1 flex gap-6 py-2 overflow-hidden">
-            
-            {/* Left Chat History Sidebar */}
-            <div className="hidden xl:block">
-              <ChatHistorySidebar />
+          {/* Floating Header Pill */}
+          <div className="absolute top-6 left-6 z-20">
+            <div className="krish-glass px-5 py-2 rounded-full border border-[rgba(255,255,255,0.2)] bg-gradient-to-r from-[rgba(255,255,255,0.05)] to-[rgba(168,85,247,0.15)] backdrop-blur-xl flex items-center gap-2.5 shadow-[0_0_15px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.4)] cursor-pointer hover:border-[rgba(168,85,247,0.6)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-all duration-300 group">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_12px_rgba(168,85,247,0.9)] group-hover:scale-110 transition-transform"></div>
+              <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A855F7] uppercase tracking-tight drop-shadow-[0_0_8px_rgba(168,85,247,0.3)] transition-all duration-300">SIYA AI</span>
             </div>
+          </div>
 
-            {/* Center Chat Interface */}
-            <div className="flex-1 flex flex-col h-full relative overflow-hidden">
+          {messages.length === 0 ? (
+            <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto custom-scrollbar relative">
+              <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02] pointer-events-none"></div>
               
-              {/* Floating Header Pill */}
-              <div className="absolute top-6 left-6 z-20">
-                <div className="krish-glass px-5 py-2 rounded-full border border-[rgba(255,255,255,0.2)] bg-gradient-to-r from-[rgba(255,255,255,0.05)] to-[rgba(168,85,247,0.15)] backdrop-blur-xl flex items-center gap-2.5 shadow-[0_0_15px_rgba(168,85,247,0.2),inset_0_1px_1px_rgba(255,255,255,0.4)] cursor-pointer hover:border-[rgba(168,85,247,0.6)] hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] transition-all duration-300 group">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_12px_rgba(168,85,247,0.9)] group-hover:scale-110 transition-transform"></div>
-                  <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#A855F7] uppercase tracking-tight drop-shadow-[0_0_8px_rgba(168,85,247,0.3)] transition-all duration-300">SIYA AI</span>
-                </div>
-              </div>
-
-              {messages.length === 0 ? (
-                <div className="flex-1 flex flex-col items-center justify-center p-8 overflow-y-auto custom-scrollbar relative">
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center opacity-[0.02] pointer-events-none"></div>
-                  
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.9, y: 20 }} 
-                    animate={{ opacity: 1, scale: 1, y: 0 }} 
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="krish-glass px-8 py-4 rounded-full border-2 border-[rgba(168,85,247,0.4)] bg-gradient-to-r from-[rgba(0,0,0,0.6)] to-[rgba(126,34,206,0.4)] backdrop-blur-3xl flex items-center gap-4 shadow-[0_0_40px_rgba(168,85,247,0.4),inset_0_2px_10px_rgba(255,255,255,0.2)] mb-8 hover:scale-105 transition-transform duration-300 cursor-default"
-                  >
-                    <div className="w-4 h-4 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_20px_rgba(168,85,247,1)]"></div>
-                    <span className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#D8B4FE] to-[#A855F7] uppercase tracking-widest drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">SIYA!</span>
-                  </motion.div>
-                  
-                  <TypewriterGreeting />
-                  <p className="text-sm tracking-wide font-semibold mb-12 text-center">
-                    <span className="text-gray-300 inline-block drop-shadow-sm opacity-90">
-                      I Am Your Digital Twin...
-                    </span>
-                  </p>
-                </div>
-              ) : (
-                <ChatMessageArea 
-                  messages={messages} 
-                  currentModel={currentModel} 
-                  onModelChange={setCurrentModel} 
-                  isTyping={isProcessing}
-                />
-              )}
-
-              {/* Chat Input Pinned at Bottom */}
-              <div className="p-4 shrink-0 mt-auto">
-                <AdvancedChatInput 
-                  onSendMessage={handleSendMessage} 
-                  isProcessing={isProcessing} 
-                />
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9, y: 20 }} 
+                animate={{ opacity: 1, scale: 1, y: 0 }} 
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="krish-glass px-8 py-4 rounded-full border-2 border-[rgba(168,85,247,0.4)] bg-gradient-to-r from-[rgba(0,0,0,0.6)] to-[rgba(126,34,206,0.4)] backdrop-blur-3xl flex items-center gap-4 shadow-[0_0_40px_rgba(168,85,247,0.4),inset_0_2px_10px_rgba(255,255,255,0.2)] mb-8 hover:scale-105 transition-transform duration-300 cursor-default"
+              >
+                <div className="w-4 h-4 rounded-full bg-[#A855F7] animate-pulse shadow-[0_0_20px_rgba(168,85,247,1)]"></div>
+                <span className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#D8B4FE] to-[#A855F7] uppercase tracking-widest drop-shadow-[0_0_15px_rgba(168,85,247,0.6)]">SIYA!</span>
+              </motion.div>
+              
+              <TypewriterGreeting />
+              <p className="text-sm tracking-wide font-semibold mb-12 text-center">
+                <span className="text-gray-300 inline-block drop-shadow-sm opacity-90">
+                  I Am Your Digital Twin...
+                </span>
+              </p>
             </div>
+          ) : (
+            <ChatMessageArea 
+              messages={messages} 
+              currentModel={currentModel} 
+              onModelChange={setCurrentModel} 
+              isTyping={isProcessing}
+            />
+          )}
 
-            {/* Right Workspace Sidebar */}
-            <div className="hidden 2xl:block">
-              <ChatWorkspaceSidebar />
-            </div>
-
+          {/* Chat Input Pinned at Bottom */}
+          <div className="p-4 shrink-0 mt-auto">
+            <AdvancedChatInput 
+              onSendMessage={handleSendMessage} 
+              isProcessing={isProcessing} 
+            />
           </div>
         </div>
+
+        {/* Right Workspace Sidebar */}
+        <div className="hidden 2xl:block">
+          <ChatWorkspaceSidebar />
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default function AiChatPage() {
+  return (
+    <main className="min-h-screen bg-transparent text-white flex flex-col h-screen overflow-hidden">
+      <div className="flex flex-1 w-full max-w-[1800px] mx-auto pt-2 px-4 pb-2 overflow-hidden">
+        <React.Suspense fallback={<div className="flex-1 flex items-center justify-center text-[#A855F7] animate-pulse">Loading AI Environment...</div>}>
+          <AiChatContent />
+        </React.Suspense>
       </div>
     </main>
   );

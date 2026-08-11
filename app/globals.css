@@ -23,8 +23,8 @@ body {
   color: rgb(var(--foreground-rgb));
   background-color: #06070B;
   min-height: 100vh;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  letter-spacing: -0.02em; /* Apple-style tight tracking */
+  font-family: var(--font-poppins), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0;
   overflow-x: hidden;
   position: relative;
   -webkit-font-smoothing: antialiased;
@@ -196,4 +196,46 @@ body {
 @keyframes gradient-x {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* OS-only controls inherit the active module accent without affecting the home dashboard. */
+.aura-os-shell button,
+.aura-os-shell a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.aura-os-shell button:focus-visible,
+.aura-os-shell a:focus-visible,
+.aura-os-shell input:focus-visible,
+.aura-os-shell select:focus-visible,
+.aura-os-shell textarea:focus-visible {
+  outline: 2px solid var(--os-theme);
+  outline-offset: 3px;
+}
+
+.aura-os-shell button:disabled {
+  cursor: not-allowed;
+}
+
+.aura-os-shell button.bg-white {
+  background-color: rgba(var(--os-theme-rgb), 0.18);
+  border: 1px solid rgba(var(--os-theme-rgb), 0.45);
+  box-shadow: 0 0 18px rgba(var(--os-theme-rgb), 0.22);
+  color: #ffffff;
+}
+
+.aura-os-shell button.bg-white:hover:not(:disabled) {
+  background-color: rgba(var(--os-theme-rgb), 0.28);
+  border-color: rgba(var(--os-theme-rgb), 0.7);
+}
+
+.aura-os-shell button.bg-white:disabled {
+  background-color: rgba(var(--os-theme-rgb), 0.08);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+@media (max-width: 640px) {
+  .aura-os-shell button {
+    min-height: 2.5rem;
+  }
 }

@@ -1,17 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mic, Send, MessageSquare, Eye, Upload, CheckSquare, Loader2, Plus } from "lucide-react";
+import { Mic, Send, MessageSquare, Eye, Upload, CheckSquare, Loader2, Plus, Paperclip } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-
-const PROMPTS = [
-  "Ask me anything...",
-  "Plan my trip to Bali...",
-  "Write a Python script...",
-  "Analyze my expenses...",
-  "Generate a new outfit..."
-];
+import { useActionModal } from "@/components/os-core/ActionModalContext";
 
 import { Code2 } from "lucide-react"; // Added Code2
 
@@ -22,17 +15,15 @@ interface AIInputProps {
 
 export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInputProps) {
   const router = useRouter();
+  const { openModal } = useActionModal();
   const [isFocused, setIsFocused] = useState(false);
-  const [placeholderText, setPlaceholderText] = useState("");
-  const [placeholderIndex, setPlaceholderIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  
-  // Real input state
   const [inputValue, setInputValue] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = React.useRef<any>(null);
   const latestInputRef = React.useRef("");
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const visionInputRef = React.useRef<HTMLInputElement>(null);
 
   const submitQuery = (query: string) => {
     if (!query.trim()) return;
@@ -79,7 +70,7 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
       setIsListening(false);
       if (latestInputRef.current.trim()) {
         submitQuery(latestInputRef.current);
-        latestInputRef.current = ""; // Reset after submitting
+        latestInputRef.current = "";
       }
     };
 
@@ -96,114 +87,96 @@ export default function AIInput({ onNormalChatSubmit, onAuraCodeClick }: AIInput
     submitQuery(inputValue);
   };
 
-  React.useEffect(() => {
-    if (isFocused) {
-      setPlaceholderText("Ask me anything...");
-      return;
-    }
-
-    const currentPrompt = PROMPTS[placeholderIndex];
-    if (charIndex < currentPrompt.length) {
-      const timeout = setTimeout(() => {
-        setPlaceholderText((prev) => prev + currentPrompt[charIndex]);
-        setCharIndex((prev) => prev + 1);
-      }, 40);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setPlaceholderText("");
-        setCharIndex(0);
-        setPlaceholderIndex((prev) => (prev + 1) % PROMPTS.length);
-      }, 2000);
-      return () => clearTimeout(timeout);
-    }
-  }, [charIndex, isFocused, placeholderIndex]);
-
   return (
-    <div className="w-full max-w-4xl mx-auto mb-10">
+    <div className="w-full max-w-4xl mx-auto mb-4">
       <div className="relative group mx-4">
-        {/* Animated Background Glow */}
-        <div className={`absolute -inset-1 rounded-full blur-xl transition-all duration-700 ${isFocused ? 'bg-gradient-to-r from-[rgba(126,34,206,0.1)] via-[rgba(168,85,247,0.15)] to-[rgba(126,34,206,0.1)] opacity-60 scale-[1.02]' : 'bg-gradient-to-r from-[rgba(126,34,206,0.03)] to-transparent opacity-30'}`}></div>
-        
         {/* Premium Glass Input Container */}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="relative z-10">
           <motion.div 
-            animate={isFocused ? { scale: 1.01 } : { scale: 1 }}
-            transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
-            className={`relative krish-glass rounded-full p-2 pl-4 flex items-center gap-3 transition-all duration-300 ${isFocused ? 'bg-[rgba(255,255,255,0.06)] border-[rgba(126,34,206,0.25)] shadow-[0_0_30px_rgba(126,34,206,0.1),0_0_60px_rgba(126,34,206,0.05)]' : ''}`}
+            animate={isFocused ? { scale: 1.02, y: -2 } : { scale: 1, y: 0 }}
+            transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
+            className={`relative krish-glass rounded-full p-2 pl-6 flex items-center gap-3 transition-all duration-300 bg-[rgba(10,10,10,0.6)] shadow-[0_10px_40px_rgba(0,0,0,0.5)] ${isFocused ? 'border border-[rgba(255,255,255,0.2)] shadow-[0_15px_60px_rgba(255,255,255,0.05)]' : 'border border-[rgba(255,255,255,0.08)] hover:border-[rgba(255,255,255,0.15)]'}`}
           >
-            {/* Add Attachment / Options Button */}
-            <motion.button 
-              type="button" 
-              whileHover={{ scale: 1.1, rotate: 90 }} 
-              whileTap={{ scale: 0.9 }} 
-              className="p-2 ml-1 text-gray-400 hover:text-white transition-colors"
-            >
-              <Plus className="w-6 h-6" />
-            </motion.button>
+            {/* Purple Dot */}
+            <div className="w-2 h-2 rounded-full bg-[#A855F7] shadow-[0_0_10px_rgba(168,85,247,0.8)] animate-pulse"></div>
 
-            <div className="relative flex-1 flex items-center">
-              {!inputValue && (
-                <span className="absolute left-2 pointer-events-none text-transparent bg-clip-text bg-gradient-to-r from-[#FFFFFF] to-[#A855F7] text-lg font-medium tracking-wide opacity-50">
-                  {placeholderText}
-                </span>
-              )}
+            <div className="relative flex-1 flex items-center ml-2">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                className="w-full bg-transparent border-none outline-none text-white px-2 py-3 text-lg font-medium tracking-wide relative z-10"
+                placeholder="Ask me anything..."
+                className="w-full bg-transparent border-none outline-none text-white px-2 py-3 text-[15px] font-medium tracking-wide placeholder:text-gray-500"
               />
             </div>
-            <motion.button 
-              type="button" 
-              onClick={toggleListening}
-              whileHover={{ scale: 1.1, rotate: 10 }} 
-              whileTap={{ scale: 0.9 }} 
-              className={`p-3 transition-colors ${isListening ? 'text-red-500 animate-pulse drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]' : 'text-gray-300 hover:text-accentLight'}`}
-            >
-              <Mic className={`w-6 h-6 transition-all duration-300 ${!isListening && isFocused ? 'drop-shadow-[0_0_10px_rgba(126,34,206,0.5)] text-accentLight' : ''}`} />
-            </motion.button>
+
+            {/* Inline Action Icons */}
+            <div className="flex items-center gap-1 mr-2">
+              <motion.button 
+                type="button" 
+                onClick={toggleListening}
+                whileHover={{ scale: 1.1 }} 
+                whileTap={{ scale: 0.9 }} 
+                className={`p-2.5 rounded-full hover:bg-[rgba(255,255,255,0.05)] transition-colors ${isListening ? 'text-red-500' : 'text-gray-400 hover:text-white'}`}
+              >
+                <Mic className="w-[18px] h-[18px]" />
+              </motion.button>
+              
+              <motion.button 
+                type="button" 
+                onClick={() => visionInputRef.current?.click()}
+                whileHover={{ scale: 1.1 }} 
+                whileTap={{ scale: 0.9 }} 
+                className="p-2.5 rounded-full text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+              >
+                <Eye className="w-[18px] h-[18px]" />
+              </motion.button>
+
+              <motion.button 
+                type="button" 
+                onClick={() => fileInputRef.current?.click()}
+                whileHover={{ scale: 1.1 }} 
+                whileTap={{ scale: 0.9 }} 
+                className="p-2.5 rounded-full text-gray-400 hover:text-white hover:bg-[rgba(255,255,255,0.05)] transition-colors"
+              >
+                <Paperclip className="w-[18px] h-[18px]" />
+              </motion.button>
+            </div>
+
+            {/* Ask Aura Button */}
             <motion.button 
               type="submit"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               disabled={isProcessing}
-              className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black shadow-[0_0_15px_rgba(255,255,255,0.3)] disabled:opacity-50 hover:bg-gray-200 transition-colors mr-2 shrink-0"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-gradient-to-r from-[#7E22CE] to-[#A855F7] h-12 px-6 rounded-full text-sm font-bold text-white shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] transition-all flex items-center justify-center gap-2 group shrink-0"
             >
               {isProcessing ? (
-                <Loader2 className="w-5 h-5 animate-spin relative z-10" />
+                <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <Send className="w-5 h-5 relative z-10" />
+                <>
+                  Ask Siya
+                  <Send className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </>
               )}
             </motion.button>
           </motion.div>
         </form>
       </div>
 
-      {/* Quick Actions */}
-      <div className="flex justify-center items-center gap-8 mt-6 px-4">
-        {[
-          { icon: MessageSquare, label: "Voice Chat", action: () => {} },
-          { icon: Eye, label: "AI Vision", action: () => {} },
-          { icon: Upload, label: "Upload File", action: () => {} },
-          { icon: Code2, label: "Aura Code", action: onAuraCodeClick },
-        ].map((item, idx) => (
-          <motion.button 
-            key={idx}
-            onClick={item.action}
-            type="button"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 text-sm text-gray-100 font-semibold tracking-wide hover:text-white transition-colors group"
-          >
-            <item.icon className="w-4 h-4 text-gray-300 group-hover:text-accentLight drop-shadow-[0_0_5px_rgba(126,34,206,0)] group-hover:drop-shadow-[0_0_10px_rgba(126,34,206,0.5)] transition-all" /> 
-            <span className="group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-accentLight transition-all duration-300">{item.label}</span>
-          </motion.button>
-        ))}
-      </div>
+      {/* Hidden File Inputs */}
+      <input type="file" ref={fileInputRef} className="hidden" onChange={(e) => {
+        if(e.target.files && e.target.files.length > 0) {
+          import('react-hot-toast').then(({ toast }) => toast.success(`File selected: ${e.target.files![0].name}`));
+        }
+      }} />
+      <input type="file" ref={visionInputRef} accept="image/*" capture="environment" className="hidden" onChange={(e) => {
+        if(e.target.files && e.target.files.length > 0) {
+          import('react-hot-toast').then(({ toast }) => toast.success(`Image selected for AI Vision!`));
+        }
+      }} />
     </div>
   );
 }
