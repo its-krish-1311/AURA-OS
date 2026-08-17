@@ -22,13 +22,33 @@ model User {
   accounts        Account[]
   sessions        Session[]
   workspaceMember WorkspaceMember[]
+  conversations   Conversation[]
+  memories        Memory[]
+  knowledgeSources KnowledgeSource[]
+  siyaSetting     SiyaSetting?
 }
 
-enum Role {
-  OWNER
-  ADMIN
-  MEMBER
+model Conversation {
+  id        String    @id @default(cuid())
+  userId    String
+  title     String    @default("New Chat")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  role           String       // 'user', 'assistant', 'system', 'data'
+  content        String
+  createdAt      DateTime     @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
 
 model Workspace {
   id               String            @id @default(cuid())
@@ -46,7 +66,7 @@ model WorkspaceMember {
   id          String    @id @default(cuid())
   workspaceId String
   userId      String
-  role        Role      @default(MEMBER)
+  role        String    @default("MEMBER")
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
@@ -88,12 +108,12 @@ model Account {
   type               String
   provider           String
   providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
+  refresh_token      String?
+  access_token       String?
   expires_at         Int?
   token_type         String?
   scope              String?
-  id_token           String?  @db.Text
+  id_token           String?
   session_state      String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -123,4 +143,48 @@ model OTP {
   code      String
   expiresAt DateTime
   createdAt DateTime @default(now())
+}
+
+model Memory {
+  id         String   @id @default(cuid())
+  userId     String
+  content    String
+  category   String   // 'Personal', 'Preference', 'Goal', 'Instruction', 'Project', 'Knowledge', 'Other'
+  importance String   @default("Medium") // 'Low', 'Medium', 'High', 'Permanent'
+  confidence Float    @default(1.0)
+  source     String   @default("Manual Training")
+  isActive   Boolean  @default(true)
+  embedding  String?  // JSON stringified Float array for SQLite cosine similarity
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model KnowledgeSource {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  type        String   // 'PDF', 'TXT', 'DOCX', etc.
+  size        Int      // bytes
+  status      String   @default("Uploaded") // 'Uploaded', 'Processing', 'Indexed', 'Failed'
+  chunkCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SiyaSetting {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  memoryEnabled        Boolean  @default(true)
+  autoMemory           Boolean  @default(true)
+  askBeforeRemembering Boolean  @default(false)
+  useMemoriesInChat    Boolean  @default(true)
+  responseStyle        String   @default("Balanced")
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

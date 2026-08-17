@@ -1,24 +1,15 @@
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
-import Groq from "groq-sdk";
-import { z } from "zod";
+import { createOpenAI } from '@ai-sdk/openai';
+import { streamText, generateId } from 'ai';
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
+import { prisma } from "@/lib/prisma";
 
-// Basic in-memory rate limiter for prototype
+export const dynamic = 'force-dynamic';
+
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS = 10; // 10 requests per minute
-
-const chatRequestSchema = z.object({
-  messages: z.array(
-    z.object({
-      role: z.enum(["user", "assistant", "system"]),
-      content: z.string().min(1).max(10000)
-    })
-  ).min(1).max(50),
-  mode: z.enum(["builder", "normal"]).optional().default("builder")
-});
+const MAX_REQUESTS = 20;
 
 const BUILDER_SYSTEM_PROMPT = `You are Aura Code, an elite digital twin and software builder.
 
@@ -57,18 +48,18 @@ export default function App() {
 \`\`\`
 `;
 
-const NORMAL_SYSTEM_PROMPT = `You are Aura AI, an elite digital assistant. You are highly intelligent, friendly, and conversational.
+const NORMAL_SYSTEM_PROMPT = `You are Siya AI, an elite digital assistant. You are highly intelligent, friendly, and conversational.
 Answer the user's questions clearly and concisely. You do NOT need to generate React applications unless explicitly asked. Provide normal text responses.`;
 
 export async function POST(req: Request) {
   try {
-    // 0. Authentication Check
     const session = await getServerSession(authOptions);
-    if (!session) {
+    const userId = session?.user?.id || (process.env.NODE_ENV === "development" ? "local-dev-user-id" : null);
+
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized. Please log in to use AuraOS AI features." }, { status: 401 });
     }
 
-    // 1. Rate Limiting Check (using IP from headers)
     const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
     const now = Date.now();
     const rateData = rateLimitMap.get(ip);
@@ -82,157 +73,282 @@ export async function POST(req: Request) {
       rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
     }
 
-    // 2. Input Validation
-    const body = await req.json().catch(() => ({}));
-    const parseResult = chatRequestSchema.safeParse(body);
+    const { messages, mode, conversationId } = await req.json();
     
-    if (!parseResult.success) {
-      return NextResponse.json({ error: "Invalid request data", details: parseResult.error.format() }, { status: 400 });
+    let baseSystemPrompt = NORMAL_SYSTEM_PROMPT;
+    switch (mode) {
+      case "Developer Siya":
+      case "AI Engineer Mode":
+      case "builder":
+        baseSystemPrompt = BUILDER_SYSTEM_PROMPT;
+        break;
+      case "Designer Siya":
+        baseSystemPrompt = "You are Designer Siya, an elite UI/UX AI assistant. Focus on aesthetics, accessibility, color theory, and responsive design. Provide detailed CSS and Tailwind suggestions.";
+        break;
+      case "Siya Think":
+        baseSystemPrompt = "You are Siya Think, an analytical and philosophical AI. Break problems down step-by-step using first principles. Provide deep, reasoned insights.";
+        break;
+      case "Startup Siya":
+        baseSystemPrompt = "You are Startup Siya, a ruthless and brilliant business strategist. Give advice on product-market fit, growth hacking, and venture capital.";
+        break;
+      case "Siya Personal":
+        baseSystemPrompt = "You are Siya Personal, an empathetic and supportive digital companion. Listen carefully and offer warm, encouraging, and helpful advice.";
+        break;
+    }
+    
+    const SYSTEM_PROMPT = baseSystemPrompt;
+
+    let currentConversationId = conversationId;
+    let finalSystemPrompt = SYSTEM_PROMPT;
+
+    // Save the user message to the DB
+    if (messages.length > 0) {
+      const lastUserMessage = messages[messages.length - 1];
+      
+      // Auto-create local dev user if missing
+      if (userId === "local-dev-user-id") {
+        const userExists = await prisma.user.findUnique({ where: { id: userId } });
+        if (!userExists) {
+          await prisma.user.create({
+            data: { id: userId, name: "Local Dev User", email: "dev@local.host" }
+          });
+        }
+      }
+
+      // Memory Retrieval Engine
+      try {
+        const settings = await prisma.siyaSetting.findUnique({ where: { userId } });
+        if (!settings || settings.memoryEnabled !== false) {
+          const { generateEmbedding, cosineSimilarity } = await import("@/lib/memory/embeddings");
+          const queryVector = await generateEmbedding(lastUserMessage.content);
+          
+          if (queryVector.length > 0) {
+            const activeMemories = await prisma.memory.findMany({
+              where: { userId, isActive: true },
+              select: { content: true, category: true, importance: true, embedding: true }
+            });
+            
+            const scoredMemories = activeMemories
+              .filter(m => m.embedding)
+              .map(m => {
+                const vec = JSON.parse(m.embedding!);
+                return { ...m, score: cosineSimilarity(queryVector, vec) };
+              })
+              .filter(m => m.score > 0.5) // Threshold
+              .sort((a, b) => b.score - a.score)
+              .slice(0, 5); // Top 5
+            
+            if (scoredMemories.length > 0) {
+              const memoryContext = scoredMemories.map(m => `- [${m.category}] ${m.content}`).join("\n");
+              finalSystemPrompt += `\n\n<SIYA_MEMORY>\nThe following context are explicitly taught memories and preferences about the user. Adhere to them strictly when formulating your response:\n${memoryContext}\n</SIYA_MEMORY>`;
+            }
+          }
+        }
+        
+        if (settings?.responseStyle && settings.responseStyle !== "Balanced") {
+           finalSystemPrompt += `\n\nUser explicitly prefers a response style that is: ${settings.responseStyle}.`;
+        }
+      } catch (memErr) {
+        console.error("Memory Engine Error in Chat:", memErr);
+      }
+
+      // If no conversation ID, create one
+      if (!currentConversationId) {
+        const title = lastUserMessage.content.substring(0, 40) + (lastUserMessage.content.length > 40 ? "..." : "");
+        const newConversation = await prisma.conversation.create({
+          data: {
+            userId,
+            title,
+          }
+        });
+        currentConversationId = newConversation.id;
+      }
+
+      // Ensure the conversation actually exists for this user (prevent injecting messages into others' chats)
+      const convCheck = await prisma.conversation.findFirst({
+        where: { id: currentConversationId, userId }
+      });
+
+      if (convCheck) {
+        await prisma.message.create({
+          data: {
+            conversationId: currentConversationId,
+            role: "user",
+            content: lastUserMessage.content,
+          }
+        });
+      } else {
+         return NextResponse.json({ error: "Invalid conversation ID." }, { status: 400 });
+      }
     }
 
-    const { messages, mode } = parseResult.data;
-    const SYSTEM_PROMPT = mode === 'normal' ? NORMAL_SYSTEM_PROMPT : BUILDER_SYSTEM_PROMPT;
-
-    // Security: Limit history to last 20 messages to prevent context exhaustion and massive payload attacks
     const formattedHistory = messages.slice(-20).map((msg: any) => ({
       role: (msg.role === "user" ? "user" : "assistant") as "user" | "assistant",
       content: msg.content,
     }));
 
-    const builderPriority = ["anthropic", "openai", "groq", "gemini", "github", "openrouter", "cohere", "huggingface", "pollinations"];
-    const normalPriority = ["groq", "gemini", "anthropic", "openai", "github", "openrouter", "cohere", "huggingface", "pollinations"];
-    const priority = mode === 'builder' ? builderPriority : normalPriority;
-
-    for (const provider of priority) {
-      try {
-        if (provider === "anthropic" && process.env.ANTHROPIC_API_KEY) {
-          const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: {
-              "x-api-key": process.env.ANTHROPIC_API_KEY,
-              "anthropic-version": "2023-06-01",
-              "content-type": "application/json"
-            },
-            body: JSON.stringify({
-              model: "claude-3-haiku-20240307",
-              system: SYSTEM_PROMPT,
-              messages: formattedHistory,
-              max_tokens: 4000
-            })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            return NextResponse.json({ text: data.content[0].text, provider: "anthropic" });
-          }
-          console.warn(`[Anthropic] API returned ${response.status}`);
-        }
-
-        if (provider === "openai" && process.env.OPENAI_API_KEY) {
-          const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-          const response = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
-            messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory],
-            temperature: 0.7,
-          });
-          return NextResponse.json({ text: response.choices[0]?.message?.content || "", provider: "openai" });
-        }
-
-        if (provider === "groq" && process.env.GROQ_API_KEY) {
-          const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST",
-            headers: { "Authorization": `Bearer ${process.env.GROQ_API_KEY}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: "llama-3.1-8b-instant",
-              messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory],
-              temperature: 0.7
-            })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            return NextResponse.json({ text: data.choices[0]?.message?.content || "", provider: "groq" });
-          }
-          console.warn(`[Groq] API returned ${response.status}: ${response.statusText}`);
-        }
-
-        if (provider === "gemini" && process.env.GEMINI_API_KEY) {
-          const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`, {
-            method: "POST", headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              contents: formattedHistory.map((m: any) => ({ role: m.role === "user" ? "user" : "model", parts: [{ text: m.content }] })),
-              systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] }
-            })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            return NextResponse.json({ text: data.candidates?.[0]?.content?.parts?.[0]?.text || "", provider: "gemini" });
-          }
-          console.warn(`[Gemini] API returned ${response.status}`);
-        }
-
-        if (provider === "github" && process.env.GITHUB_TOKEN) {
-          const openai = new OpenAI({ apiKey: process.env.GITHUB_TOKEN, baseURL: "https://models.inference.ai.azure.com" });
-          const response = await openai.chat.completions.create({
-            model: "gpt-4o-mini", messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory], temperature: 0.7, max_tokens: 4000,
-          });
-          return NextResponse.json({ text: response.choices[0]?.message?.content || "", provider: "github" });
-        }
-
-        if (provider === "openrouter" && process.env.OPENROUTER_API_KEY) {
-          const openai = new OpenAI({ apiKey: process.env.OPENROUTER_API_KEY, baseURL: "https://openrouter.ai/api/v1" });
-          const response = await openai.chat.completions.create({
-            model: "meta-llama/llama-3-8b-instruct:free", messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory], temperature: 0.7,
-          });
-          return NextResponse.json({ text: response.choices[0]?.message?.content || "", provider: "openrouter" });
-        }
-
-        if (provider === "cohere" && process.env.COHERE_API_KEY) {
-          const response = await fetch("https://api.cohere.ai/v1/chat", {
-            method: "POST", headers: { "Authorization": `Bearer ${process.env.COHERE_API_KEY}`, "Content-Type": "application/json" },
-            body: JSON.stringify({
-              model: "command-r-plus", message: formattedHistory[formattedHistory.length - 1].content, preamble: SYSTEM_PROMPT,
-              chat_history: formattedHistory.slice(0, -1).map((m: any) => ({ role: m.role === "user" ? "USER" : "CHATBOT", message: m.content }))
-            })
-          });
-          if (response.ok) {
-            const data = await response.json();
-            return NextResponse.json({ text: data.text, provider: "cohere" });
-          }
-          console.warn(`[Cohere] API returned ${response.status}`);
-        }
-
-        if (provider === "huggingface" && process.env.HUGGINGFACE_API_KEY) {
-          const openai = new OpenAI({ apiKey: process.env.HUGGINGFACE_API_KEY, baseURL: "https://api-inference.huggingface.co/v1" });
-          const response = await openai.chat.completions.create({
-            model: "meta-llama/Meta-Llama-3-8B-Instruct", messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory], temperature: 0.7,
-          });
-          return NextResponse.json({ text: response.choices[0]?.message?.content || "", provider: "huggingface" });
-        }
-
-        if (provider === "pollinations") {
-          const openai = new OpenAI({ baseURL: "https://text.pollinations.ai/openai", apiKey: "dummy-key", timeout: 5000 });
-          const response = await openai.chat.completions.create({
-            model: "openai",
-            messages: [{ role: "system", content: SYSTEM_PROMPT }, ...formattedHistory],
-            temperature: 0.7,
-          });
-          return NextResponse.json({ text: response.choices[0]?.message?.content || "", provider: "pollinations" });
-        }
-
-      } catch (err: any) {
-        console.warn(`[${provider}] Attempt failed: ${err.message}`);
-      }
+    if (!process.env.NVIDIA_API_KEY || !process.env.GROQ_API_KEY) {
+      return NextResponse.json({ error: "API Keys are not configured." }, { status: 500 });
     }
 
-    // If all fail or no keys exist
-    return NextResponse.json(
-      { error: "AI Services unavailable. All configured providers failed or no valid API keys were found in .env." },
-      { status: 503 }
-    );
+    const abortController = new AbortController();
+    let timeoutId: NodeJS.Timeout | undefined;
+
+    // Clean up function to save assistant message
+    const saveAssistantMessage = async (content: string) => {
+      try {
+        if (currentConversationId && content.trim() !== '') {
+          await prisma.message.create({
+            data: {
+              conversationId: currentConversationId,
+              role: "assistant",
+              content: content,
+            }
+          });
+          // Update conversation updated_at
+          await prisma.conversation.update({
+            where: { id: currentConversationId },
+            data: { updatedAt: new Date() }
+          });
+        }
+      } catch (err) {
+        console.error("Failed to save assistant message", err);
+      }
+    };
+
+    req.signal.addEventListener('abort', () => {
+      abortController.abort();
+    });
+
+    try {
+      timeoutId = setTimeout(() => {
+        abortController.abort();
+      }, 10000);
+      
+      const nvidiaResponse = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.NVIDIA_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: process.env.NVIDIA_MODEL || 'nvidia/nemotron-3-nano-omni-30b-a3b-reasoning',
+          messages: [{ role: "system", content: finalSystemPrompt }, ...formattedHistory],
+          temperature: 0.6,
+          top_p: 0.95,
+          max_tokens: parseInt(process.env.NVIDIA_MAX_TOKENS || '65536'),
+          ...(process.env.NVIDIA_MODEL?.includes('reasoning') ? { reasoning_budget: parseInt(process.env.NVIDIA_REASONING_BUDGET || '16384') } : {}),
+          stream: true
+        }),
+        signal: abortController.signal
+      });
+
+      if (!nvidiaResponse.ok) {
+        throw new Error(`NVIDIA API Error: ${nvidiaResponse.status}`);
+      }
+
+      clearTimeout(timeoutId);
+
+      const stream = new ReadableStream({
+        async start(controller) {
+          const reader = nvidiaResponse.body?.getReader();
+          if (!reader) {
+            controller.close();
+            return;
+          }
+          const decoder = new TextDecoder();
+          let buffer = '';
+          let isReasoning = false;
+          let hasFinishedReasoning = false;
+          let fullResponse = '';
+          
+          try {
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) {
+                // Done reading
+                // We send a custom event containing the conversation ID so the frontend can update URL if it was a new chat
+                const meta = JSON.stringify({ conversationId: currentConversationId });
+                controller.enqueue(new TextEncoder().encode(`\n\n[META:${meta}]`));
+                break;
+              }
+              
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split('\n');
+              buffer = lines.pop() || '';
+              
+              for (const line of lines) {
+                if (line.startsWith('data: ') && line !== 'data: [DONE]') {
+                  try {
+                    const data = JSON.parse(line.slice(6));
+                    const delta = data.choices[0]?.delta;
+                    
+                    if (delta?.reasoning_content) {
+                      if (!isReasoning) {
+                        isReasoning = true;
+                      }
+                    }
+                    
+                    if (delta?.content) {
+                      if (isReasoning && !hasFinishedReasoning) {
+                        hasFinishedReasoning = true;
+                      }
+                      fullResponse += delta.content;
+                      controller.enqueue(new TextEncoder().encode(delta.content));
+                    }
+                  } catch (e) {
+                    // ignore parse errors for partial chunks
+                  }
+                }
+              }
+            }
+          } catch (err: any) {
+            if (err.name === 'AbortError') {
+              console.log("Client aborted the stream. Saving partial response.");
+            } else {
+              console.error("Stream reading error:", err);
+            }
+          } finally {
+            await saveAssistantMessage(fullResponse);
+            controller.close();
+          }
+        }
+      });
+
+      return new Response(stream, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Transfer-Encoding': 'chunked',
+        },
+      });
+      
+    } catch (fallbackError) {
+      if (timeoutId) clearTimeout(timeoutId);
+      console.warn("Nemotron failed or timed out, falling back to Groq Llama 3", fallbackError);
+      
+      const groqOpenAI = createOpenAI({
+        apiKey: process.env.GROQ_API_KEY,
+        baseURL: 'https://api.groq.com/openai/v1',
+      });
+      const groqResult = await streamText({
+        model: groqOpenAI('mixtral-8x7b-32768'),
+        system: finalSystemPrompt,
+        messages: formattedHistory,
+        temperature: 0.7,
+      });
+      
+      return new Response(groqResult.textStream, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Transfer-Encoding': 'chunked',
+        },
+      });
+    }
 
   } catch (error: any) {
     console.error("Chat API General Error:", error);
     return NextResponse.json(
-      { error: "An unexpected error occurred processing your request." },
+      { error: "An unexpected error occurred processing your request.", details: error.message, stack: error.stack },
       { status: 500 }
     );
   }

@@ -16,8 +16,20 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Krish OS",
-  description: "AI Operating System Dashboard",
+  title: "Aura OS | AI Operating System",
+  description: "Elevate your daily workflow with an intelligent operating system that does the heavy lifting for you.",
+  openGraph: {
+    title: "Aura OS | AI Operating System",
+    description: "Elevate your daily workflow with an intelligent operating system that does the heavy lifting for you.",
+    type: "website",
+    locale: "en_US",
+    siteName: "Aura OS",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aura OS | AI Operating System",
+    description: "Elevate your daily workflow with an intelligent operating system that does the heavy lifting for you.",
+  },
 };
 
 export default function RootLayout({

@@ -1,3 +1,6 @@
+@import url('https://fonts.cdnfonts.com/css/ethnocentric');
+@import url('https://db.onlinewebfonts.com/c/5e7e5b88452bacd9f8b087c3223619b5?family=Ethnocentric+V2');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,7 +9,22 @@
   --background: #04060B;
   --foreground: #ffffff;
   
-  /* Global Theme Defaults (Purple) */
+  /* Unified Theme Engine - Core Backgrounds (Graphite Glass Theme) */
+  --bg-base: transparent;           /* Completely clear to show LivingBackground */
+  --bg-surface: rgba(18, 18, 20, 0.45); /* Translucent iPhone Graphite Surface */
+  --bg-surface-elevated: rgba(28, 28, 30, 0.55); /* Elevated glass */
+  --bg-surface-hover: rgba(40, 40, 45, 0.6);
+  
+  /* Unified Theme Engine - Borders */
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-strong: rgba(255, 255, 255, 0.1);
+  
+  /* Unified Theme Engine - Accents (Aura OS Default: Purple) */
+  --accent-primary: #A855F7;
+  --accent-secondary: #9333EA;
+  --accent-glow: rgba(168, 85, 247, 0.3);
+  
+  /* Legacy specific OS colors for compatibility */
   --theme-color: #A855F7;
   --theme-color-dark: #7E22CE;
   --theme-rgb: 168, 85, 247;
@@ -17,6 +35,13 @@
   --royal-blue: 92, 114, 150;
   --electric-blue: 120, 145, 180;
   --gold: 200, 210, 225;
+}
+
+/* Isolated Chat Bot Theme Scope */
+.theme-chat-bot {
+  --accent-primary: #FFFFFF;
+  --accent-secondary: #AAAAAA;
+  --accent-glow: rgba(255, 255, 255, 0.15);
 }
 
 body {
@@ -31,6 +56,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.font-ethno {
+  font-family: 'Ethnocentric Rg', sans-serif !important;
+}
+
 /* 
   ========================================================================
   KRISH GLASS — iOS 26 LIQUID GLASS SYSTEM (GRAPHITE/SLATE)
@@ -41,17 +70,16 @@ body {
   position: relative;
   background: linear-gradient(
     145deg,
-    rgba(35, 40, 55, 0.4) 0%,
-    rgba(20, 25, 35, 0.2) 50%,
-    rgba(15, 20, 30, 0.3) 100%
+    rgba(30, 30, 30, 0.4) 0%,
+    rgba(15, 15, 15, 0.2) 50%,
+    rgba(10, 10, 10, 0.3) 100%
   );
-  background-color: rgba(25, 30, 45, 0.2);
+  background-color: rgba(20, 20, 20, 0.2);
   backdrop-filter: blur(60px) saturate(180%) brightness(1.1);
   -webkit-backdrop-filter: blur(60px) saturate(180%) brightness(1.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.4),
-    inset 0 1px 1px rgba(255, 255, 255, 0.15),
     inset 0 -1px 1px rgba(255, 255, 255, 0.02);
   transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   overflow: hidden;
@@ -71,42 +99,12 @@ body {
   z-index: -1;
 }
 
-/* Subtle Shimmer Sweep */
-.krish-glass::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: 
-    linear-gradient(105deg, 
-      transparent 30%, 
-      rgba(255, 255, 255, 0.05) 45%, 
-      rgba(255, 255, 255, 0.1) 50%, 
-      rgba(255, 255, 255, 0.05) 55%, 
-      transparent 70%
-    );
-  pointer-events: none;
-  z-index: 1;
-  opacity: 0;
-  transform: translateX(-100%) translateZ(0);
-  transition: opacity 0.5s;
-}
-
+/* Removed shimmer sweep to prevent whitish flash on hover */
 .krish-glass:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
   box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    inset 0 2px 2px rgba(255, 255, 255, 0.25);
+    0 30px 60px rgba(0, 0, 0, 0.5);
 }
-
-.krish-glass:hover::after {
-  opacity: 1;
-  animation: sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-}
-
-/* PREMIUM GLASS */
 .krish-glass-premium {
   position: relative;
   background: linear-gradient(
@@ -238,4 +236,11 @@ body {
   .aura-os-shell button {
     min-height: 2.5rem;
   }
+}
+
+/* Global Buttery Button Interactions */
+button:active:not(:disabled), 
+a:active:not(.no-scale) {
+  transform: scale(0.96) !important;
+  transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }

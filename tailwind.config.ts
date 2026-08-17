@@ -9,6 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // ═══ THEME ENGINE VARIABLES ═══
+        base: "var(--bg-base)",
+        surface: "var(--bg-surface)",
+        elevated: "var(--bg-surface-elevated)",
+        surfaceHover: "var(--bg-surface-hover)",
+        borderSubtle: "var(--border-subtle)",
+        borderStrong: "var(--border-strong)",
+        accentPrimary: "var(--accent-primary)",
+        accentSecondary: "var(--accent-secondary)",
+        
         // ═══ KRISH OS LUXURY PALETTE ═══
         primary: "#04060B",         // Midnight Black
         secondary: "#081B33",       // Deep Space Navy
@@ -17,7 +27,6 @@ const config: Config = {
 
         // Accent Blues (icon-matched)
         accent: "#F8FAFC",          // Pearl White
-        accentSecondary: "#2563EB", // Royal Blue
         accentLight: "#3B82F6",     // Electric Blue
         accentGlow: "#4DA6FF",      // Azure Glow
         accentCyan: "#00E5FF",      // Neon Cyan

@@ -15,8 +15,8 @@ export const ThemeEngine = {
   }),
   
   getGlassmorphism: () => ({
-    base: "bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:bg-[rgba(255,255,255,0.05)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.2)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all duration-300",
-    premium: "bg-[rgba(10,10,10,0.4)] border border-[rgba(255,255,255,0.05)] shadow-[0_4px_20px_rgba(0,0,0,0.2)] hover:bg-[rgba(255,255,255,0.05)] hover:backdrop-blur-3xl hover:border-[rgba(168,85,247,0.3)] hover:shadow-[0_4px_30px_rgba(168,85,247,0.2)] transition-all duration-300",
+    base: "krish-glass backdrop-blur-3xl bg-[rgba(10,10,10,0.6)] border border-[rgba(255,255,255,0.05)]",
+    premium: "krish-glass border border-[rgba(168,85,247,0.3)] bg-[rgba(10,10,10,0.8)] backdrop-blur-3xl shadow-[0_4px_30px_rgba(168,85,247,0.1)]",
   }),
   
   getPhysics: () => ({

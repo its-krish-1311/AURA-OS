@@ -36,7 +36,7 @@ export default function QuickAccess() {
                 whileHover={{ scale: 1.03, y: -6 }}
                 whileTap={{ scale: 0.96 }}
                 transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
-                className="krish-glass rounded-3xl p-5 flex flex-col justify-between cursor-pointer group relative overflow-hidden z-10 transition-all duration-300 w-full h-[180px] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.2)] bg-[rgba(10,10,10,0.4)] hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
+                className="krish-glass rounded-3xl p-5 flex flex-col justify-between cursor-pointer group relative overflow-hidden z-10 transition-all duration-300 w-full h-[180px] border border-[rgba(255,255,255,0.05)] hover:border-[rgba(255,255,255,0.2)] bg-transparent hover:bg-[rgba(255,255,255,0.05)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.4)] shadow-[0_4px_20px_rgba(0,0,0,0.2)]"
               >
                 {/* Top Row: Icon & Arrow */}
                 <div className="flex justify-between items-start w-full">

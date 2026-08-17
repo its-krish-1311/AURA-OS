@@ -40,7 +40,7 @@ export default function Sidebar() {
       initial={{ x: -50, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: "spring" as const, stiffness: 100, damping: 20 }}
-      className="w-[260px] flex-shrink-0 flex flex-col py-6 px-4 sticky top-[20px] rounded-[32px] krish-glass z-40 border border-[rgba(255,255,255,0.05)] bg-[rgba(10,10,10,0.4)] hover:bg-[rgba(255,255,255,0.02)] hover:backdrop-blur-3xl hover:border-[rgba(255,255,255,0.1)] transition-all duration-300 shadow-[0_0_40px_rgba(0,0,0,0.5)]"
+      className="w-[260px] flex-shrink-0 flex flex-col py-6 px-4 sticky top-[20px] rounded-[32px] krish-glass z-40 border border-[rgba(255,255,255,0.05)] bg-transparent shadow-[0_0_40px_rgba(0,0,0,0.5)]"
     >
       {/* Corner Reflection — Top Right — Black Glow */}
       <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.4),transparent_70%)] pointer-events-none mix-blend-multiply rounded-tr-[32px]"></div>

@@ -1,15 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import crypto from "crypto";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
   try {
@@ -46,9 +40,9 @@ export async function POST(req: Request) {
     });
 
     // Await the email send to guarantee 100% reliability in Production/Vercel
-    if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-      await transporter.sendMail({
-        from: `"Aura OS" <${process.env.GMAIL_USER}>`,
+    if (process.env.RESEND_API_KEY) {
+      const { data, error } = await resend.emails.send({
+        from: 'Aura OS <onboarding@resend.dev>', // Change to your verified domain e.g., no-reply@yourdomain.com
         to: email,
         subject: "Your Aura OS Verification Code",
         html: `
@@ -62,6 +56,11 @@ export async function POST(req: Request) {
           </div>
         `,
       });
+
+      if (error) {
+        console.error("Resend Error:", error);
+        return NextResponse.json({ error: "Failed to send OTP email via Resend" }, { status: 500 });
+      }
     } else {
       console.log(`[DEV MODE] Simulated OTP for ${email}: ${code}`);
     }
@@ -69,6 +68,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: "OTP sent successfully" }, { status: 200 });
   } catch (error: any) {
     console.error("OTP Error:", error);
-    return NextResponse.json({ error: "Failed to send OTP" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to process OTP request" }, { status: 500 });
   }
 }

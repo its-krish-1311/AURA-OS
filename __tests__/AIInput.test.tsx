@@ -13,6 +13,13 @@ jest.mock('@/components/os-core/ActionModalContext', () => ({
   useActionModal: () => ({ openModal: jest.fn() }),
 }));
 
+jest.mock('@/components/dashboard/DashboardContext', () => ({
+  useDashboardContext: () => ({ 
+    activeChatMode: 'normal',
+    setActiveChatMode: jest.fn()
+  }),
+}));
+
 describe('AIInput Component', () => {
   it('renders correctly', () => {
     render(<AIInput />);
@@ -34,7 +41,7 @@ describe('AIInput Component', () => {
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'Hello Aura' } });
     
-    fireEvent.click(screen.getByRole('button', { name: /send message/i }));
-    expect(mockPush).toHaveBeenCalledWith('/ai-chat?q=Hello%20Aura');
+    fireEvent.click(screen.getByRole('button', { name: /ask siya/i }));
+    expect(mockPush).toHaveBeenCalledWith('/dashboard/chat?q=Hello%20Aura');
   });
 });

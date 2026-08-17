@@ -39,7 +39,7 @@ export default function DashboardLayout({
         '--theme-rgb': themeRgb,
         '--theme-rgb-dark': themeRgbDark,
       } as React.CSSProperties}
-      className="min-h-screen bg-[#04060B] overflow-x-hidden relative flex flex-col pb-16 transition-colors duration-1000"
+      className="min-h-screen bg-base overflow-x-hidden relative flex flex-col pb-16 transition-colors duration-1000"
     >
       <div className="flex w-full max-w-[1600px] mx-auto relative pt-4 px-2">
         

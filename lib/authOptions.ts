@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
         const email = credentials.email.toLowerCase();
 
         const user = await prisma.user.findFirst({
-          where: { email, isDeleted: false }
+          where: { email }
         });
 
         if (!user || !user.password) {
@@ -68,8 +68,22 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    }
+  },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "/",
+    signIn: "/auth",
   },
 };

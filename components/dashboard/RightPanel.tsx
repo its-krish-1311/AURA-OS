@@ -26,6 +26,7 @@ export default function RightPanel() {
   const { openModal } = useActionModal();
   const [progress, setProgress] = useState(0);
   const [currentHour, setCurrentHour] = useState("11:42");
+  const [currentSeconds, setCurrentSeconds] = useState("00");
   const [currentPeriod, setCurrentPeriod] = useState("AM");
   const [dateInfo, setDateInfo] = useState<{ dateStr: string, days: {name: string, num: number, isToday: boolean}[], todayIndex: number }>({
     dateStr: "Loading...",
@@ -63,12 +64,14 @@ export default function RightPanel() {
     // Live Clock Loop
     const updateTime = () => {
       const now = new Date();
-      let h = now.getHours();
-      const m = now.getMinutes().toString().padStart(2, '0');
-      const p = h >= 12 ? 'PM' : 'AM';
-      h = h % 12 || 12;
-      setCurrentHour(`${h}:${m}`);
-      setCurrentPeriod(p);
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const seconds = now.getSeconds().toString().padStart(2, '0');
+      const isAm = hours < 12;
+      hours = hours % 12 || 12;
+      setCurrentHour(`${hours.toString().padStart(2, '0')}:${minutes}`);
+      setCurrentSeconds(seconds);
+      setCurrentPeriod(isAm ? 'AM' : 'PM');
     };
     updateTime();
     const clockInterval = setInterval(updateTime, 1000);
@@ -104,14 +107,17 @@ export default function RightPanel() {
     <div className="w-[340px] flex-shrink-0 flex flex-col gap-6">
       
       {/* Calendar & Schedule Widget */}
-      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-8 relative overflow-hidden group border border-[rgba(255,255,255,0.05)] bg-[rgba(10,10,10,0.4)] shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-8 relative overflow-hidden group border border-[rgba(255,255,255,0.05)] bg-transparent shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
         {/* Ambient glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-[#7E22CE] blur-[60px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
         {/* Massive Clock */}
-        <div className="flex items-baseline gap-2 mb-6 relative z-10">
-          <h2 className="text-6xl font-light text-white tracking-tight">{currentHour}</h2>
-          <span className="text-[#A855F7] text-lg font-bold">{currentPeriod}</span>
+        <div className="flex items-baseline gap-2 mb-6 relative z-10 -ml-2" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <div className="flex items-baseline">
+            <h2 className="text-[72px] font-semibold text-white tracking-tighter tabular-nums leading-none">{currentHour}</h2>
+            <span className="text-4xl font-semibold text-gray-400 tracking-tighter tabular-nums ml-1 mb-1">:{currentSeconds}</span>
+          </div>
+          <span className="text-[#A855F7] text-xl font-bold">{currentPeriod}</span>
         </div>
         
         {/* Horizontal Calendar */}
@@ -183,7 +189,7 @@ export default function RightPanel() {
       </motion.div>
 
       {/* Focus Mode Widget */}
-      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-6 relative overflow-hidden group cursor-pointer transition-all border border-[rgba(255,255,255,0.05)] bg-[rgba(10,10,10,0.4)] shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col items-center justify-center min-h-[220px]">
+      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-6 relative overflow-hidden group cursor-pointer transition-all border border-[rgba(255,255,255,0.05)] bg-transparent shadow-[0_4px_20px_rgba(0,0,0,0.2)] flex flex-col items-center justify-center min-h-[220px]">
         {/* Ambient purple glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(168,85,247,0.1),transparent_70%)] pointer-events-none group-hover:opacity-100 opacity-50 transition-opacity duration-500" />
         
@@ -191,7 +197,10 @@ export default function RightPanel() {
           FOCUS MODE
         </h3>
         
-        <div className="text-[64px] font-light text-white tracking-tight leading-none mb-6 relative z-10 drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+        <div 
+          className="text-[72px] font-semibold text-white tracking-tighter tabular-nums leading-none mb-6 relative z-10 -ml-2 drop-shadow-[0_0_15px_rgba(168,85,247,0.3)]"
+          style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+        >
           {formatFocusTime(focusTimeLeft)}
         </div>
 
@@ -210,7 +219,7 @@ export default function RightPanel() {
       </motion.div>
 
       {/* Today's Progress Widget */}
-      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-6 relative overflow-hidden group border border-[rgba(255,255,255,0.05)] bg-[rgba(10,10,10,0.4)] shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+      <motion.div whileHover={{ y: -2 }} className="krish-glass rounded-3xl p-6 relative overflow-hidden group border border-[rgba(255,255,255,0.05)] bg-transparent shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
         <h3 className="text-gray-400 text-xs font-bold tracking-[0.2em] mb-6 relative z-10">TODAY'S PROGRESS</h3>
         
         <div className="flex items-center gap-6 relative z-10">
